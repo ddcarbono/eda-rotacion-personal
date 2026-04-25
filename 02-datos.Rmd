@@ -34,27 +34,18 @@ df_raw <- bind_rows(activos_raw, retirados_raw)
 A continuación se presentan las primeras observaciones del dataset
 en su estado original, antes de cualquier transformación:
 
+A continuación se presentan las primeras observaciones del dataset
+con las variables relevantes para el análisis:
+
 ```{r head-raw}
 df_raw %>%
-  select(-id) %>%
+  select(estado, edad, antig_m, género, tipo_personal,
+         contrato, estado_civil, función) %>%
   head(6) %>%
-  select(1:9) %>%
-  kable(caption = "Primeras observaciones — dataset original (primeras 9 variables)") %>%
+  kable(caption = "Primeras observaciones — variables de análisis") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = TRUE,
-                font_size = 11) %>%
-  row_spec(0, background = "#405731", color = "white", bold = TRUE)
-```
-
-```{r head-raw-2}
-df_raw %>%
-  select(-id) %>%
-  head(6) %>%
-  select(10:20) %>%
-  kable(caption = "Primeras observaciones — dataset original (variables 10 a 20)") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                full_width = TRUE,
-                font_size = 11) %>%
+                font_size = 12) %>%
   row_spec(0, background = "#405731", color = "white", bold = TRUE)
 ```
 

@@ -1,5 +1,4 @@
 tab:head-raw
-tab:head-raw-2
 tab:head-analitico
 tab:diccionario
 tab:composicion
