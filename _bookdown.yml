@@ -9,3 +9,5 @@ rmd_files:
   - 02-datos.Rmd
   - 03-exploratorio.Rmd
   - 05-conclusiones.Rmd
+
+output_dir: "docs"

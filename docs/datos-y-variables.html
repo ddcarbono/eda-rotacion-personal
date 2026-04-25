@@ -20,7 +20,7 @@
   
   
 
-<meta name="author" content="Daniel Carbono" />
+<meta name="author" content="Daniel Carbonó" />
 
 
 <meta name="date" content="2026-04-25" />
@@ -243,22 +243,20 @@ permite su integración directa en un único dataset.</p>
 <p>A continuación se presentan las primeras observaciones del dataset
 en su estado original, antes de cualquier transformación:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="datos-y-variables.html#cb2-1" tabindex="-1"></a>df_raw <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="datos-y-variables.html#cb2-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="datos-y-variables.html#cb2-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="datos-y-variables.html#cb2-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset original (primeras 10 variables)&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="datos-y-variables.html#cb2-5" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
-<span id="cb2-6"><a href="datos-y-variables.html#cb2-6" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-7"><a href="datos-y-variables.html#cb2-7" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="datos-y-variables.html#cb2-8" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb2-2"><a href="datos-y-variables.html#cb2-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="datos-y-variables.html#cb2-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="datos-y-variables.html#cb2-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="datos-y-variables.html#cb2-5" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset original (primeras 9 variables)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="datos-y-variables.html#cb2-6" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb2-7"><a href="datos-y-variables.html#cb2-7" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-8"><a href="datos-y-variables.html#cb2-8" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="datos-y-variables.html#cb2-9" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="font-size: 11px; color: black; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:head-raw">Table 2.1: </span>Primeras observaciones — dataset original (primeras 10 variables)
+<span id="tab:head-raw">Table 2.1: </span>Primeras observaciones — dataset original (primeras 9 variables)
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
-id
-</th>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
 fecha_nac
 </th>
@@ -291,9 +289,6 @@ contrato
 <tbody>
 <tr>
 <td style="text-align:left;">
-376865
-</td>
-<td style="text-align:left;">
 1966-10-19
 </td>
 <td style="text-align:left;">
@@ -322,9 +317,6 @@ Termino Indefinido
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-605753
-</td>
 <td style="text-align:left;">
 1973-09-26
 </td>
@@ -355,9 +347,6 @@ Termino Indefinido
 </tr>
 <tr>
 <td style="text-align:left;">
-879670
-</td>
-<td style="text-align:left;">
 1991-10-04
 </td>
 <td style="text-align:left;">
@@ -386,9 +375,6 @@ Termino Fijo
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-3674339
-</td>
 <td style="text-align:left;">
 1984-10-26
 </td>
@@ -419,9 +405,6 @@ Termino Indefinido
 </tr>
 <tr>
 <td style="text-align:left;">
-3746334
-</td>
-<td style="text-align:left;">
 1967-11-14
 </td>
 <td style="text-align:left;">
@@ -450,9 +433,6 @@ Termino Indefinido
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-4715743
-</td>
 <td style="text-align:left;">
 2003-07-13
 </td>
@@ -484,16 +464,17 @@ Termino Fijo
 </tbody>
 </table>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="datos-y-variables.html#cb3-1" tabindex="-1"></a>df_raw <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="datos-y-variables.html#cb3-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="datos-y-variables.html#cb3-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">11</span><span class="sc">:</span><span class="dv">21</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="datos-y-variables.html#cb3-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset original (variables 11 a 21)&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="datos-y-variables.html#cb3-5" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
-<span id="cb3-6"><a href="datos-y-variables.html#cb3-6" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-7"><a href="datos-y-variables.html#cb3-7" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-8"><a href="datos-y-variables.html#cb3-8" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<span id="cb3-2"><a href="datos-y-variables.html#cb3-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="datos-y-variables.html#cb3-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="datos-y-variables.html#cb3-4" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="datos-y-variables.html#cb3-5" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset original (variables 10 a 20)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="datos-y-variables.html#cb3-6" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb3-7"><a href="datos-y-variables.html#cb3-7" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-8"><a href="datos-y-variables.html#cb3-8" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="datos-y-variables.html#cb3-9" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="table table-striped table-hover table-condensed" style="font-size: 11px; color: black; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:head-raw-2">Table 2.2: </span>Primeras observaciones — dataset original (variables 11 a 21)
+<span id="tab:head-raw-2">Table 2.2: </span>Primeras observaciones — dataset original (variables 10 a 20)
 </caption>
 <thead>
 <tr>

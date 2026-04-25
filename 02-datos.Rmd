@@ -36,9 +36,10 @@ en su estado original, antes de cualquier transformación:
 
 ```{r head-raw}
 df_raw %>%
+  select(-id) %>%
   head(6) %>%
-  select(1:10) %>%
-  kable(caption = "Primeras observaciones — dataset original (primeras 10 variables)") %>%
+  select(1:9) %>%
+  kable(caption = "Primeras observaciones — dataset original (primeras 9 variables)") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = TRUE,
                 font_size = 11) %>%
@@ -47,9 +48,10 @@ df_raw %>%
 
 ```{r head-raw-2}
 df_raw %>%
+  select(-id) %>%
   head(6) %>%
-  select(11:21) %>%
-  kable(caption = "Primeras observaciones — dataset original (variables 11 a 21)") %>%
+  select(10:20) %>%
+  kable(caption = "Primeras observaciones — dataset original (variables 10 a 20)") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = TRUE,
                 font_size = 11) %>%

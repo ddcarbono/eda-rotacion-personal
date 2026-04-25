@@ -1,8 +1,8 @@
 h1:datos-y-variables Datos y variables
 h2:fuentes-de-datos Fuentes de datos
 h2:carga-inicial Carga inicial
-tab:head-raw Primeras observaciones — dataset original (primeras 10 variables)
-tab:head-raw-2 Primeras observaciones — dataset original (variables 11 a 21)
+tab:head-raw Primeras observaciones — dataset original (primeras 9 variables)
+tab:head-raw-2 Primeras observaciones — dataset original (variables 10 a 20)
 h2:procesamiento-y-decisiones Procesamiento y decisiones
 h2:dataset-analítico Dataset analítico
 tab:head-analitico Primeras observaciones — dataset analítico
