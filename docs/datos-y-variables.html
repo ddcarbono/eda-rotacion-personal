@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Datos y variables | Análisis Exploratorio de Rotación de Personal</title>
+  <meta name="description" content="Capítulo 2 Datos y variables | Análisis Exploratorio de Rotación de Personal" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Datos y variables | Análisis Exploratorio de Rotación de Personal" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Datos y variables | Análisis Exploratorio de Rotación de Personal" />
+  
+  
+  
+
+<meta name="author" content="Daniel Carbono" />
+
+
+<meta name="date" content="2026-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introducción.html"/>
+<link rel="next" href="análisis-exploratorio-de-datos.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Exploratorio de Rotación de Personal</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#contexto"><i class="fa fa-check"></i><b>1.1</b> Contexto</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#justificación"><i class="fa fa-check"></i><b>1.2</b> Justificación</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#pregunta-de-investigación"><i class="fa fa-check"></i><b>1.3</b> Pregunta de investigación</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#objetivos"><i class="fa fa-check"></i><b>1.4</b> Objetivos</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datos-y-variables.html"><a href="datos-y-variables.html"><i class="fa fa-check"></i><b>2</b> Datos y variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datos-y-variables.html"><a href="datos-y-variables.html#fuentes-de-datos"><i class="fa fa-check"></i><b>2.1</b> Fuentes de datos</a></li>
+<li class="chapter" data-level="2.2" data-path="datos-y-variables.html"><a href="datos-y-variables.html#carga-inicial"><i class="fa fa-check"></i><b>2.2</b> Carga inicial</a></li>
+<li class="chapter" data-level="2.3" data-path="datos-y-variables.html"><a href="datos-y-variables.html#procesamiento-y-decisiones"><i class="fa fa-check"></i><b>2.3</b> Procesamiento y decisiones</a></li>
+<li class="chapter" data-level="2.4" data-path="datos-y-variables.html"><a href="datos-y-variables.html#dataset-analítico"><i class="fa fa-check"></i><b>2.4</b> Dataset analítico</a></li>
+<li class="chapter" data-level="2.5" data-path="datos-y-variables.html"><a href="datos-y-variables.html#diccionario-de-variables"><i class="fa fa-check"></i><b>2.5</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2.6" data-path="datos-y-variables.html"><a href="datos-y-variables.html#composición-del-dataset"><i class="fa fa-check"></i><b>2.6</b> Composición del dataset</a></li>
+<li class="chapter" data-level="2.7" data-path="datos-y-variables.html"><a href="datos-y-variables.html#análisis-de-valores-nulos"><i class="fa fa-check"></i><b>2.7</b> Análisis de valores nulos</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasas-de-rotación"><i class="fa fa-check"></i><b>3.1</b> Tasas de rotación</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-general"><i class="fa fa-check"></i><b>3.1.1</b> Tasa general</a></li>
+<li class="chapter" data-level="3.1.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#retiros-por-mes"><i class="fa fa-check"></i><b>3.1.2</b> Retiros por mes</a></li>
+<li class="chapter" data-level="3.1.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-de-rotación-por-segmento"><i class="fa fa-check"></i><b>3.1.3</b> Tasa de rotación por segmento</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-numéricas"><i class="fa fa-check"></i><b>3.2</b> Variables numéricas</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#edad"><i class="fa fa-check"></i><b>3.2.1</b> Edad</a></li>
+<li class="chapter" data-level="3.2.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#antigüedad"><i class="fa fa-check"></i><b>3.2.2</b> Antigüedad</a></li>
+<li class="chapter" data-level="3.2.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#relación-entre-edad-y-antigüedad"><i class="fa fa-check"></i><b>3.2.3</b> Relación entre edad y antigüedad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Variables categóricas</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-personal"><i class="fa fa-check"></i><b>3.3.1</b> Tipo de personal</a></li>
+<li class="chapter" data-level="3.3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#género"><i class="fa fa-check"></i><b>3.3.2</b> Género</a></li>
+<li class="chapter" data-level="3.3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-contrato"><i class="fa fa-check"></i><b>3.3.3</b> Tipo de contrato</a></li>
+<li class="chapter" data-level="3.3.4" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#estado-civil"><i class="fa fa-check"></i><b>3.3.4</b> Estado civil</a></li>
+<li class="chapter" data-level="3.3.5" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#nivel-de-función"><i class="fa fa-check"></i><b>3.3.5</b> Nivel de función</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>4</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conclusiones.html"><a href="conclusiones.html#hallazgos-principales"><i class="fa fa-check"></i><b>4.1</b> Hallazgos principales</a></li>
+<li class="chapter" data-level="4.2" data-path="conclusiones.html"><a href="conclusiones.html#limitaciones"><i class="fa fa-check"></i><b>4.2</b> Limitaciones</a></li>
+<li class="chapter" data-level="4.3" data-path="conclusiones.html"><a href="conclusiones.html#recomendaciones"><i class="fa fa-check"></i><b>4.3</b> Recomendaciones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Rotación de Personal</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="datos-y-variables" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Datos y variables<a href="datos-y-variables.html#datos-y-variables" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="fuentes-de-datos" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Fuentes de datos<a href="datos-y-variables.html#fuentes-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los datos provienen de dos extracciones del sistema de información de
+nómina y recursos humanos de la empresa:</p>
+<ul>
+<li><strong>Empleados activos:</strong> snapshot del personal con vínculo activo a
+marzo de 2026.</li>
+<li><strong>Retiros por renuncia voluntaria:</strong> registro de empleados que
+presentaron renuncia voluntaria entre marzo de 2025 y marzo de 2026.</li>
+</ul>
+<p>Ambas fuentes comparten la misma estructura de 21 variables, lo que
+permite su integración directa en un único dataset.</p>
+</div>
+<div id="carga-inicial" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Carga inicial<a href="datos-y-variables.html#carga-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="datos-y-variables.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="datos-y-variables.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="datos-y-variables.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-4"><a href="datos-y-variables.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="datos-y-variables.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-6"><a href="datos-y-variables.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-7"><a href="datos-y-variables.html#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="datos-y-variables.html#cb1-8" tabindex="-1"></a>activos_raw   <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/activos_da17.xlsx&quot;</span>,</span>
+<span id="cb1-9"><a href="datos-y-variables.html#cb1-9" tabindex="-1"></a>                            <span class="at">col_types =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;guess&quot;</span>, <span class="dv">19</span>), <span class="st">&quot;text&quot;</span>, <span class="st">&quot;text&quot;</span>))</span>
+<span id="cb1-10"><a href="datos-y-variables.html#cb1-10" tabindex="-1"></a>retirados_raw <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;data/retirados_da17.xlsx&quot;</span>,</span>
+<span id="cb1-11"><a href="datos-y-variables.html#cb1-11" tabindex="-1"></a>                            <span class="at">col_types =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;guess&quot;</span>, <span class="dv">19</span>), <span class="st">&quot;text&quot;</span>, <span class="st">&quot;text&quot;</span>))</span>
+<span id="cb1-12"><a href="datos-y-variables.html#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="datos-y-variables.html#cb1-13" tabindex="-1"></a>df_raw <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(activos_raw, retirados_raw)</span></code></pre></div>
+<p>A continuación se presentan las primeras observaciones del dataset
+en su estado original, antes de cualquier transformación:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="datos-y-variables.html#cb2-1" tabindex="-1"></a>df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="datos-y-variables.html#cb2-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="datos-y-variables.html#cb2-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="datos-y-variables.html#cb2-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset original (primeras 10 variables)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="datos-y-variables.html#cb2-5" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb2-6"><a href="datos-y-variables.html#cb2-6" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-7"><a href="datos-y-variables.html#cb2-7" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="datos-y-variables.html#cb2-8" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="font-size: 11px; color: black; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:head-raw">Table 2.1: </span>Primeras observaciones — dataset original (primeras 10 variables)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+id
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+fecha_nac
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+fecha_ing
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+antig_d
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+antig_m
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+antig_a
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+estado_civil
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+edad
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+ceco
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+contrato
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+376865
+</td>
+<td style="text-align:left;">
+1966-10-19
+</td>
+<td style="text-align:left;">
+1/02/2010
+</td>
+<td style="text-align:right;">
+5872
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+17161714
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+605753
+</td>
+<td style="text-align:left;">
+1973-09-26
+</td>
+<td style="text-align:left;">
+1/08/2018
+</td>
+<td style="text-align:right;">
+2769
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+17161713
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+879670
+</td>
+<td style="text-align:left;">
+1991-10-04
+</td>
+<td style="text-align:left;">
+1/05/2023
+</td>
+<td style="text-align:right;">
+1035
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+Casado
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+17911200
+</td>
+<td style="text-align:left;">
+Termino Fijo
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3674339
+</td>
+<td style="text-align:left;">
+1984-10-26
+</td>
+<td style="text-align:left;">
+1/01/2018
+</td>
+<td style="text-align:right;">
+2981
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+Casado
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+17926015
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3746334
+</td>
+<td style="text-align:left;">
+1967-11-14
+</td>
+<td style="text-align:left;">
+1/01/2010
+</td>
+<td style="text-align:right;">
+5903
+</td>
+<td style="text-align:right;">
+194
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+17010102
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4715743
+</td>
+<td style="text-align:left;">
+2003-07-13
+</td>
+<td style="text-align:left;">
+1/04/2025
+</td>
+<td style="text-align:right;">
+334
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+17050101
+</td>
+<td style="text-align:left;">
+Termino Fijo
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="datos-y-variables.html#cb3-1" tabindex="-1"></a>df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="datos-y-variables.html#cb3-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="datos-y-variables.html#cb3-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">11</span><span class="sc">:</span><span class="dv">21</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="datos-y-variables.html#cb3-4" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset original (variables 11 a 21)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="datos-y-variables.html#cb3-5" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb3-6"><a href="datos-y-variables.html#cb3-6" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-7"><a href="datos-y-variables.html#cb3-7" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">11</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="datos-y-variables.html#cb3-8" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="font-size: 11px; color: black; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:head-raw-2">Table 2.2: </span>Primeras observaciones — dataset original (variables 11 a 21)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+función
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+género
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+subdivisión
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+posición
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+tipo_personal
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+dpto
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+dpto_lugar
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+empresa
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+estado
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+fecha_retiro
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+tipo_retiro
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+JEFE
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Operacional P11
+</td>
+<td style="text-align:left;">
+PILOTO
+</td>
+<td style="text-align:left;">
+Administrativos
+</td>
+<td style="text-align:left;">
+FAMILY OFFICE
+</td>
+<td style="text-align:left;">
+Berkshire
+</td>
+<td style="text-align:left;">
+DA17
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ASISTENTE
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Operacional P11
+</td>
+<td style="text-align:left;">
+TECNICO EN MANTENIMIENTO
+</td>
+<td style="text-align:left;">
+Administ/Operativ.
+</td>
+<td style="text-align:left;">
+FAMILY OFFICE
+</td>
+<td style="text-align:left;">
+Falcon
+</td>
+<td style="text-align:left;">
+DA17
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DIRECTOR
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Admon Piso 11
+</td>
+<td style="text-align:left;">
+DIRECTOR GLOBAL DE CONTRA
+</td>
+<td style="text-align:left;">
+Administrativos
+</td>
+<td style="text-align:left;">
+PRESIDENCIA
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+DA17
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AUXILIAR
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Seguridad
+</td>
+<td style="text-align:left;">
+GUARDA DE SEGURIDAD
+</td>
+<td style="text-align:left;">
+Operativos
+</td>
+<td style="text-align:left;">
+SEGURIDAD
+</td>
+<td style="text-align:left;">
+ANTIOQUIA
+</td>
+<td style="text-align:left;">
+DA17
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OPERATIVO
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+P. Tequendama
+</td>
+<td style="text-align:left;">
+OPERARIO MANTENIMIENTO DE
+</td>
+<td style="text-align:left;">
+Operativos
+</td>
+<td style="text-align:left;">
+P. TEQ
+</td>
+<td style="text-align:left;">
+ATLÁNTICO
+</td>
+<td style="text-align:left;">
+DA17
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OPERATIVO
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+P. Las Mercedes
+</td>
+<td style="text-align:left;">
+OPERARIO COSECHA DE FRUTA
+</td>
+<td style="text-align:left;">
+Operativos
+</td>
+<td style="text-align:left;">
+F. LAS MCEDES
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+DA17
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="procesamiento-y-decisiones" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Procesamiento y decisiones<a href="datos-y-variables.html#procesamiento-y-decisiones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A partir del dataset original se realizaron las siguientes
+transformaciones antes del análisis:</p>
+<p><strong>Exclusión de aprendices.</strong> Se eliminaron los registros con
+<code>función == "APRENDIZ"</code> (38
+registros). Los aprendices tienen un vínculo de formación práctica con
+duración definida, por lo que su desvinculación al finalizar el período
+no constituye renuncia voluntaria en sentido estricto.</p>
+<p><strong>Tratamiento de valores nulos.</strong> Las columnas <code>fecha_retiro</code> y
+<code>tipo_retiro</code> contenían el carácter <code>"-"</code> en los registros de empleados
+activos. Estos valores fueron reemplazados por <code>NA</code>.</p>
+<p><strong>Recodificación de estado civil.</strong> Las categorías Divorciado y Viudo
+presentaban frecuencias de 1 caso cada una. Se agruparon junto con
+Separado en la categoría <strong>Otro</strong>.</p>
+<p><strong>Construcción de nivel de función.</strong> A partir de la variable <code>función</code>
+se construyó <code>nivel_funcion</code> con cinco niveles jerárquicos:
+Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="datos-y-variables.html#cb4-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="datos-y-variables.html#cb4-2" tabindex="-1"></a>  <span class="fu">filter</span>(función <span class="sc">!=</span> <span class="st">&quot;APRENDIZ&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="datos-y-variables.html#cb4-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-4"><a href="datos-y-variables.html#cb4-4" tabindex="-1"></a>    <span class="at">estado        =</span> <span class="fu">factor</span>(estado, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Activo&quot;</span>, <span class="st">&quot;Retirado&quot;</span>)),</span>
+<span id="cb4-5"><a href="datos-y-variables.html#cb4-5" tabindex="-1"></a>    género        <span class="ot">=</span> <span class="fu">factor</span>(género, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Masculino&quot;</span>, <span class="st">&quot;Femenino&quot;</span>)),</span>
+<span id="cb4-6"><a href="datos-y-variables.html#cb4-6" tabindex="-1"></a>    <span class="at">tipo_personal =</span> <span class="fu">fct_collapse</span>(tipo_personal,</span>
+<span id="cb4-7"><a href="datos-y-variables.html#cb4-7" tabindex="-1"></a>      <span class="st">&quot;Administrativos&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Administrativos&quot;</span>, <span class="st">&quot;Administ/Operativ.&quot;</span>,</span>
+<span id="cb4-8"><a href="datos-y-variables.html#cb4-8" tabindex="-1"></a>                            <span class="st">&quot;Coorporativo&quot;</span>, <span class="st">&quot;Corporativo&quot;</span>),</span>
+<span id="cb4-9"><a href="datos-y-variables.html#cb4-9" tabindex="-1"></a>      <span class="st">&quot;Operativos&quot;</span>      <span class="ot">=</span> <span class="st">&quot;Operativos&quot;</span>),</span>
+<span id="cb4-10"><a href="datos-y-variables.html#cb4-10" tabindex="-1"></a>    <span class="at">contrato      =</span> <span class="fu">factor</span>(contrato),</span>
+<span id="cb4-11"><a href="datos-y-variables.html#cb4-11" tabindex="-1"></a>    <span class="at">fecha_retiro  =</span> <span class="fu">if_else</span>(fecha_retiro <span class="sc">==</span> <span class="st">&quot;-&quot;</span>, <span class="cn">NA_character_</span>, fecha_retiro),</span>
+<span id="cb4-12"><a href="datos-y-variables.html#cb4-12" tabindex="-1"></a>    <span class="at">tipo_retiro   =</span> <span class="fu">if_else</span>(tipo_retiro  <span class="sc">==</span> <span class="st">&quot;-&quot;</span>, <span class="cn">NA_character_</span>, tipo_retiro),</span>
+<span id="cb4-13"><a href="datos-y-variables.html#cb4-13" tabindex="-1"></a>    <span class="at">antig_m       =</span> <span class="fu">as.numeric</span>(antig_m),</span>
+<span id="cb4-14"><a href="datos-y-variables.html#cb4-14" tabindex="-1"></a>    <span class="at">edad          =</span> <span class="fu">as.numeric</span>(edad),</span>
+<span id="cb4-15"><a href="datos-y-variables.html#cb4-15" tabindex="-1"></a>    <span class="at">est_civil     =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-16"><a href="datos-y-variables.html#cb4-16" tabindex="-1"></a>      estado_civil <span class="sc">==</span> <span class="st">&quot;Soltero&quot;</span>     <span class="sc">~</span> <span class="st">&quot;Soltero&quot;</span>,</span>
+<span id="cb4-17"><a href="datos-y-variables.html#cb4-17" tabindex="-1"></a>      estado_civil <span class="sc">==</span> <span class="st">&quot;Casado&quot;</span>      <span class="sc">~</span> <span class="st">&quot;Casado&quot;</span>,</span>
+<span id="cb4-18"><a href="datos-y-variables.html#cb4-18" tabindex="-1"></a>      estado_civil <span class="sc">==</span> <span class="st">&quot;Union Libre&quot;</span> <span class="sc">~</span> <span class="st">&quot;Unión Libre&quot;</span>,</span>
+<span id="cb4-19"><a href="datos-y-variables.html#cb4-19" tabindex="-1"></a>      <span class="cn">TRUE</span>                          <span class="sc">~</span> <span class="st">&quot;Otro&quot;</span></span>
+<span id="cb4-20"><a href="datos-y-variables.html#cb4-20" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Soltero&quot;</span>, <span class="st">&quot;Casado&quot;</span>, <span class="st">&quot;Unión Libre&quot;</span>, <span class="st">&quot;Otro&quot;</span>)),</span>
+<span id="cb4-21"><a href="datos-y-variables.html#cb4-21" tabindex="-1"></a>    <span class="at">nivel_funcion =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-22"><a href="datos-y-variables.html#cb4-22" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;OPERATIVO&quot;</span>                                            <span class="sc">~</span> <span class="st">&quot;Operativo&quot;</span>,</span>
+<span id="cb4-23"><a href="datos-y-variables.html#cb4-23" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;AUXILIAR&quot;</span>                                             <span class="sc">~</span> <span class="st">&quot;Auxiliar&quot;</span>,</span>
+<span id="cb4-24"><a href="datos-y-variables.html#cb4-24" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;ASISTENTE&quot;</span>                                            <span class="sc">~</span> <span class="st">&quot;Asistente&quot;</span>,</span>
+<span id="cb4-25"><a href="datos-y-variables.html#cb4-25" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;COORDINADOR&quot;</span>                                          <span class="sc">~</span> <span class="st">&quot;Coordinador&quot;</span>,</span>
+<span id="cb4-26"><a href="datos-y-variables.html#cb4-26" tabindex="-1"></a>      función <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;JEFE&quot;</span>, <span class="st">&quot;DIRECTOR&quot;</span>, <span class="st">&quot;GERENCIA&quot;</span>, <span class="st">&quot;VICEPRESIDENTE&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Jefe/Dirección&quot;</span></span>
+<span id="cb4-27"><a href="datos-y-variables.html#cb4-27" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Operativo&quot;</span>, <span class="st">&quot;Auxiliar&quot;</span>, <span class="st">&quot;Asistente&quot;</span>,</span>
+<span id="cb4-28"><a href="datos-y-variables.html#cb4-28" tabindex="-1"></a>                             <span class="st">&quot;Coordinador&quot;</span>, <span class="st">&quot;Jefe/Dirección&quot;</span>))</span>
+<span id="cb4-29"><a href="datos-y-variables.html#cb4-29" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="dataset-analítico" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Dataset analítico<a href="datos-y-variables.html#dataset-analítico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tras el procesamiento, el dataset analítico contiene
+1304 registros y las siguientes variables de análisis:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="datos-y-variables.html#cb5-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="datos-y-variables.html#cb5-2" tabindex="-1"></a>  <span class="fu">select</span>(estado, edad, antig_m, género, tipo_personal,</span>
+<span id="cb5-3"><a href="datos-y-variables.html#cb5-3" tabindex="-1"></a>         contrato, est_civil, nivel_funcion) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="datos-y-variables.html#cb5-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="datos-y-variables.html#cb5-5" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset analítico&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="datos-y-variables.html#cb5-6" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb5-7"><a href="datos-y-variables.html#cb5-7" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-8"><a href="datos-y-variables.html#cb5-8" tabindex="-1"></a>                <span class="at">font_size =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="datos-y-variables.html#cb5-9" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="font-size: 12px; color: black; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:head-analitico">Table 2.3: </span>Primeras observaciones — dataset analítico
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+estado
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+edad
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+antig_m
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+género
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+tipo_personal
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+contrato
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+est_civil
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+nivel_funcion
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Administrativos
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:left;">
+Jefe/Dirección
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Administrativos
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:left;">
+Asistente
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Administrativos
+</td>
+<td style="text-align:left;">
+Termino Fijo
+</td>
+<td style="text-align:left;">
+Casado
+</td>
+<td style="text-align:left;">
+Jefe/Dirección
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Operativos
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+<td style="text-align:left;">
+Casado
+</td>
+<td style="text-align:left;">
+Auxiliar
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+194
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Operativos
+</td>
+<td style="text-align:left;">
+Termino Indefinido
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:left;">
+Operativo
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+Masculino
+</td>
+<td style="text-align:left;">
+Operativos
+</td>
+<td style="text-align:left;">
+Termino Fijo
+</td>
+<td style="text-align:left;">
+Soltero
+</td>
+<td style="text-align:left;">
+Operativo
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="diccionario-de-variables" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Diccionario de variables<a href="datos-y-variables.html#diccionario-de-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="datos-y-variables.html#cb6-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb6-2"><a href="datos-y-variables.html#cb6-2" tabindex="-1"></a>  <span class="at">Variable  =</span> <span class="fu">c</span>(<span class="st">&quot;estado&quot;</span>, <span class="st">&quot;edad&quot;</span>, <span class="st">&quot;antig_m&quot;</span>, <span class="st">&quot;género&quot;</span>,</span>
+<span id="cb6-3"><a href="datos-y-variables.html#cb6-3" tabindex="-1"></a>                <span class="st">&quot;tipo_personal&quot;</span>, <span class="st">&quot;contrato&quot;</span>, <span class="st">&quot;est_civil&quot;</span>, <span class="st">&quot;nivel_funcion&quot;</span>),</span>
+<span id="cb6-4"><a href="datos-y-variables.html#cb6-4" tabindex="-1"></a>  <span class="at">Etiqueta  =</span> <span class="fu">c</span>(<span class="st">&quot;Grupo de análisis&quot;</span>, <span class="st">&quot;Edad&quot;</span>, <span class="st">&quot;Antigüedad&quot;</span>,</span>
+<span id="cb6-5"><a href="datos-y-variables.html#cb6-5" tabindex="-1"></a>                <span class="st">&quot;Género&quot;</span>, <span class="st">&quot;Tipo de personal&quot;</span>, <span class="st">&quot;Tipo de contrato&quot;</span>,</span>
+<span id="cb6-6"><a href="datos-y-variables.html#cb6-6" tabindex="-1"></a>                <span class="st">&quot;Estado civil&quot;</span>, <span class="st">&quot;Nivel de función&quot;</span>),</span>
+<span id="cb6-7"><a href="datos-y-variables.html#cb6-7" tabindex="-1"></a>  <span class="at">Tipo      =</span> <span class="fu">c</span>(<span class="st">&quot;Nominal&quot;</span>, <span class="st">&quot;Numérica&quot;</span>, <span class="st">&quot;Numérica&quot;</span>, <span class="st">&quot;Nominal&quot;</span>,</span>
+<span id="cb6-8"><a href="datos-y-variables.html#cb6-8" tabindex="-1"></a>                <span class="st">&quot;Nominal&quot;</span>, <span class="st">&quot;Nominal&quot;</span>, <span class="st">&quot;Nominal&quot;</span>, <span class="st">&quot;Ordinal&quot;</span>),</span>
+<span id="cb6-9"><a href="datos-y-variables.html#cb6-9" tabindex="-1"></a>  <span class="st">`</span><span class="at">Niveles / Rango</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb6-10"><a href="datos-y-variables.html#cb6-10" tabindex="-1"></a>    <span class="st">&quot;Activo — Retirado&quot;</span>,</span>
+<span id="cb6-11"><a href="datos-y-variables.html#cb6-11" tabindex="-1"></a>    <span class="st">&quot;18 — 88 años&quot;</span>,</span>
+<span id="cb6-12"><a href="datos-y-variables.html#cb6-12" tabindex="-1"></a>    <span class="st">&quot;0 — 193 meses&quot;</span>,</span>
+<span id="cb6-13"><a href="datos-y-variables.html#cb6-13" tabindex="-1"></a>    <span class="st">&quot;Masculino — Femenino&quot;</span>,</span>
+<span id="cb6-14"><a href="datos-y-variables.html#cb6-14" tabindex="-1"></a>    <span class="st">&quot;Operativos — Administrativos&quot;</span>,</span>
+<span id="cb6-15"><a href="datos-y-variables.html#cb6-15" tabindex="-1"></a>    <span class="st">&quot;Término Fijo — Término Indefinido&quot;</span>,</span>
+<span id="cb6-16"><a href="datos-y-variables.html#cb6-16" tabindex="-1"></a>    <span class="st">&quot;Soltero — Casado — Unión Libre — Otro&quot;</span>,</span>
+<span id="cb6-17"><a href="datos-y-variables.html#cb6-17" tabindex="-1"></a>    <span class="st">&quot;Operativo — Auxiliar — Asistente — Coordinador — Jefe/Dirección&quot;</span></span>
+<span id="cb6-18"><a href="datos-y-variables.html#cb6-18" tabindex="-1"></a>  )</span>
+<span id="cb6-19"><a href="datos-y-variables.html#cb6-19" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-20"><a href="datos-y-variables.html#cb6-20" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Diccionario de variables de análisis&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-21"><a href="datos-y-variables.html#cb6-21" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb6-22"><a href="datos-y-variables.html#cb6-22" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-23"><a href="datos-y-variables.html#cb6-23" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-24"><a href="datos-y-variables.html#cb6-24" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="color: black; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:diccionario">Table 2.4: </span>Diccionario de variables de análisis
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Variable
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Etiqueta
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Tipo
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Niveles / Rango
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+estado
+</td>
+<td style="text-align:left;">
+Grupo de análisis
+</td>
+<td style="text-align:left;">
+Nominal
+</td>
+<td style="text-align:left;">
+Activo — Retirado
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+edad
+</td>
+<td style="text-align:left;">
+Edad
+</td>
+<td style="text-align:left;">
+Numérica
+</td>
+<td style="text-align:left;">
+18 — 88 años
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+antig_m
+</td>
+<td style="text-align:left;">
+Antigüedad
+</td>
+<td style="text-align:left;">
+Numérica
+</td>
+<td style="text-align:left;">
+0 — 193 meses
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+género
+</td>
+<td style="text-align:left;">
+Género
+</td>
+<td style="text-align:left;">
+Nominal
+</td>
+<td style="text-align:left;">
+Masculino — Femenino
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+tipo_personal
+</td>
+<td style="text-align:left;">
+Tipo de personal
+</td>
+<td style="text-align:left;">
+Nominal
+</td>
+<td style="text-align:left;">
+Operativos — Administrativos
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+contrato
+</td>
+<td style="text-align:left;">
+Tipo de contrato
+</td>
+<td style="text-align:left;">
+Nominal
+</td>
+<td style="text-align:left;">
+Término Fijo — Término Indefinido
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+est_civil
+</td>
+<td style="text-align:left;">
+Estado civil
+</td>
+<td style="text-align:left;">
+Nominal
+</td>
+<td style="text-align:left;">
+Soltero — Casado — Unión Libre — Otro
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+nivel_funcion
+</td>
+<td style="text-align:left;">
+Nivel de función
+</td>
+<td style="text-align:left;">
+Ordinal
+</td>
+<td style="text-align:left;">
+Operativo — Auxiliar — Asistente — Coordinador — Jefe/Dirección
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="composición-del-dataset" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Composición del dataset<a href="datos-y-variables.html#composición-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="datos-y-variables.html#cb7-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="datos-y-variables.html#cb7-2" tabindex="-1"></a>  <span class="fu">count</span>(estado) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="datos-y-variables.html#cb7-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">percent</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n), <span class="at">accuracy =</span> <span class="fl">0.1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="datos-y-variables.html#cb7-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Grupo =</span> estado, <span class="at">N =</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="datos-y-variables.html#cb7-5" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Composición del dataset analítico por grupo&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="datos-y-variables.html#cb7-6" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb7-7"><a href="datos-y-variables.html#cb7-7" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="datos-y-variables.html#cb7-8" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="datos-y-variables.html#cb7-9" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">1</span>, <span class="at">background =</span> <span class="st">&quot;#e8f0eb&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-10"><a href="datos-y-variables.html#cb7-10" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">2</span>, <span class="at">background =</span> <span class="st">&quot;#f5ede0&quot;</span>)</span></code></pre></div>
+<table class="table table-striped table-hover" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:composicion">Table 2.5: </span>Composición del dataset analítico por grupo
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Grupo
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+N
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Porcentaje
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;background-color: rgba(232, 240, 235, 255) !important;">
+Activo
+</td>
+<td style="text-align:right;background-color: rgba(232, 240, 235, 255) !important;">
+1216
+</td>
+<td style="text-align:left;background-color: rgba(232, 240, 235, 255) !important;">
+93.3%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;background-color: rgba(245, 237, 224, 255) !important;">
+Retirado
+</td>
+<td style="text-align:right;background-color: rgba(245, 237, 224, 255) !important;">
+88
+</td>
+<td style="text-align:left;background-color: rgba(245, 237, 224, 255) !important;">
+6.7%
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="análisis-de-valores-nulos" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Análisis de valores nulos<a href="datos-y-variables.html#análisis-de-valores-nulos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="datos-y-variables.html#cb8-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="datos-y-variables.html#cb8-2" tabindex="-1"></a>  <span class="fu">select</span>(estado, edad, antig_m, género, tipo_personal,</span>
+<span id="cb8-3"><a href="datos-y-variables.html#cb8-3" tabindex="-1"></a>         contrato, est_civil, nivel_funcion) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="datos-y-variables.html#cb8-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="datos-y-variables.html#cb8-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(),</span>
+<span id="cb8-6"><a href="datos-y-variables.html#cb8-6" tabindex="-1"></a>               <span class="at">names_to  =</span> <span class="st">&quot;Variable&quot;</span>,</span>
+<span id="cb8-7"><a href="datos-y-variables.html#cb8-7" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Nulos&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="datos-y-variables.html#cb8-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">% del total</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">percent</span>(Nulos <span class="sc">/</span> <span class="fu">nrow</span>(df), <span class="at">accuracy =</span> <span class="fl">0.01</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="datos-y-variables.html#cb8-9" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Valores nulos por variable de análisis&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="datos-y-variables.html#cb8-10" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb8-11"><a href="datos-y-variables.html#cb8-11" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="datos-y-variables.html#cb8-12" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">background =</span> <span class="st">&quot;#405731&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:nulos">Table 2.6: </span>Valores nulos por variable de análisis
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Variable
+</th>
+<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+Nulos
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
+% del total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+estado
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+edad
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antig_m
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+género
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tipo_personal
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+contrato
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+est_civil
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nivel_funcion
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+0.00%
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introducción.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-exploratorio-de-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "toolbar": {
+    "position": "fixed"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

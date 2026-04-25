@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Análisis Exploratorio de Rotación de Personal</title>
+  <meta name="description" content="Análisis Exploratorio de Rotación de Personal" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Análisis Exploratorio de Rotación de Personal" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Análisis Exploratorio de Rotación de Personal" />
+  
+  
+  
+
+<meta name="author" content="Daniel Carbono" />
+
+
+<meta name="date" content="2026-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="introducción.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Exploratorio de Rotación de Personal</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#contexto"><i class="fa fa-check"></i><b>1.1</b> Contexto</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#justificación"><i class="fa fa-check"></i><b>1.2</b> Justificación</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#pregunta-de-investigación"><i class="fa fa-check"></i><b>1.3</b> Pregunta de investigación</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#objetivos"><i class="fa fa-check"></i><b>1.4</b> Objetivos</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datos-y-variables.html"><a href="datos-y-variables.html"><i class="fa fa-check"></i><b>2</b> Datos y variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datos-y-variables.html"><a href="datos-y-variables.html#fuentes-de-datos"><i class="fa fa-check"></i><b>2.1</b> Fuentes de datos</a></li>
+<li class="chapter" data-level="2.2" data-path="datos-y-variables.html"><a href="datos-y-variables.html#carga-inicial"><i class="fa fa-check"></i><b>2.2</b> Carga inicial</a></li>
+<li class="chapter" data-level="2.3" data-path="datos-y-variables.html"><a href="datos-y-variables.html#procesamiento-y-decisiones"><i class="fa fa-check"></i><b>2.3</b> Procesamiento y decisiones</a></li>
+<li class="chapter" data-level="2.4" data-path="datos-y-variables.html"><a href="datos-y-variables.html#dataset-analítico"><i class="fa fa-check"></i><b>2.4</b> Dataset analítico</a></li>
+<li class="chapter" data-level="2.5" data-path="datos-y-variables.html"><a href="datos-y-variables.html#diccionario-de-variables"><i class="fa fa-check"></i><b>2.5</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2.6" data-path="datos-y-variables.html"><a href="datos-y-variables.html#composición-del-dataset"><i class="fa fa-check"></i><b>2.6</b> Composición del dataset</a></li>
+<li class="chapter" data-level="2.7" data-path="datos-y-variables.html"><a href="datos-y-variables.html#análisis-de-valores-nulos"><i class="fa fa-check"></i><b>2.7</b> Análisis de valores nulos</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasas-de-rotación"><i class="fa fa-check"></i><b>3.1</b> Tasas de rotación</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-general"><i class="fa fa-check"></i><b>3.1.1</b> Tasa general</a></li>
+<li class="chapter" data-level="3.1.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#retiros-por-mes"><i class="fa fa-check"></i><b>3.1.2</b> Retiros por mes</a></li>
+<li class="chapter" data-level="3.1.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-de-rotación-por-segmento"><i class="fa fa-check"></i><b>3.1.3</b> Tasa de rotación por segmento</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-numéricas"><i class="fa fa-check"></i><b>3.2</b> Variables numéricas</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#edad"><i class="fa fa-check"></i><b>3.2.1</b> Edad</a></li>
+<li class="chapter" data-level="3.2.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#antigüedad"><i class="fa fa-check"></i><b>3.2.2</b> Antigüedad</a></li>
+<li class="chapter" data-level="3.2.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#relación-entre-edad-y-antigüedad"><i class="fa fa-check"></i><b>3.2.3</b> Relación entre edad y antigüedad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Variables categóricas</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-personal"><i class="fa fa-check"></i><b>3.3.1</b> Tipo de personal</a></li>
+<li class="chapter" data-level="3.3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#género"><i class="fa fa-check"></i><b>3.3.2</b> Género</a></li>
+<li class="chapter" data-level="3.3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-contrato"><i class="fa fa-check"></i><b>3.3.3</b> Tipo de contrato</a></li>
+<li class="chapter" data-level="3.3.4" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#estado-civil"><i class="fa fa-check"></i><b>3.3.4</b> Estado civil</a></li>
+<li class="chapter" data-level="3.3.5" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#nivel-de-función"><i class="fa fa-check"></i><b>3.3.5</b> Nivel de función</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>4</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="conclusiones.html"><a href="conclusiones.html#hallazgos-principales"><i class="fa fa-check"></i><b>4.1</b> Hallazgos principales</a></li>
+<li class="chapter" data-level="4.2" data-path="conclusiones.html"><a href="conclusiones.html#limitaciones"><i class="fa fa-check"></i><b>4.2</b> Limitaciones</a></li>
+<li class="chapter" data-level="4.3" data-path="conclusiones.html"><a href="conclusiones.html#recomendaciones"><i class="fa fa-check"></i><b>4.3</b> Recomendaciones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Rotación de Personal</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Análisis Exploratorio de Rotación de Personal</h1>
+<h2 class="subtitle"><em>Empresa Agroindustrial Colombiana — Período 2025-2026</em></h2>
+<p class="author"><em>Daniel Carbono</em></p>
+<p class="date"><em>2026-04-25</em></p>
+</div>
+<div id="resumen" class="section level1 unnumbered hasAnchor">
+<h1>Resumen<a href="index.html#resumen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El presente trabajo realiza un análisis exploratorio de la rotación
+de personal por renuncia voluntaria en una empresa agroindustrial
+colombiana dedicada al cultivo de palma de aceite, extracción de
+aceite crudo, refinación y comercialización, durante el período
+comprendido entre marzo de 2025 y marzo de 2026.</p>
+<p>Se analizan <strong>1.251 empleados activos</strong> a marzo de 2026 y <strong>91 retiros
+por renuncia voluntaria</strong> en el período de referencia, para una tasa
+de rotación voluntaria anual aproximada del 7,3%. El análisis caracteriza
+sociodemográficamente ambos grupos y evalúa mediante pruebas de hipótesis
+si existen diferencias estadísticamente significativas en variables como
+edad, antigüedad, tipo de personal, género y tipo de contrato entre
+quienes permanecen y quienes renuncian voluntariamente.</p>
+<p><strong>Palabras clave:</strong> rotación de personal, renuncia voluntaria, análisis
+exploratorio, pruebas de hipótesis, sector agroindustrial.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="introducción.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "toolbar": {
+    "position": "fixed"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
