@@ -19,19 +19,18 @@ organizacionales adecuadas.
 
 ## Justificación
 
-El análisis descriptivo e inferencial de la rotación voluntaria permite 
-identificar si existen perfiles sociodemográficos y contractuales 
-asociados a una mayor probabilidad de renuncia. Esta información es 
-valiosa para orientar estrategias de retención hacia los segmentos de 
-mayor riesgo, en lugar de aplicar intervenciones generales de menor 
-efectividad.
+El análisis exploratorio de la rotación voluntaria permite identificar 
+si existen perfiles sociodemográficos y contractuales asociados a una 
+mayor concentración de renuncias. Esta información es valiosa para 
+orientar estrategias de retención hacia los segmentos de mayor riesgo, 
+en lugar de aplicar intervenciones generales de menor efectividad.
 
 ## Pregunta de investigación
 
-¿Existen diferencias estadísticamente significativas en las 
-características sociodemográficas y contractuales entre los empleados 
-que renunciaron voluntariamente entre marzo de 2025 y marzo de 2026, 
-y los empleados que permanecían activos en marzo de 2026?
+¿Cuál es el perfil sociodemográfico y contractual de los empleados que 
+renunciaron voluntariamente entre marzo de 2025 y marzo de 2026, y en 
+qué variables se observan las diferencias más marcadas respecto a los 
+empleados que permanecían activos en marzo de 2026?
 
 ## Objetivos
 
@@ -39,16 +38,17 @@ y los empleados que permanecían activos en marzo de 2026?
 
 Explorar y comparar el perfil sociodemográfico y contractual de los 
 empleados activos y los empleados retirados por renuncia voluntaria 
-mediante análisis descriptivo e inferencial.
+mediante análisis exploratorio de datos.
 
 **Objetivos específicos**
 
+- Calcular y analizar las tasas de rotación voluntaria general y por 
+segmento (tipo de personal, género, tipo de contrato, estado civil y 
+nivel de función).
+- Describir y comparar la distribución de edad y antigüedad entre 
+empleados activos y retirados.
 - Describir la distribución de los empleados activos y retirados según 
-tipo de personal, género, tipo de contrato, departamento y antigüedad.
-- Comparar la edad y la antigüedad entre ambos grupos mediante pruebas 
-de hipótesis apropiadas según los supuestos de los datos.
-- Evaluar si existe asociación estadísticamente significativa entre el 
-grupo (activo vs. retirado) y las variables categóricas tipo de personal, 
-género y tipo de contrato.
-- Identificar los segmentos con mayor concentración de renuncias 
-voluntarias en el período analizado.
+tipo de personal, género, tipo de contrato, estado civil y nivel de 
+función.
+- Identificar las variables en las que se observan las diferencias más 
+marcadas entre los dos grupos.

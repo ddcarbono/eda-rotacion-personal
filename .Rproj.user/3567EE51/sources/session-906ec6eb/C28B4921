@@ -3,9 +3,9 @@
     "path": "~/MEA/eda_rotación_da17/01-introduccion.Rmd",
     "project_path": "01-introduccion.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2667074257",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1777086861075.0,
     "source_on_save": false,
     "relative_order": 3,
@@ -16,11 +16,11 @@
         "scrollLine": "38"
     },
     "folds": "",
-    "lastKnownWriteTime": 1777086906,
+    "lastKnownWriteTime": 1777096588,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1777095962170,
+    "last_content_update": 1777096588550,
     "read_only": false,
     "read_only_alternatives": []
 }
