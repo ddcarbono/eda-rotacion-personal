@@ -32,9 +32,6 @@ df_raw <- bind_rows(activos_raw, retirados_raw)
 ```
 
 A continuación se presentan las primeras observaciones del dataset
-en su estado original, antes de cualquier transformación:
-
-A continuación se presentan las primeras observaciones del dataset
 con las variables relevantes para el análisis:
 
 ```{r head-raw}
@@ -69,7 +66,7 @@ presentaban frecuencias de 1 caso cada una. Se agruparon junto con
 Separado en la categoría **Otro**.
 
 **Construcción de nivel de función.** A partir de la variable `función`
-se construyó `nivel_funcion` con cinco niveles jerárquicos:
+se construyó `nivel_función` con cinco niveles jerárquicos:
 Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.
 
 ```{r procesamiento}
@@ -93,7 +90,7 @@ df <- df_raw %>%
       estado_civil == "Union Libre" ~ "Unión Libre",
       TRUE                          ~ "Otro"
     ) %>% factor(levels = c("Soltero", "Casado", "Unión Libre", "Otro")),
-    nivel_funcion = case_when(
+    nivel_función = case_when(
       función == "OPERATIVO"                                            ~ "Operativo",
       función == "AUXILIAR"                                             ~ "Auxiliar",
       función == "ASISTENTE"                                            ~ "Asistente",
@@ -112,7 +109,7 @@ Tras el procesamiento, el dataset analítico contiene
 ```{r head-analitico}
 df %>%
   select(estado, edad, antig_m, género, tipo_personal,
-         contrato, est_civil, nivel_funcion) %>%
+         contrato, est_civil, nivel_función) %>%
   head(6) %>%
   kable(caption = "Primeras observaciones — dataset analítico") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
@@ -126,7 +123,7 @@ df %>%
 ```{r diccionario}
 tibble(
   Variable  = c("estado", "edad", "antig_m", "género",
-                "tipo_personal", "contrato", "est_civil", "nivel_funcion"),
+                "tipo_personal", "contrato", "est_civil", "nivel_función"),
   Etiqueta  = c("Grupo de análisis", "Edad", "Antigüedad",
                 "Género", "Tipo de personal", "Tipo de contrato",
                 "Estado civil", "Nivel de función"),
@@ -170,7 +167,7 @@ df %>%
 ```{r nulos}
 df %>%
   select(estado, edad, antig_m, género, tipo_personal,
-         contrato, est_civil, nivel_funcion) %>%
+         contrato, est_civil, nivel_función) %>%
   summarise(across(everything(), ~sum(is.na(.)))) %>%
   pivot_longer(everything(),
                names_to  = "Variable",

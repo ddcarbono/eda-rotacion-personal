@@ -33,7 +33,7 @@ df <- bind_rows(activos_raw, retirados_raw) %>%
       estado_civil == "Union Libre" ~ "Unión Libre",
       TRUE                          ~ "Otro"
     ) %>% factor(levels = c("Soltero", "Casado", "Unión Libre", "Otro")),
-    nivel_funcion = case_when(
+    nivel_función = case_when(
       función == "OPERATIVO"                                            ~ "Operativo",
       función == "AUXILIAR"                                             ~ "Auxiliar",
       función == "ASISTENTE"                                            ~ "Asistente",
@@ -144,7 +144,7 @@ bind_rows(
   calcular_tasa(género)        %>% mutate(Variable = "Género"),
   calcular_tasa(contrato)      %>% mutate(Variable = "Tipo de contrato"),
   calcular_tasa(est_civil)     %>% mutate(Variable = "Estado civil"),
-  calcular_tasa(nivel_funcion) %>% mutate(Variable = "Nivel de función")
+  calcular_tasa(nivel_función) %>% mutate(Variable = "Nivel de función")
 ) %>%
   select(Variable, Categoría, Activo, Retirado, Total, Tasa) %>%
   kable(caption = "Tasa de rotación voluntaria por segmento") %>%
@@ -240,11 +240,11 @@ df %>%
 
 ```{r grafico-tasa-funcion}
 df %>%
-  count(estado, nivel_funcion) %>%
-  group_by(nivel_funcion) %>%
+  count(estado, nivel_función) %>%
+  group_by(nivel_función) %>%
   mutate(tasa = n / sum(n)) %>%
   filter(estado == "Retirado") %>%
-  ggplot(aes(x = reorder(nivel_funcion, tasa), y = tasa)) +
+  ggplot(aes(x = reorder(nivel_función, tasa), y = tasa)) +
   geom_col(fill = "#405731", color = "#b08a2d", width = 0.6) +
   geom_text(aes(label = percent(tasa, accuracy = 0.1)),
             hjust = -0.2, size = 3.5, color = "#333333") +
@@ -341,7 +341,7 @@ edades avanzadas.
 
 ```{r boxplot-edad-funcion}
 
-ggplot(df, aes(x = nivel_funcion, y = edad, fill = nivel_funcion)) +
+ggplot(df, aes(x = nivel_función, y = edad, fill = nivel_función)) +
   geom_boxplot(alpha = 0.85, outlier.shape = 21,
                outlier.fill = "white",
                color = "#b08a2d",
@@ -444,7 +444,7 @@ con menos de dos años en la empresa en la mitad de los casos.
 
 ```{r boxplot-antiguedad-funcion}
 
-ggplot(df, aes(x = nivel_funcion, y = antig_m, fill = nivel_funcion)) +
+ggplot(df, aes(x = nivel_función, y = antig_m, fill = nivel_función)) +
   geom_boxplot(alpha = 0.85, outlier.shape = 21,
                outlier.fill = "white",
                color = "#b08a2d",
@@ -729,11 +729,11 @@ df %>%
 
 ```{r tabla-funcion}
 df %>%
-  count(estado, nivel_funcion) %>%
+  count(estado, nivel_función) %>%
   group_by(estado) %>%
   mutate(Porcentaje = percent(n / sum(n), accuracy = 0.1)) %>%
   ungroup() %>%
-  rename(Grupo = estado, Categoría = nivel_funcion, N = n) %>%
+  rename(Grupo = estado, Categoría = nivel_función, N = n) %>%
   kable(caption = "Distribución por nivel de función") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = FALSE) %>%
@@ -749,11 +749,11 @@ los asistentes presentan la tasa más baja (4.2%).
 
 ```{r barras-funcion}
 df %>%
-  count(estado, nivel_funcion) %>%
+  count(estado, nivel_función) %>%
   group_by(estado) %>%
   mutate(pct = n / sum(n),
          etiqueta = paste0(n, "\n(", percent(pct, accuracy = 0.1), ")")) %>%
-  ggplot(aes(x = nivel_funcion, y = pct, fill = estado)) +
+  ggplot(aes(x = nivel_función, y = pct, fill = estado)) +
   geom_col(position = "dodge", width = 0.6, color = "#b08a2d") +
   geom_text(aes(label = etiqueta),
             position = position_dodge(width = 0.6),
@@ -769,9 +769,9 @@ df %>%
 
 ```{r error-funcion}
 df %>%
-  group_by(nivel_funcion, estado) %>%
+  group_by(nivel_función, estado) %>%
   summarise(media = mean(edad), de = sd(edad), .groups = "drop") %>%
-  ggplot(aes(x = nivel_funcion, y = media,
+  ggplot(aes(x = nivel_función, y = media,
              color = estado, group = estado)) +
   geom_point(size = 3, position = position_dodge(width = 0.4)) +
   geom_errorbar(aes(ymin = media - de, ymax = media + de),

@@ -241,8 +241,6 @@ permite su integración directa en un único dataset.</p>
 <span id="cb1-12"><a href="datos-y-variables.html#cb1-12" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="datos-y-variables.html#cb1-13" tabindex="-1"></a>df_raw <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(activos_raw, retirados_raw)</span></code></pre></div>
 <p>A continuación se presentan las primeras observaciones del dataset
-en su estado original, antes de cualquier transformación:</p>
-<p>A continuación se presentan las primeras observaciones del dataset
 con las variables relevantes para el análisis:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="datos-y-variables.html#cb2-1" tabindex="-1"></a>df_raw <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="datos-y-variables.html#cb2-2" tabindex="-1"></a>  <span class="fu">select</span>(estado, edad, antig_m, género, tipo_personal,</span>
@@ -461,7 +459,7 @@ activos. Estos valores fueron reemplazados por <code>NA</code>.</p>
 presentaban frecuencias de 1 caso cada una. Se agruparon junto con
 Separado en la categoría <strong>Otro</strong>.</p>
 <p><strong>Construcción de nivel de función.</strong> A partir de la variable <code>función</code>
-se construyó <code>nivel_funcion</code> con cinco niveles jerárquicos:
+se construyó <code>nivel_función</code> con cinco niveles jerárquicos:
 Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="datos-y-variables.html#cb3-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="datos-y-variables.html#cb3-2" tabindex="-1"></a>  <span class="fu">filter</span>(función <span class="sc">!=</span> <span class="st">&quot;APRENDIZ&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -483,7 +481,7 @@ Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.</p>
 <span id="cb3-18"><a href="datos-y-variables.html#cb3-18" tabindex="-1"></a>      estado_civil <span class="sc">==</span> <span class="st">&quot;Union Libre&quot;</span> <span class="sc">~</span> <span class="st">&quot;Unión Libre&quot;</span>,</span>
 <span id="cb3-19"><a href="datos-y-variables.html#cb3-19" tabindex="-1"></a>      <span class="cn">TRUE</span>                          <span class="sc">~</span> <span class="st">&quot;Otro&quot;</span></span>
 <span id="cb3-20"><a href="datos-y-variables.html#cb3-20" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Soltero&quot;</span>, <span class="st">&quot;Casado&quot;</span>, <span class="st">&quot;Unión Libre&quot;</span>, <span class="st">&quot;Otro&quot;</span>)),</span>
-<span id="cb3-21"><a href="datos-y-variables.html#cb3-21" tabindex="-1"></a>    <span class="at">nivel_funcion =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-21"><a href="datos-y-variables.html#cb3-21" tabindex="-1"></a>    nivel_función <span class="ot">=</span> <span class="fu">case_when</span>(</span>
 <span id="cb3-22"><a href="datos-y-variables.html#cb3-22" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;OPERATIVO&quot;</span>                                            <span class="sc">~</span> <span class="st">&quot;Operativo&quot;</span>,</span>
 <span id="cb3-23"><a href="datos-y-variables.html#cb3-23" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;AUXILIAR&quot;</span>                                             <span class="sc">~</span> <span class="st">&quot;Auxiliar&quot;</span>,</span>
 <span id="cb3-24"><a href="datos-y-variables.html#cb3-24" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;ASISTENTE&quot;</span>                                            <span class="sc">~</span> <span class="st">&quot;Asistente&quot;</span>,</span>
@@ -499,7 +497,7 @@ Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.</p>
 1304 registros y las siguientes variables de análisis:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="datos-y-variables.html#cb4-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="datos-y-variables.html#cb4-2" tabindex="-1"></a>  <span class="fu">select</span>(estado, edad, antig_m, género, tipo_personal,</span>
-<span id="cb4-3"><a href="datos-y-variables.html#cb4-3" tabindex="-1"></a>         contrato, est_civil, nivel_funcion) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="datos-y-variables.html#cb4-3" tabindex="-1"></a>         contrato, est_civil, nivel_función) <span class="sc">%&gt;%</span></span>
 <span id="cb4-4"><a href="datos-y-variables.html#cb4-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-5"><a href="datos-y-variables.html#cb4-5" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Primeras observaciones — dataset analítico&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-6"><a href="datos-y-variables.html#cb4-6" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
@@ -534,7 +532,7 @@ contrato
 est_civil
 </th>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(64, 87, 49, 255) !important;">
-nivel_funcion
+nivel_función
 </th>
 </tr>
 </thead>
@@ -702,7 +700,7 @@ Operativo
 <h2><span class="header-section-number">2.5</span> Diccionario de variables<a href="datos-y-variables.html#diccionario-de-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="datos-y-variables.html#cb5-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
 <span id="cb5-2"><a href="datos-y-variables.html#cb5-2" tabindex="-1"></a>  <span class="at">Variable  =</span> <span class="fu">c</span>(<span class="st">&quot;estado&quot;</span>, <span class="st">&quot;edad&quot;</span>, <span class="st">&quot;antig_m&quot;</span>, <span class="st">&quot;género&quot;</span>,</span>
-<span id="cb5-3"><a href="datos-y-variables.html#cb5-3" tabindex="-1"></a>                <span class="st">&quot;tipo_personal&quot;</span>, <span class="st">&quot;contrato&quot;</span>, <span class="st">&quot;est_civil&quot;</span>, <span class="st">&quot;nivel_funcion&quot;</span>),</span>
+<span id="cb5-3"><a href="datos-y-variables.html#cb5-3" tabindex="-1"></a>                <span class="st">&quot;tipo_personal&quot;</span>, <span class="st">&quot;contrato&quot;</span>, <span class="st">&quot;est_civil&quot;</span>, <span class="st">&quot;nivel_función&quot;</span>),</span>
 <span id="cb5-4"><a href="datos-y-variables.html#cb5-4" tabindex="-1"></a>  <span class="at">Etiqueta  =</span> <span class="fu">c</span>(<span class="st">&quot;Grupo de análisis&quot;</span>, <span class="st">&quot;Edad&quot;</span>, <span class="st">&quot;Antigüedad&quot;</span>,</span>
 <span id="cb5-5"><a href="datos-y-variables.html#cb5-5" tabindex="-1"></a>                <span class="st">&quot;Género&quot;</span>, <span class="st">&quot;Tipo de personal&quot;</span>, <span class="st">&quot;Tipo de contrato&quot;</span>,</span>
 <span id="cb5-6"><a href="datos-y-variables.html#cb5-6" tabindex="-1"></a>                <span class="st">&quot;Estado civil&quot;</span>, <span class="st">&quot;Nivel de función&quot;</span>),</span>
@@ -845,7 +843,7 @@ Soltero — Casado — Unión Libre — Otro
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-nivel_funcion
+nivel_función
 </td>
 <td style="text-align:left;">
 Nivel de función
@@ -919,7 +917,7 @@ Retirado
 <h2><span class="header-section-number">2.7</span> Análisis de valores nulos<a href="datos-y-variables.html#análisis-de-valores-nulos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="datos-y-variables.html#cb7-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="datos-y-variables.html#cb7-2" tabindex="-1"></a>  <span class="fu">select</span>(estado, edad, antig_m, género, tipo_personal,</span>
-<span id="cb7-3"><a href="datos-y-variables.html#cb7-3" tabindex="-1"></a>         contrato, est_civil, nivel_funcion) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="datos-y-variables.html#cb7-3" tabindex="-1"></a>         contrato, est_civil, nivel_función) <span class="sc">%&gt;%</span></span>
 <span id="cb7-4"><a href="datos-y-variables.html#cb7-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
 <span id="cb7-5"><a href="datos-y-variables.html#cb7-5" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(),</span>
 <span id="cb7-6"><a href="datos-y-variables.html#cb7-6" tabindex="-1"></a>               <span class="at">names_to  =</span> <span class="st">&quot;Variable&quot;</span>,</span>
@@ -1026,7 +1024,7 @@ est_civil
 </tr>
 <tr>
 <td style="text-align:left;">
-nivel_funcion
+nivel_función
 </td>
 <td style="text-align:right;">
 0
