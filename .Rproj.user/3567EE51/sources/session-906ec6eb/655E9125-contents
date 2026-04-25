@@ -1,0 +1,222 @@
+# Análisis Inferencial
+
+El análisis inferencial busca determinar si las diferencias observadas 
+en el capítulo anterior entre empleados activos y retirados son 
+estadísticamente significativas o pueden atribuirse a fluctuación 
+aleatoria. Se sigue la misma lógica de los análisis de referencia: 
+primero se verifica el supuesto de normalidad para las variables 
+numéricas, y según ese resultado se elige entre pruebas paramétricas 
+o no paramétricas. Para las variables categóricas se aplica la prueba 
+de chi-cuadrado o la prueba exacta de Fisher según corresponda.
+
+```{r datos-inferencial, include=FALSE}
+
+library(tidyverse)
+library(readxl)
+library(nortest)
+library(knitr)
+library(kableExtra)
+
+# Paleta institucional
+paleta <- c(
+  "Activo"   = "#1f6144",
+  "Retirado" = "#b08a2d"
+)
+
+paleta_cat <- c("#1f6144", "#b08a2d", "#375623", 
+                "#405731", "#bbcac1", "#5b9bd5")
+
+activos   <- read_excel("data/activos_da17.xlsx",
+                        col_types = c(rep("guess", 19), "text", "text"))
+retirados <- read_excel("data/retirados_da17.xlsx",
+                        col_types = c(rep("guess", 19), "text", "text"))
+
+df <- bind_rows(activos, retirados) %>%
+  mutate(
+    estado        = factor(estado, levels = c("Activo", "Retirado")),
+    género        = factor(género, levels = c("Masculino", "Femenino")),
+    tipo_personal = factor(tipo_personal),
+    contrato      = factor(contrato),
+    antig_a       = as.numeric(antig_a),
+    edad          = as.numeric(edad)
+  )
+```
+
+## Pruebas de normalidad
+
+Antes de comparar edad y antigüedad entre grupos se evalúa si estas 
+variables siguen una distribución normal dentro de cada grupo, mediante 
+la prueba de Anderson-Darling.
+
+```{r normalidad}
+vars_num <- c("edad", "antig_a")
+grupos   <- c("Activo", "Retirado")
+
+resultados_norm <- map_dfr(vars_num, function(var) {
+  map_dfr(grupos, function(g) {
+    x <- df %>% filter(estado == g) %>% pull(!!sym(var)) %>% na.omit()
+    test <- ad.test(x)
+    tibble(
+      Variable  = var,
+      Grupo     = g,
+      N         = length(x),
+      Estadístico = round(test$statistic, 3),
+      `P-valor` = ifelse(test$p.value < 0.001, "< 0.001",
+                         as.character(round(test$p.value, 3)))
+    )
+  })
+})
+
+resultados_norm %>%
+  kable(caption = "Pruebas de normalidad Anderson-Darling por variable y grupo") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE)
+```
+
+Dado que las pruebas de Anderson-Darling rechazan la hipótesis de 
+normalidad en ambas variables y grupos (p < 0.05), se utilizan pruebas 
+no paramétricas para las comparaciones entre grupos.
+
+## Comparación de edad entre grupos
+
+**Hipótesis:**
+
+- $H_0$: La distribución de la edad es igual en empleados activos y retirados.
+- $H_1$: La distribución de la edad difiere entre empleados activos y retirados.
+
+```{r wilcox-edad}
+test_edad <- wilcox.test(edad ~ estado, data = df)
+
+tibble(
+  Variable    = "Edad",
+  Prueba      = "Wilcoxon-Mann-Whitney",
+  Estadístico = round(test_edad$statistic, 1),
+  `P-valor`   = ifelse(test_edad$p.value < 0.001, "< 0.001",
+                       as.character(round(test_edad$p.value, 3)))
+) %>%
+  kable(caption = "Prueba de Wilcoxon-Mann-Whitney para edad") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+## Comparación de antigüedad entre grupos
+
+**Hipótesis:**
+
+- $H_0$: La distribución de la antigüedad es igual en empleados activos y retirados.
+- $H_1$: La distribución de la antigüedad difiere entre empleados activos y retirados.
+
+```{r wilcox-antiguedad}
+test_antig <- wilcox.test(antig_a ~ estado, data = df)
+
+tibble(
+  Variable    = "Antigüedad",
+  Prueba      = "Wilcoxon-Mann-Whitney",
+  Estadístico = round(test_antig$statistic, 1),
+  `P-valor`   = ifelse(test_antig$p.value < 0.001, "< 0.001",
+                       as.character(round(test_antig$p.value, 3)))
+) %>%
+  kable(caption = "Prueba de Wilcoxon-Mann-Whitney para antigüedad") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+## Asociación entre grupo y tipo de personal
+
+**Hipótesis:**
+
+- $H_0$: El tipo de personal es independiente del grupo (activo vs. retirado).
+- $H_1$: Existe asociación entre el tipo de personal y el grupo.
+
+```{r chi-tipo-personal}
+tabla_tp <- table(df$estado, df$tipo_personal)
+test_tp  <- chisq.test(tabla_tp)
+
+tibble(
+  Variable    = "Tipo de personal",
+  Prueba      = "Chi-cuadrado",
+  Estadístico = round(test_tp$statistic, 3),
+  gl          = test_tp$parameter,
+  `P-valor`   = ifelse(test_tp$p.value < 0.001, "< 0.001",
+                       as.character(round(test_tp$p.value, 3)))
+) %>%
+  kable(caption = "Prueba chi-cuadrado: grupo vs. tipo de personal") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+## Asociación entre grupo y género
+
+**Hipótesis:**
+
+- $H_0$: El género es independiente del grupo (activo vs. retirado).
+- $H_1$: Existe asociación entre el género y el grupo.
+
+```{r chi-genero}
+tabla_gen <- table(df$estado, df$género)
+test_gen  <- chisq.test(tabla_gen)
+
+tibble(
+  Variable    = "Género",
+  Prueba      = "Chi-cuadrado",
+  Estadístico = round(test_gen$statistic, 3),
+  gl          = test_gen$parameter,
+  `P-valor`   = ifelse(test_gen$p.value < 0.001, "< 0.001",
+                       as.character(round(test_gen$p.value, 3)))
+) %>%
+  kable(caption = "Prueba chi-cuadrado: grupo vs. género") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+## Asociación entre grupo y tipo de contrato
+
+**Hipótesis:**
+
+- $H_0$: El tipo de contrato es independiente del grupo (activo vs. retirado).
+- $H_1$: Existe asociación entre el tipo de contrato y el grupo.
+
+```{r chi-contrato}
+tabla_con <- table(df$estado, df$contrato)
+test_con  <- chisq.test(tabla_con)
+
+tibble(
+  Variable    = "Tipo de contrato",
+  Prueba      = "Chi-cuadrado",
+  Estadístico = round(test_con$statistic, 3),
+  gl          = test_con$parameter,
+  `P-valor`   = ifelse(test_con$p.value < 0.001, "< 0.001",
+                       as.character(round(test_con$p.value, 3)))
+) %>%
+  kable(caption = "Prueba chi-cuadrado: grupo vs. tipo de contrato") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE)
+```
+
+## Resumen de resultados inferenciales
+
+```{r resumen-inferencial}
+tibble(
+  Variable          = c("Edad", "Antigüedad", "Tipo de personal", 
+                        "Género", "Tipo de contrato"),
+  Prueba            = c("Wilcoxon-Mann-Whitney", "Wilcoxon-Mann-Whitney",
+                        "Chi-cuadrado", "Chi-cuadrado", "Chi-cuadrado"),
+  `P-valor`         = c(
+    ifelse(test_edad$p.value  < 0.001, "< 0.001", round(test_edad$p.value, 3)),
+    ifelse(test_antig$p.value < 0.001, "< 0.001", round(test_antig$p.value, 3)),
+    ifelse(test_tp$p.value    < 0.001, "< 0.001", round(test_tp$p.value, 3)),
+    ifelse(test_gen$p.value   < 0.001, "< 0.001", round(test_gen$p.value, 3)),
+    ifelse(test_con$p.value   < 0.001, "< 0.001", round(test_con$p.value, 3))
+  ),
+  Conclusión        = c(
+    ifelse(test_edad$p.value  < 0.05, "Diferencia significativa", "Sin diferencia significativa"),
+    ifelse(test_antig$p.value < 0.05, "Diferencia significativa", "Sin diferencia significativa"),
+    ifelse(test_tp$p.value    < 0.05, "Asociación significativa", "Sin asociación significativa"),
+    ifelse(test_gen$p.value   < 0.05, "Asociación significativa", "Sin asociación significativa"),
+    ifelse(test_con$p.value   < 0.05, "Asociación significativa", "Sin asociación significativa")
+  )
+) %>%
+  kable(caption = "Resumen de pruebas de hipótesis") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE)
+```

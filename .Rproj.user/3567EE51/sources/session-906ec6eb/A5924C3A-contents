@@ -1,0 +1,49 @@
+---
+title: "Análisis Exploratorio de Rotación de Personal"
+subtitle: "Empresa Agroindustrial Colombiana — Período 2025-2026"
+author: "Daniel Carbono"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook:
+    css: style.css
+    config:
+      toc:
+        collapse: section
+      toolbar:
+        position: fixed
+lang: es
+---
+
+# Resumen {-}
+
+El presente trabajo realiza un análisis exploratorio de la rotación 
+de personal por renuncia voluntaria en una empresa agroindustrial 
+colombiana dedicada al cultivo de palma de aceite, extracción de 
+aceite crudo, refinación y comercialización, durante el período 
+comprendido entre marzo de 2025 y marzo de 2026.
+
+Se analizan **1.251 empleados activos** a marzo de 2026 y **91 retiros 
+por renuncia voluntaria** en el período de referencia, para una tasa 
+de rotación voluntaria anual aproximada del 7,3%. El análisis caracteriza 
+sociodemográficamente ambos grupos y evalúa mediante pruebas de hipótesis 
+si existen diferencias estadísticamente significativas en variables como 
+edad, antigüedad, tipo de personal, género y tipo de contrato entre 
+quienes permanecen y quienes renuncian voluntariamente.
+
+**Palabras clave:** rotación de personal, renuncia voluntaria, análisis 
+exploratorio, pruebas de hipótesis, sector agroindustrial.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo      = TRUE,
+  warning   = FALSE,
+  message   = FALSE,
+  fig.align = "center",
+  fig.width = 8,
+  fig.height = 5
+)
+options(knitr.table.format = "html")
+```
+

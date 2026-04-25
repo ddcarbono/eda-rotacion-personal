@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Análisis Inferencial | Análisis Exploratorio de Rotación de Personal</title>
+  <meta name="description" content="Capítulo 4 Análisis Inferencial | Análisis Exploratorio de Rotación de Personal" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Análisis Inferencial | Análisis Exploratorio de Rotación de Personal" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Análisis Inferencial | Análisis Exploratorio de Rotación de Personal" />
+  
+  
+  
+
+<meta name="author" content="Daniel Carbono" />
+
+
+<meta name="date" content="2026-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-exploratorio-de-datos.html"/>
+<link rel="next" href="conclusiones.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis Exploratorio de Rotación de Personal</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#contexto"><i class="fa fa-check"></i><b>1.1</b> Contexto</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#justificación"><i class="fa fa-check"></i><b>1.2</b> Justificación</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#pregunta-de-investigación"><i class="fa fa-check"></i><b>1.3</b> Pregunta de investigación</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#objetivos"><i class="fa fa-check"></i><b>1.4</b> Objetivos</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datos-y-variables.html"><a href="datos-y-variables.html"><i class="fa fa-check"></i><b>2</b> Datos y variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datos-y-variables.html"><a href="datos-y-variables.html#fuentes-de-datos"><i class="fa fa-check"></i><b>2.1</b> Fuentes de datos</a></li>
+<li class="chapter" data-level="2.2" data-path="datos-y-variables.html"><a href="datos-y-variables.html#carga-inicial"><i class="fa fa-check"></i><b>2.2</b> Carga inicial</a></li>
+<li class="chapter" data-level="2.3" data-path="datos-y-variables.html"><a href="datos-y-variables.html#procesamiento-y-decisiones"><i class="fa fa-check"></i><b>2.3</b> Procesamiento y decisiones</a></li>
+<li class="chapter" data-level="2.4" data-path="datos-y-variables.html"><a href="datos-y-variables.html#dataset-analítico"><i class="fa fa-check"></i><b>2.4</b> Dataset analítico</a></li>
+<li class="chapter" data-level="2.5" data-path="datos-y-variables.html"><a href="datos-y-variables.html#diccionario-de-variables"><i class="fa fa-check"></i><b>2.5</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="2.6" data-path="datos-y-variables.html"><a href="datos-y-variables.html#composición-del-dataset"><i class="fa fa-check"></i><b>2.6</b> Composición del dataset</a></li>
+<li class="chapter" data-level="2.7" data-path="datos-y-variables.html"><a href="datos-y-variables.html#análisis-de-valores-nulos"><i class="fa fa-check"></i><b>2.7</b> Análisis de valores nulos</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio de Datos</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasas-de-rotación"><i class="fa fa-check"></i><b>3.1</b> Tasas de rotación</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-general"><i class="fa fa-check"></i><b>3.1.1</b> Tasa general</a></li>
+<li class="chapter" data-level="3.1.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#retiros-por-mes"><i class="fa fa-check"></i><b>3.1.2</b> Retiros por mes</a></li>
+<li class="chapter" data-level="3.1.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-de-rotación-por-segmento"><i class="fa fa-check"></i><b>3.1.3</b> Tasa de rotación por segmento</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-numéricas"><i class="fa fa-check"></i><b>3.2</b> Variables numéricas</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#edad"><i class="fa fa-check"></i><b>3.2.1</b> Edad</a></li>
+<li class="chapter" data-level="3.2.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#antigüedad"><i class="fa fa-check"></i><b>3.2.2</b> Antigüedad</a></li>
+<li class="chapter" data-level="3.2.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#relación-entre-edad-y-antigüedad"><i class="fa fa-check"></i><b>3.2.3</b> Relación entre edad y antigüedad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Variables categóricas</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-personal"><i class="fa fa-check"></i><b>3.3.1</b> Tipo de personal</a></li>
+<li class="chapter" data-level="3.3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#género"><i class="fa fa-check"></i><b>3.3.2</b> Género</a></li>
+<li class="chapter" data-level="3.3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-contrato"><i class="fa fa-check"></i><b>3.3.3</b> Tipo de contrato</a></li>
+<li class="chapter" data-level="3.3.4" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#estado-civil"><i class="fa fa-check"></i><b>3.3.4</b> Estado civil</a></li>
+<li class="chapter" data-level="3.3.5" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#nivel-de-función"><i class="fa fa-check"></i><b>3.3.5</b> Nivel de función</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html"><i class="fa fa-check"></i><b>4</b> Análisis Inferencial</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#pruebas-de-normalidad"><i class="fa fa-check"></i><b>4.1</b> Pruebas de normalidad</a></li>
+<li class="chapter" data-level="4.2" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#comparación-de-edad-entre-grupos"><i class="fa fa-check"></i><b>4.2</b> Comparación de edad entre grupos</a></li>
+<li class="chapter" data-level="4.3" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#comparación-de-antigüedad-entre-grupos"><i class="fa fa-check"></i><b>4.3</b> Comparación de antigüedad entre grupos</a></li>
+<li class="chapter" data-level="4.4" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#asociación-entre-grupo-y-tipo-de-personal"><i class="fa fa-check"></i><b>4.4</b> Asociación entre grupo y tipo de personal</a></li>
+<li class="chapter" data-level="4.5" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#asociación-entre-grupo-y-género"><i class="fa fa-check"></i><b>4.5</b> Asociación entre grupo y género</a></li>
+<li class="chapter" data-level="4.6" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#asociación-entre-grupo-y-tipo-de-contrato"><i class="fa fa-check"></i><b>4.6</b> Asociación entre grupo y tipo de contrato</a></li>
+<li class="chapter" data-level="4.7" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#resumen-de-resultados-inferenciales"><i class="fa fa-check"></i><b>4.7</b> Resumen de resultados inferenciales</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>5</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="conclusiones.html"><a href="conclusiones.html#sobre-el-perfil-descriptivo"><i class="fa fa-check"></i><b>5.1</b> Sobre el perfil descriptivo</a></li>
+<li class="chapter" data-level="5.2" data-path="conclusiones.html"><a href="conclusiones.html#sobre-las-diferencias-entre-grupos"><i class="fa fa-check"></i><b>5.2</b> Sobre las diferencias entre grupos</a></li>
+<li class="chapter" data-level="5.3" data-path="conclusiones.html"><a href="conclusiones.html#limitaciones"><i class="fa fa-check"></i><b>5.3</b> Limitaciones</a></li>
+<li class="chapter" data-level="5.4" data-path="conclusiones.html"><a href="conclusiones.html#recomendaciones"><i class="fa fa-check"></i><b>5.4</b> Recomendaciones</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Rotación de Personal</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análisis-inferencial" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Análisis Inferencial<a href="análisis-inferencial.html#análisis-inferencial" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El análisis inferencial busca determinar si las diferencias observadas
+en el capítulo anterior entre empleados activos y retirados son
+estadísticamente significativas o pueden atribuirse a fluctuación
+aleatoria. Se sigue la misma lógica de los análisis de referencia:
+primero se verifica el supuesto de normalidad para las variables
+numéricas, y según ese resultado se elige entre pruebas paramétricas
+o no paramétricas. Para las variables categóricas se aplica la prueba
+de chi-cuadrado o la prueba exacta de Fisher según corresponda.</p>
+<div id="pruebas-de-normalidad" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Pruebas de normalidad<a href="análisis-inferencial.html#pruebas-de-normalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de comparar edad y antigüedad entre grupos se evalúa si estas
+variables siguen una distribución normal dentro de cada grupo, mediante
+la prueba de Anderson-Darling.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="análisis-inferencial.html#cb41-1" tabindex="-1"></a>vars_num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;edad&quot;</span>, <span class="st">&quot;antig_a&quot;</span>)</span>
+<span id="cb41-2"><a href="análisis-inferencial.html#cb41-2" tabindex="-1"></a>grupos   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Activo&quot;</span>, <span class="st">&quot;Retirado&quot;</span>)</span>
+<span id="cb41-3"><a href="análisis-inferencial.html#cb41-3" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="análisis-inferencial.html#cb41-4" tabindex="-1"></a>resultados_norm <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(vars_num, <span class="cf">function</span>(var) {</span>
+<span id="cb41-5"><a href="análisis-inferencial.html#cb41-5" tabindex="-1"></a>  <span class="fu">map_dfr</span>(grupos, <span class="cf">function</span>(g) {</span>
+<span id="cb41-6"><a href="análisis-inferencial.html#cb41-6" tabindex="-1"></a>    x <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(estado <span class="sc">==</span> g) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(<span class="sc">!!</span><span class="fu">sym</span>(var)) <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>()</span>
+<span id="cb41-7"><a href="análisis-inferencial.html#cb41-7" tabindex="-1"></a>    test <span class="ot">&lt;-</span> <span class="fu">ad.test</span>(x)</span>
+<span id="cb41-8"><a href="análisis-inferencial.html#cb41-8" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb41-9"><a href="análisis-inferencial.html#cb41-9" tabindex="-1"></a>      <span class="at">Variable  =</span> var,</span>
+<span id="cb41-10"><a href="análisis-inferencial.html#cb41-10" tabindex="-1"></a>      <span class="at">Grupo     =</span> g,</span>
+<span id="cb41-11"><a href="análisis-inferencial.html#cb41-11" tabindex="-1"></a>      <span class="at">N         =</span> <span class="fu">length</span>(x),</span>
+<span id="cb41-12"><a href="análisis-inferencial.html#cb41-12" tabindex="-1"></a>      Estadístico <span class="ot">=</span> <span class="fu">round</span>(test<span class="sc">$</span>statistic, <span class="dv">3</span>),</span>
+<span id="cb41-13"><a href="análisis-inferencial.html#cb41-13" tabindex="-1"></a>      <span class="st">`</span><span class="at">P-valor</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>,</span>
+<span id="cb41-14"><a href="análisis-inferencial.html#cb41-14" tabindex="-1"></a>                         <span class="fu">as.character</span>(<span class="fu">round</span>(test<span class="sc">$</span>p.value, <span class="dv">3</span>)))</span>
+<span id="cb41-15"><a href="análisis-inferencial.html#cb41-15" tabindex="-1"></a>    )</span>
+<span id="cb41-16"><a href="análisis-inferencial.html#cb41-16" tabindex="-1"></a>  })</span>
+<span id="cb41-17"><a href="análisis-inferencial.html#cb41-17" tabindex="-1"></a>})</span>
+<span id="cb41-18"><a href="análisis-inferencial.html#cb41-18" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="análisis-inferencial.html#cb41-19" tabindex="-1"></a>resultados_norm <span class="sc">%&gt;%</span></span>
+<span id="cb41-20"><a href="análisis-inferencial.html#cb41-20" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Pruebas de normalidad Anderson-Darling por variable y grupo&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-21"><a href="análisis-inferencial.html#cb41-21" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb41-22"><a href="análisis-inferencial.html#cb41-22" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:normalidad">Table 4.1: </span>Pruebas de normalidad Anderson-Darling por variable y grupo
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Grupo
+</th>
+<th style="text-align:right;">
+N
+</th>
+<th style="text-align:right;">
+Estadístico
+</th>
+<th style="text-align:left;">
+P-valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+edad
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+1251
+</td>
+<td style="text-align:right;">
+13.856
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+edad
+</td>
+<td style="text-align:left;">
+Retirado
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+1.319
+</td>
+<td style="text-align:left;">
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antig_a
+</td>
+<td style="text-align:left;">
+Activo
+</td>
+<td style="text-align:right;">
+1251
+</td>
+<td style="text-align:right;">
+65.516
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+antig_a
+</td>
+<td style="text-align:left;">
+Retirado
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+10.291
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+</tr>
+</tbody>
+</table>
+<p>Dado que las pruebas de Anderson-Darling rechazan la hipótesis de
+normalidad en ambas variables y grupos (p &lt; 0.05), se utilizan pruebas
+no paramétricas para las comparaciones entre grupos.</p>
+</div>
+<div id="comparación-de-edad-entre-grupos" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Comparación de edad entre grupos<a href="análisis-inferencial.html#comparación-de-edad-entre-grupos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Hipótesis:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: La distribución de la edad es igual en empleados activos y retirados.</li>
+<li><span class="math inline">\(H_1\)</span>: La distribución de la edad difiere entre empleados activos y retirados.</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="análisis-inferencial.html#cb42-1" tabindex="-1"></a>test_edad <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(edad <span class="sc">~</span> estado, <span class="at">data =</span> df)</span>
+<span id="cb42-2"><a href="análisis-inferencial.html#cb42-2" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="análisis-inferencial.html#cb42-3" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb42-4"><a href="análisis-inferencial.html#cb42-4" tabindex="-1"></a>  <span class="at">Variable    =</span> <span class="st">&quot;Edad&quot;</span>,</span>
+<span id="cb42-5"><a href="análisis-inferencial.html#cb42-5" tabindex="-1"></a>  <span class="at">Prueba      =</span> <span class="st">&quot;Wilcoxon-Mann-Whitney&quot;</span>,</span>
+<span id="cb42-6"><a href="análisis-inferencial.html#cb42-6" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">round</span>(test_edad<span class="sc">$</span>statistic, <span class="dv">1</span>),</span>
+<span id="cb42-7"><a href="análisis-inferencial.html#cb42-7" tabindex="-1"></a>  <span class="st">`</span><span class="at">P-valor</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">ifelse</span>(test_edad<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>,</span>
+<span id="cb42-8"><a href="análisis-inferencial.html#cb42-8" tabindex="-1"></a>                       <span class="fu">as.character</span>(<span class="fu">round</span>(test_edad<span class="sc">$</span>p.value, <span class="dv">3</span>)))</span>
+<span id="cb42-9"><a href="análisis-inferencial.html#cb42-9" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-10"><a href="análisis-inferencial.html#cb42-10" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Prueba de Wilcoxon-Mann-Whitney para edad&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-11"><a href="análisis-inferencial.html#cb42-11" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb42-12"><a href="análisis-inferencial.html#cb42-12" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:wilcox-edad">Table 4.2: </span>Prueba de Wilcoxon-Mann-Whitney para edad
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Prueba
+</th>
+<th style="text-align:right;">
+Estadístico
+</th>
+<th style="text-align:left;">
+P-valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Edad
+</td>
+<td style="text-align:left;">
+Wilcoxon-Mann-Whitney
+</td>
+<td style="text-align:right;">
+81438.5
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="comparación-de-antigüedad-entre-grupos" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Comparación de antigüedad entre grupos<a href="análisis-inferencial.html#comparación-de-antigüedad-entre-grupos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Hipótesis:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: La distribución de la antigüedad es igual en empleados activos y retirados.</li>
+<li><span class="math inline">\(H_1\)</span>: La distribución de la antigüedad difiere entre empleados activos y retirados.</li>
+</ul>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="análisis-inferencial.html#cb43-1" tabindex="-1"></a>test_antig <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(antig_a <span class="sc">~</span> estado, <span class="at">data =</span> df)</span>
+<span id="cb43-2"><a href="análisis-inferencial.html#cb43-2" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="análisis-inferencial.html#cb43-3" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb43-4"><a href="análisis-inferencial.html#cb43-4" tabindex="-1"></a>  <span class="at">Variable    =</span> <span class="st">&quot;Antigüedad&quot;</span>,</span>
+<span id="cb43-5"><a href="análisis-inferencial.html#cb43-5" tabindex="-1"></a>  <span class="at">Prueba      =</span> <span class="st">&quot;Wilcoxon-Mann-Whitney&quot;</span>,</span>
+<span id="cb43-6"><a href="análisis-inferencial.html#cb43-6" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">round</span>(test_antig<span class="sc">$</span>statistic, <span class="dv">1</span>),</span>
+<span id="cb43-7"><a href="análisis-inferencial.html#cb43-7" tabindex="-1"></a>  <span class="st">`</span><span class="at">P-valor</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">ifelse</span>(test_antig<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>,</span>
+<span id="cb43-8"><a href="análisis-inferencial.html#cb43-8" tabindex="-1"></a>                       <span class="fu">as.character</span>(<span class="fu">round</span>(test_antig<span class="sc">$</span>p.value, <span class="dv">3</span>)))</span>
+<span id="cb43-9"><a href="análisis-inferencial.html#cb43-9" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-10"><a href="análisis-inferencial.html#cb43-10" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Prueba de Wilcoxon-Mann-Whitney para antigüedad&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-11"><a href="análisis-inferencial.html#cb43-11" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb43-12"><a href="análisis-inferencial.html#cb43-12" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:wilcox-antiguedad">Table 4.3: </span>Prueba de Wilcoxon-Mann-Whitney para antigüedad
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Prueba
+</th>
+<th style="text-align:right;">
+Estadístico
+</th>
+<th style="text-align:left;">
+P-valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Antigüedad
+</td>
+<td style="text-align:left;">
+Wilcoxon-Mann-Whitney
+</td>
+<td style="text-align:right;">
+80430
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="asociación-entre-grupo-y-tipo-de-personal" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Asociación entre grupo y tipo de personal<a href="análisis-inferencial.html#asociación-entre-grupo-y-tipo-de-personal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Hipótesis:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: El tipo de personal es independiente del grupo (activo vs. retirado).</li>
+<li><span class="math inline">\(H_1\)</span>: Existe asociación entre el tipo de personal y el grupo.</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="análisis-inferencial.html#cb44-1" tabindex="-1"></a>tabla_tp <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>estado, df<span class="sc">$</span>tipo_personal)</span>
+<span id="cb44-2"><a href="análisis-inferencial.html#cb44-2" tabindex="-1"></a>test_tp  <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_tp)</span>
+<span id="cb44-3"><a href="análisis-inferencial.html#cb44-3" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="análisis-inferencial.html#cb44-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb44-5"><a href="análisis-inferencial.html#cb44-5" tabindex="-1"></a>  <span class="at">Variable    =</span> <span class="st">&quot;Tipo de personal&quot;</span>,</span>
+<span id="cb44-6"><a href="análisis-inferencial.html#cb44-6" tabindex="-1"></a>  <span class="at">Prueba      =</span> <span class="st">&quot;Chi-cuadrado&quot;</span>,</span>
+<span id="cb44-7"><a href="análisis-inferencial.html#cb44-7" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">round</span>(test_tp<span class="sc">$</span>statistic, <span class="dv">3</span>),</span>
+<span id="cb44-8"><a href="análisis-inferencial.html#cb44-8" tabindex="-1"></a>  <span class="at">gl          =</span> test_tp<span class="sc">$</span>parameter,</span>
+<span id="cb44-9"><a href="análisis-inferencial.html#cb44-9" tabindex="-1"></a>  <span class="st">`</span><span class="at">P-valor</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">ifelse</span>(test_tp<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>,</span>
+<span id="cb44-10"><a href="análisis-inferencial.html#cb44-10" tabindex="-1"></a>                       <span class="fu">as.character</span>(<span class="fu">round</span>(test_tp<span class="sc">$</span>p.value, <span class="dv">3</span>)))</span>
+<span id="cb44-11"><a href="análisis-inferencial.html#cb44-11" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-12"><a href="análisis-inferencial.html#cb44-12" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Prueba chi-cuadrado: grupo vs. tipo de personal&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-13"><a href="análisis-inferencial.html#cb44-13" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb44-14"><a href="análisis-inferencial.html#cb44-14" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:chi-tipo-personal">Table 4.4: </span>Prueba chi-cuadrado: grupo vs. tipo de personal
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Prueba
+</th>
+<th style="text-align:right;">
+Estadístico
+</th>
+<th style="text-align:right;">
+gl
+</th>
+<th style="text-align:left;">
+P-valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tipo de personal
+</td>
+<td style="text-align:left;">
+Chi-cuadrado
+</td>
+<td style="text-align:right;">
+0.201
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:left;">
+0.977
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="asociación-entre-grupo-y-género" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Asociación entre grupo y género<a href="análisis-inferencial.html#asociación-entre-grupo-y-género" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Hipótesis:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: El género es independiente del grupo (activo vs. retirado).</li>
+<li><span class="math inline">\(H_1\)</span>: Existe asociación entre el género y el grupo.</li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="análisis-inferencial.html#cb45-1" tabindex="-1"></a>tabla_gen <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>estado, df<span class="sc">$</span>género)</span>
+<span id="cb45-2"><a href="análisis-inferencial.html#cb45-2" tabindex="-1"></a>test_gen  <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_gen)</span>
+<span id="cb45-3"><a href="análisis-inferencial.html#cb45-3" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="análisis-inferencial.html#cb45-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb45-5"><a href="análisis-inferencial.html#cb45-5" tabindex="-1"></a>  <span class="at">Variable    =</span> <span class="st">&quot;Género&quot;</span>,</span>
+<span id="cb45-6"><a href="análisis-inferencial.html#cb45-6" tabindex="-1"></a>  <span class="at">Prueba      =</span> <span class="st">&quot;Chi-cuadrado&quot;</span>,</span>
+<span id="cb45-7"><a href="análisis-inferencial.html#cb45-7" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">round</span>(test_gen<span class="sc">$</span>statistic, <span class="dv">3</span>),</span>
+<span id="cb45-8"><a href="análisis-inferencial.html#cb45-8" tabindex="-1"></a>  <span class="at">gl          =</span> test_gen<span class="sc">$</span>parameter,</span>
+<span id="cb45-9"><a href="análisis-inferencial.html#cb45-9" tabindex="-1"></a>  <span class="st">`</span><span class="at">P-valor</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">ifelse</span>(test_gen<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>,</span>
+<span id="cb45-10"><a href="análisis-inferencial.html#cb45-10" tabindex="-1"></a>                       <span class="fu">as.character</span>(<span class="fu">round</span>(test_gen<span class="sc">$</span>p.value, <span class="dv">3</span>)))</span>
+<span id="cb45-11"><a href="análisis-inferencial.html#cb45-11" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-12"><a href="análisis-inferencial.html#cb45-12" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Prueba chi-cuadrado: grupo vs. género&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-13"><a href="análisis-inferencial.html#cb45-13" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb45-14"><a href="análisis-inferencial.html#cb45-14" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:chi-genero">Table 4.5: </span>Prueba chi-cuadrado: grupo vs. género
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Prueba
+</th>
+<th style="text-align:right;">
+Estadístico
+</th>
+<th style="text-align:right;">
+gl
+</th>
+<th style="text-align:left;">
+P-valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Género
+</td>
+<td style="text-align:left;">
+Chi-cuadrado
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+0.393
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="asociación-entre-grupo-y-tipo-de-contrato" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Asociación entre grupo y tipo de contrato<a href="análisis-inferencial.html#asociación-entre-grupo-y-tipo-de-contrato" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Hipótesis:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: El tipo de contrato es independiente del grupo (activo vs. retirado).</li>
+<li><span class="math inline">\(H_1\)</span>: Existe asociación entre el tipo de contrato y el grupo.</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="análisis-inferencial.html#cb46-1" tabindex="-1"></a>tabla_con <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>estado, df<span class="sc">$</span>contrato)</span>
+<span id="cb46-2"><a href="análisis-inferencial.html#cb46-2" tabindex="-1"></a>test_con  <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_con)</span>
+<span id="cb46-3"><a href="análisis-inferencial.html#cb46-3" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="análisis-inferencial.html#cb46-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb46-5"><a href="análisis-inferencial.html#cb46-5" tabindex="-1"></a>  <span class="at">Variable    =</span> <span class="st">&quot;Tipo de contrato&quot;</span>,</span>
+<span id="cb46-6"><a href="análisis-inferencial.html#cb46-6" tabindex="-1"></a>  <span class="at">Prueba      =</span> <span class="st">&quot;Chi-cuadrado&quot;</span>,</span>
+<span id="cb46-7"><a href="análisis-inferencial.html#cb46-7" tabindex="-1"></a>  Estadístico <span class="ot">=</span> <span class="fu">round</span>(test_con<span class="sc">$</span>statistic, <span class="dv">3</span>),</span>
+<span id="cb46-8"><a href="análisis-inferencial.html#cb46-8" tabindex="-1"></a>  <span class="at">gl          =</span> test_con<span class="sc">$</span>parameter,</span>
+<span id="cb46-9"><a href="análisis-inferencial.html#cb46-9" tabindex="-1"></a>  <span class="st">`</span><span class="at">P-valor</span><span class="st">`</span>   <span class="ot">=</span> <span class="fu">ifelse</span>(test_con<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>,</span>
+<span id="cb46-10"><a href="análisis-inferencial.html#cb46-10" tabindex="-1"></a>                       <span class="fu">as.character</span>(<span class="fu">round</span>(test_con<span class="sc">$</span>p.value, <span class="dv">3</span>)))</span>
+<span id="cb46-11"><a href="análisis-inferencial.html#cb46-11" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-12"><a href="análisis-inferencial.html#cb46-12" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Prueba chi-cuadrado: grupo vs. tipo de contrato&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-13"><a href="análisis-inferencial.html#cb46-13" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>),</span>
+<span id="cb46-14"><a href="análisis-inferencial.html#cb46-14" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:chi-contrato">Table 4.6: </span>Prueba chi-cuadrado: grupo vs. tipo de contrato
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Prueba
+</th>
+<th style="text-align:right;">
+Estadístico
+</th>
+<th style="text-align:right;">
+gl
+</th>
+<th style="text-align:left;">
+P-valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tipo de contrato
+</td>
+<td style="text-align:left;">
+Chi-cuadrado
+</td>
+<td style="text-align:right;">
+37.103
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="resumen-de-resultados-inferenciales" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Resumen de resultados inferenciales<a href="análisis-inferencial.html#resumen-de-resultados-inferenciales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="análisis-inferencial.html#cb47-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb47-2"><a href="análisis-inferencial.html#cb47-2" tabindex="-1"></a>  <span class="at">Variable          =</span> <span class="fu">c</span>(<span class="st">&quot;Edad&quot;</span>, <span class="st">&quot;Antigüedad&quot;</span>, <span class="st">&quot;Tipo de personal&quot;</span>, </span>
+<span id="cb47-3"><a href="análisis-inferencial.html#cb47-3" tabindex="-1"></a>                        <span class="st">&quot;Género&quot;</span>, <span class="st">&quot;Tipo de contrato&quot;</span>),</span>
+<span id="cb47-4"><a href="análisis-inferencial.html#cb47-4" tabindex="-1"></a>  <span class="at">Prueba            =</span> <span class="fu">c</span>(<span class="st">&quot;Wilcoxon-Mann-Whitney&quot;</span>, <span class="st">&quot;Wilcoxon-Mann-Whitney&quot;</span>,</span>
+<span id="cb47-5"><a href="análisis-inferencial.html#cb47-5" tabindex="-1"></a>                        <span class="st">&quot;Chi-cuadrado&quot;</span>, <span class="st">&quot;Chi-cuadrado&quot;</span>, <span class="st">&quot;Chi-cuadrado&quot;</span>),</span>
+<span id="cb47-6"><a href="análisis-inferencial.html#cb47-6" tabindex="-1"></a>  <span class="st">`</span><span class="at">P-valor</span><span class="st">`</span>         <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb47-7"><a href="análisis-inferencial.html#cb47-7" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_edad<span class="sc">$</span>p.value  <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>, <span class="fu">round</span>(test_edad<span class="sc">$</span>p.value, <span class="dv">3</span>)),</span>
+<span id="cb47-8"><a href="análisis-inferencial.html#cb47-8" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_antig<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>, <span class="fu">round</span>(test_antig<span class="sc">$</span>p.value, <span class="dv">3</span>)),</span>
+<span id="cb47-9"><a href="análisis-inferencial.html#cb47-9" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_tp<span class="sc">$</span>p.value    <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>, <span class="fu">round</span>(test_tp<span class="sc">$</span>p.value, <span class="dv">3</span>)),</span>
+<span id="cb47-10"><a href="análisis-inferencial.html#cb47-10" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_gen<span class="sc">$</span>p.value   <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>, <span class="fu">round</span>(test_gen<span class="sc">$</span>p.value, <span class="dv">3</span>)),</span>
+<span id="cb47-11"><a href="análisis-inferencial.html#cb47-11" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_con<span class="sc">$</span>p.value   <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">&quot;&lt; 0.001&quot;</span>, <span class="fu">round</span>(test_con<span class="sc">$</span>p.value, <span class="dv">3</span>))</span>
+<span id="cb47-12"><a href="análisis-inferencial.html#cb47-12" tabindex="-1"></a>  ),</span>
+<span id="cb47-13"><a href="análisis-inferencial.html#cb47-13" tabindex="-1"></a>  Conclusión        <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb47-14"><a href="análisis-inferencial.html#cb47-14" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_edad<span class="sc">$</span>p.value  <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Diferencia significativa&quot;</span>, <span class="st">&quot;Sin diferencia significativa&quot;</span>),</span>
+<span id="cb47-15"><a href="análisis-inferencial.html#cb47-15" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_antig<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Diferencia significativa&quot;</span>, <span class="st">&quot;Sin diferencia significativa&quot;</span>),</span>
+<span id="cb47-16"><a href="análisis-inferencial.html#cb47-16" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_tp<span class="sc">$</span>p.value    <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Asociación significativa&quot;</span>, <span class="st">&quot;Sin asociación significativa&quot;</span>),</span>
+<span id="cb47-17"><a href="análisis-inferencial.html#cb47-17" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_gen<span class="sc">$</span>p.value   <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Asociación significativa&quot;</span>, <span class="st">&quot;Sin asociación significativa&quot;</span>),</span>
+<span id="cb47-18"><a href="análisis-inferencial.html#cb47-18" tabindex="-1"></a>    <span class="fu">ifelse</span>(test_con<span class="sc">$</span>p.value   <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="st">&quot;Asociación significativa&quot;</span>, <span class="st">&quot;Sin asociación significativa&quot;</span>)</span>
+<span id="cb47-19"><a href="análisis-inferencial.html#cb47-19" tabindex="-1"></a>  )</span>
+<span id="cb47-20"><a href="análisis-inferencial.html#cb47-20" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-21"><a href="análisis-inferencial.html#cb47-21" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Resumen de pruebas de hipótesis&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb47-22"><a href="análisis-inferencial.html#cb47-22" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;condensed&quot;</span>),</span>
+<span id="cb47-23"><a href="análisis-inferencial.html#cb47-23" tabindex="-1"></a>                <span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class="table table-striped table-hover table-condensed" style="color: black; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:resumen-inferencial">Table 4.7: </span>Resumen de pruebas de hipótesis
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Prueba
+</th>
+<th style="text-align:left;">
+P-valor
+</th>
+<th style="text-align:left;">
+Conclusión
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Edad
+</td>
+<td style="text-align:left;">
+Wilcoxon-Mann-Whitney
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+<td style="text-align:left;">
+Diferencia significativa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Antigüedad
+</td>
+<td style="text-align:left;">
+Wilcoxon-Mann-Whitney
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+<td style="text-align:left;">
+Diferencia significativa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tipo de personal
+</td>
+<td style="text-align:left;">
+Chi-cuadrado
+</td>
+<td style="text-align:left;">
+0.977
+</td>
+<td style="text-align:left;">
+Sin asociación significativa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Género
+</td>
+<td style="text-align:left;">
+Chi-cuadrado
+</td>
+<td style="text-align:left;">
+0.393
+</td>
+<td style="text-align:left;">
+Sin asociación significativa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tipo de contrato
+</td>
+<td style="text-align:left;">
+Chi-cuadrado
+</td>
+<td style="text-align:left;">
+&lt; 0.001
+</td>
+<td style="text-align:left;">
+Asociación significativa
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-exploratorio-de-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusiones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  },
+  "toolbar": {
+    "position": "fixed"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+h1:análisis-inferencial Análisis Inferencial
+h2:pruebas-de-normalidad Pruebas de normalidad
+tab:normalidad Pruebas de normalidad Anderson-Darling por variable y grupo
+h2:comparación-de-edad-entre-grupos Comparación de edad entre grupos
+tab:wilcox-edad Prueba de Wilcoxon-Mann-Whitney para edad
+h2:comparación-de-antigüedad-entre-grupos Comparación de antigüedad entre grupos
+tab:wilcox-antiguedad Prueba de Wilcoxon-Mann-Whitney para antigüedad
+h2:asociación-entre-grupo-y-tipo-de-personal Asociación entre grupo y tipo de personal
+tab:chi-tipo-personal Prueba chi-cuadrado: grupo vs. tipo de personal
+h2:asociación-entre-grupo-y-género Asociación entre grupo y género
+tab:chi-genero Prueba chi-cuadrado: grupo vs. género
+h2:asociación-entre-grupo-y-tipo-de-contrato Asociación entre grupo y tipo de contrato
+tab:chi-contrato Prueba chi-cuadrado: grupo vs. tipo de contrato
+h2:resumen-de-resultados-inferenciales Resumen de resultados inferenciales
+tab:resumen-inferencial Resumen de pruebas de hipótesis
+

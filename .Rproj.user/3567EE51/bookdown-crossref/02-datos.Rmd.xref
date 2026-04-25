@@ -1,0 +1,15 @@
+h1:datos-y-variables Datos y variables
+h2:fuentes-de-datos Fuentes de datos
+h2:carga-inicial Carga inicial
+tab:head-raw Primeras observaciones — dataset original (primeras 10 variables)
+tab:head-raw-2 Primeras observaciones — dataset original (variables 11 a 21)
+h2:procesamiento-y-decisiones Procesamiento y decisiones
+h2:dataset-analítico Dataset analítico
+tab:head-analitico Primeras observaciones — dataset analítico
+h2:diccionario-de-variables Diccionario de variables
+tab:diccionario Diccionario de variables de análisis
+h2:composición-del-dataset Composición del dataset
+tab:composicion Composición del dataset analítico por grupo
+h2:análisis-de-valores-nulos Análisis de valores nulos
+tab:nulos Valores nulos por variable de análisis
+

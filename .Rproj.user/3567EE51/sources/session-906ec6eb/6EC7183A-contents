@@ -1,0 +1,190 @@
+# Datos y variables
+
+## Fuentes de datos
+
+Los datos provienen de dos extracciones del sistema de información de
+nómina y recursos humanos de la empresa:
+
+- **Empleados activos:** snapshot del personal con vínculo activo a
+marzo de 2026.
+- **Retiros por renuncia voluntaria:** registro de empleados que
+presentaron renuncia voluntaria entre marzo de 2025 y marzo de 2026.
+
+Ambas fuentes comparten la misma estructura de 21 variables, lo que
+permite su integración directa en un único dataset.
+
+## Carga inicial
+
+```{r carga-inicial, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl)
+library(knitr)
+library(kableExtra)
+library(scales)
+library(lubridate)
+
+activos_raw   <- read_excel("data/activos_da17.xlsx",
+                            col_types = c(rep("guess", 19), "text", "text"))
+retirados_raw <- read_excel("data/retirados_da17.xlsx",
+                            col_types = c(rep("guess", 19), "text", "text"))
+
+df_raw <- bind_rows(activos_raw, retirados_raw)
+```
+
+A continuación se presentan las primeras observaciones del dataset
+en su estado original, antes de cualquier transformación:
+
+```{r head-raw}
+df_raw %>%
+  head(6) %>%
+  select(1:10) %>%
+  kable(caption = "Primeras observaciones — dataset original (primeras 10 variables)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = TRUE,
+                font_size = 11) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+```{r head-raw-2}
+df_raw %>%
+  head(6) %>%
+  select(11:21) %>%
+  kable(caption = "Primeras observaciones — dataset original (variables 11 a 21)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = TRUE,
+                font_size = 11) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+## Procesamiento y decisiones
+
+A partir del dataset original se realizaron las siguientes
+transformaciones antes del análisis:
+
+**Exclusión de aprendices.** Se eliminaron los registros con
+`función == "APRENDIZ"` (`r nrow(df_raw %>% filter(función == "APRENDIZ"))`
+registros). Los aprendices tienen un vínculo de formación práctica con
+duración definida, por lo que su desvinculación al finalizar el período
+no constituye renuncia voluntaria en sentido estricto.
+
+**Tratamiento de valores nulos.** Las columnas `fecha_retiro` y
+`tipo_retiro` contenían el carácter `"-"` en los registros de empleados
+activos. Estos valores fueron reemplazados por `NA`.
+
+**Recodificación de estado civil.** Las categorías Divorciado y Viudo
+presentaban frecuencias de 1 caso cada una. Se agruparon junto con
+Separado en la categoría **Otro**.
+
+**Construcción de nivel de función.** A partir de la variable `función`
+se construyó `nivel_funcion` con cinco niveles jerárquicos:
+Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.
+
+```{r procesamiento}
+df <- df_raw %>%
+  filter(función != "APRENDIZ") %>%
+  mutate(
+    estado        = factor(estado, levels = c("Activo", "Retirado")),
+    género        = factor(género, levels = c("Masculino", "Femenino")),
+    tipo_personal = fct_collapse(tipo_personal,
+      "Administrativos" = c("Administrativos", "Administ/Operativ.",
+                            "Coorporativo", "Corporativo"),
+      "Operativos"      = "Operativos"),
+    contrato      = factor(contrato),
+    fecha_retiro  = if_else(fecha_retiro == "-", NA_character_, fecha_retiro),
+    tipo_retiro   = if_else(tipo_retiro  == "-", NA_character_, tipo_retiro),
+    antig_m       = as.numeric(antig_m),
+    edad          = as.numeric(edad),
+    est_civil     = case_when(
+      estado_civil == "Soltero"     ~ "Soltero",
+      estado_civil == "Casado"      ~ "Casado",
+      estado_civil == "Union Libre" ~ "Unión Libre",
+      TRUE                          ~ "Otro"
+    ) %>% factor(levels = c("Soltero", "Casado", "Unión Libre", "Otro")),
+    nivel_funcion = case_when(
+      función == "OPERATIVO"                                            ~ "Operativo",
+      función == "AUXILIAR"                                             ~ "Auxiliar",
+      función == "ASISTENTE"                                            ~ "Asistente",
+      función == "COORDINADOR"                                          ~ "Coordinador",
+      función %in% c("JEFE", "DIRECTOR", "GERENCIA", "VICEPRESIDENTE") ~ "Jefe/Dirección"
+    ) %>% factor(levels = c("Operativo", "Auxiliar", "Asistente",
+                             "Coordinador", "Jefe/Dirección"))
+  )
+```
+
+## Dataset analítico
+
+Tras el procesamiento, el dataset analítico contiene
+`r nrow(df)` registros y las siguientes variables de análisis:
+
+```{r head-analitico}
+df %>%
+  select(estado, edad, antig_m, género, tipo_personal,
+         contrato, est_civil, nivel_funcion) %>%
+  head(6) %>%
+  kable(caption = "Primeras observaciones — dataset analítico") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = TRUE,
+                font_size = 12) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+## Diccionario de variables
+
+```{r diccionario}
+tibble(
+  Variable  = c("estado", "edad", "antig_m", "género",
+                "tipo_personal", "contrato", "est_civil", "nivel_funcion"),
+  Etiqueta  = c("Grupo de análisis", "Edad", "Antigüedad",
+                "Género", "Tipo de personal", "Tipo de contrato",
+                "Estado civil", "Nivel de función"),
+  Tipo      = c("Nominal", "Numérica", "Numérica", "Nominal",
+                "Nominal", "Nominal", "Nominal", "Ordinal"),
+  `Niveles / Rango` = c(
+    "Activo — Retirado",
+    "18 — 88 años",
+    "0 — 193 meses",
+    "Masculino — Femenino",
+    "Operativos — Administrativos",
+    "Término Fijo — Término Indefinido",
+    "Soltero — Casado — Unión Libre — Otro",
+    "Operativo — Auxiliar — Asistente — Coordinador — Jefe/Dirección"
+  )
+) %>%
+  kable(caption = "Diccionario de variables de análisis") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = TRUE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE) %>%
+  column_spec(1, bold = TRUE)
+```
+
+## Composición del dataset
+
+```{r composicion}
+df %>%
+  count(estado) %>%
+  mutate(Porcentaje = percent(n / sum(n), accuracy = 0.1)) %>%
+  rename(Grupo = estado, N = n) %>%
+  kable(caption = "Composición del dataset analítico por grupo") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE) %>%
+  row_spec(1, background = "#e8f0eb") %>%
+  row_spec(2, background = "#f5ede0")
+```
+
+## Análisis de valores nulos
+
+```{r nulos}
+df %>%
+  select(estado, edad, antig_m, género, tipo_personal,
+         contrato, est_civil, nivel_funcion) %>%
+  summarise(across(everything(), ~sum(is.na(.)))) %>%
+  pivot_longer(everything(),
+               names_to  = "Variable",
+               values_to = "Nulos") %>%
+  mutate(`% del total` = percent(Nulos / nrow(df), accuracy = 0.01)) %>%
+  kable(caption = "Valores nulos por variable de análisis") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```

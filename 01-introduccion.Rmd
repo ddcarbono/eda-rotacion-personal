@@ -1,0 +1,54 @@
+# Introducción
+
+## Contexto
+
+La rotación de personal es uno de los fenómenos más estudiados en la 
+gestión del talento humano debido a su impacto directo sobre los costos 
+operativos, la productividad y el clima organizacional. En el sector 
+agroindustrial, donde una proporción mayoritaria del personal es operativa 
+y trabaja en condiciones de campo, la retención de empleados representa 
+un desafío permanente.
+
+El presente análisis se enfoca en la rotación voluntaria — aquella en 
+la que el empleado toma la decisión de retirarse — en una empresa 
+agroindustrial colombiana dedicada al cultivo de palma de aceite, 
+extracción de aceite crudo, refinación y comercialización. A diferencia 
+de los despidos, la renuncia voluntaria refleja una decisión del 
+trabajador y es, en principio, evitable mediante intervenciones 
+organizacionales adecuadas.
+
+## Justificación
+
+El análisis descriptivo e inferencial de la rotación voluntaria permite 
+identificar si existen perfiles sociodemográficos y contractuales 
+asociados a una mayor probabilidad de renuncia. Esta información es 
+valiosa para orientar estrategias de retención hacia los segmentos de 
+mayor riesgo, en lugar de aplicar intervenciones generales de menor 
+efectividad.
+
+## Pregunta de investigación
+
+¿Existen diferencias estadísticamente significativas en las 
+características sociodemográficas y contractuales entre los empleados 
+que renunciaron voluntariamente entre marzo de 2025 y marzo de 2026, 
+y los empleados que permanecían activos en marzo de 2026?
+
+## Objetivos
+
+**Objetivo general**
+
+Explorar y comparar el perfil sociodemográfico y contractual de los 
+empleados activos y los empleados retirados por renuncia voluntaria 
+mediante análisis descriptivo e inferencial.
+
+**Objetivos específicos**
+
+- Describir la distribución de los empleados activos y retirados según 
+tipo de personal, género, tipo de contrato, departamento y antigüedad.
+- Comparar la edad y la antigüedad entre ambos grupos mediante pruebas 
+de hipótesis apropiadas según los supuestos de los datos.
+- Evaluar si existe asociación estadísticamente significativa entre el 
+grupo (activo vs. retirado) y las variables categóricas tipo de personal, 
+género y tipo de contrato.
+- Identificar los segmentos con mayor concentración de renuncias 
+voluntarias en el período analizado.
