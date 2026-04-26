@@ -493,10 +493,7 @@ Femenino
 <span id="cb13-14"><a href="análisis-exploratorio-de-datos.html#cb13-14" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Tasa de rotación voluntaria&quot;</span>) <span class="sc">+</span></span>
 <span id="cb13-15"><a href="análisis-exploratorio-de-datos.html#cb13-15" tabindex="-1"></a>  tema</span></code></pre></div>
 <p><img src="eda_rotacion_da17_files/figure-html/grafico-tasa-genero-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>Las mujeres presentan una tasa de rotación de 8.7%, frente a 6.5%
-en los hombres. La diferencia existe pero debe leerse con cautela:
-las mujeres representan apenas el 9.5% de la planta activa, por lo
-que el número absoluto de renuncias femeninas es reducido.</p>
+<p>Las mujeres presentan una tasa de 8.7% frente a 6.5% en los hombres. La diferencia es pequeña en términos absolutos dado que las mujeres son apenas el 9.5% del total.</p>
 </div>
 <div id="tipo-de-contrato" class="section level4 hasAnchor" number="3.1.3.3">
 <h4><span class="header-section-number">3.1.3.3</span> Tipo de contrato<a href="análisis-exploratorio-de-datos.html#tipo-de-contrato" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -720,10 +717,7 @@ Otro
 <span id="cb17-14"><a href="análisis-exploratorio-de-datos.html#cb17-14" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Tasa de rotación voluntaria&quot;</span>) <span class="sc">+</span></span>
 <span id="cb17-15"><a href="análisis-exploratorio-de-datos.html#cb17-15" tabindex="-1"></a>  tema</span></code></pre></div>
 <p><img src="eda_rotacion_da17_files/figure-html/grafico-tasa-estcivil-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>Los solteros presentan la tasa más alta (8.8%), seguidos de quienes
-están en unión libre (6.6%) y los casados (5.9%). La categoría Otro
-registra 0.0%, pero este resultado debe interpretarse con precaución
-dado que agrupa categorías con muy pocos casos.</p>
+<p>Los solteros presentan la tasa más alta (8.8%), seguidos de unión libre (6.6%) y casados (5.9%). La categoría Otro no registra retirados en el período, aunque agrupa muy pocos casos.</p>
 </div>
 <div id="nivel-de-función" class="section level4 hasAnchor" number="3.1.3.5">
 <h4><span class="header-section-number">3.1.3.5</span> Nivel de función<a href="análisis-exploratorio-de-datos.html#nivel-de-función" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1047,7 +1041,7 @@ distribución de edad de los retirados está claramente desplazada hacia
 la izquierda respecto a la de los activos, con una concentración
 marcada entre los 20 y 35 años. Los activos presentan una distribución
 más amplia y uniforme, con mayor presencia en rangos de edad intermedios
-y altos. La renuncia voluntaria se concentra en empleados jóvenes con poco tiempo en la empresa.</p>
+y altos.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="análisis-exploratorio-de-datos.html#cb22-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> estado, <span class="at">y =</span> edad, <span class="at">fill =</span> estado)) <span class="sc">+</span></span>
 <span id="cb22-2"><a href="análisis-exploratorio-de-datos.html#cb22-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.85</span>, <span class="at">outlier.shape =</span> <span class="dv">21</span>,</span>
 <span id="cb22-3"><a href="análisis-exploratorio-de-datos.html#cb22-3" tabindex="-1"></a>               <span class="at">outlier.fill =</span> <span class="st">&quot;white&quot;</span>,</span>
@@ -1219,9 +1213,12 @@ Retirado
 </tr>
 </tbody>
 </table>
-<p>La antigüedad media de los retirados es de
-25.2 meses, frente a
-74.3 meses en los activos.</p>
+<p>Los activos tienen una antigüedad media de
+74.3 meses (DE 63.5, CV del 85.5%),
+reflejo de una plantilla heterogénea con empleados recientes y otros de larga
+trayectoria. Los retirados promedian
+25.2 meses (DE 31.7, CV del 126%),
+y el 50% tiene 16 meses o menos.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="análisis-exploratorio-de-datos.html#cb25-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> antig_m, <span class="at">fill =</span> estado)) <span class="sc">+</span></span>
 <span id="cb25-2"><a href="análisis-exploratorio-de-datos.html#cb25-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
 <span id="cb25-3"><a href="análisis-exploratorio-de-datos.html#cb25-3" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">25</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
@@ -1682,14 +1679,7 @@ Termino Indefinido
 <span id="cb36-15"><a href="análisis-exploratorio-de-datos.html#cb36-15" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Porcentaje dentro del grupo&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Grupo&quot;</span>) <span class="sc">+</span></span>
 <span id="cb36-16"><a href="análisis-exploratorio-de-datos.html#cb36-16" tabindex="-1"></a>  tema</span></code></pre></div>
 <p><img src="eda_rotacion_da17_files/figure-html/barras-contrato-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>El tipo de contrato muestra la diferencia más llamativa de todas las
-variables categóricas. Mientras que entre los activos la distribución
-es relativamente equilibrada (54% término fijo, 46% término indefinido),
-entre los retirados el 87.5% tenía contrato a término fijo y solo el
-12.5% contrato indefinido. Combinado con la tasa de rotación de 10.5%
-para término fijo frente a 1.9% para término indefinido, este hallazgo
-sugiere fuertemente que el tipo de contrato es el factor más
-determinante de la renuncia voluntaria en la empresa.</p>
+<p>Los empleados con contrato a término fijo tienen una tasa de 10.5%, más de cinco veces la de término indefinido (1.9%). Es la variable con mayor diferencia entre categorías.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="análisis-exploratorio-de-datos.html#cb37-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="análisis-exploratorio-de-datos.html#cb37-2" tabindex="-1"></a>  <span class="fu">group_by</span>(contrato, estado) <span class="sc">%&gt;%</span></span>
 <span id="cb37-3"><a href="análisis-exploratorio-de-datos.html#cb37-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(edad), <span class="at">de =</span> <span class="fu">sd</span>(edad), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>

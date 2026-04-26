@@ -203,10 +203,7 @@ df %>%
   tema
 ```
 
-Las mujeres presentan una tasa de rotación de 8.7%, frente a 6.5%
-en los hombres. La diferencia existe pero debe leerse con cautela:
-las mujeres representan apenas el 9.5% de la planta activa, por lo
-que el número absoluto de renuncias femeninas es reducido.
+Las mujeres presentan una tasa de 8.7% frente a 6.5% en los hombres. La diferencia es pequeña en términos absolutos dado que las mujeres son apenas el 9.5% del total.
 
 #### Tipo de contrato
 
@@ -286,10 +283,7 @@ df %>%
   tema
 ```
 
-Los solteros presentan la tasa más alta (8.8%), seguidos de quienes
-están en unión libre (6.6%) y los casados (5.9%). La categoría Otro
-registra 0.0%, pero este resultado debe interpretarse con precaución
-dado que agrupa categorías con muy pocos casos.
+Los solteros presentan la tasa más alta (8.8%), seguidos de unión libre (6.6%) y casados (5.9%). La categoría Otro no registra retirados en el período, aunque agrupa muy pocos casos.
 
 #### Nivel de función
 
@@ -389,7 +383,7 @@ distribución de edad de los retirados está claramente desplazada hacia
 la izquierda respecto a la de los activos, con una concentración
 marcada entre los 20 y 35 años. Los activos presentan una distribución
 más amplia y uniforme, con mayor presencia en rangos de edad intermedios
-y altos. La renuncia voluntaria se concentra en empleados jóvenes con poco tiempo en la empresa.
+y altos.
 
 ```{r boxplot-edad}
 
@@ -467,9 +461,12 @@ df %>%
   row_spec(2, background = "#f5ede0")
 ```
 
-La antigüedad media de los retirados es de
-`r round(mean(df$antig_m[df$estado=="Retirado"]), 1)` meses, frente a
-`r round(mean(df$antig_m[df$estado=="Activo"]), 1)` meses en los activos.
+Los activos tienen una antigüedad media de
+`r round(mean(df$antig_m[df$estado=="Activo"]), 1)` meses (DE 63.5, CV del 85.5%),
+reflejo de una plantilla heterogénea con empleados recientes y otros de larga
+trayectoria. Los retirados promedian
+`r round(mean(df$antig_m[df$estado=="Retirado"]), 1)` meses (DE 31.7, CV del 126%),
+y el 50% tiene 16 meses o menos.
 
 ```{r hist-antiguedad}
 ggplot(df, aes(x = antig_m, fill = estado)) +
@@ -726,14 +723,7 @@ df %>%
   tema
 ```
 
-El tipo de contrato muestra la diferencia más llamativa de todas las
-variables categóricas. Mientras que entre los activos la distribución
-es relativamente equilibrada (54% término fijo, 46% término indefinido),
-entre los retirados el 87.5% tenía contrato a término fijo y solo el
-12.5% contrato indefinido. Combinado con la tasa de rotación de 10.5%
-para término fijo frente a 1.9% para término indefinido, este hallazgo
-sugiere fuertemente que el tipo de contrato es el factor más
-determinante de la renuncia voluntaria en la empresa.
+Los empleados con contrato a término fijo tienen una tasa de 10.5%, más de cinco veces la de término indefinido (1.9%). Es la variable con mayor diferencia entre categorías.
 
 ```{r error-contrato}
 df %>%
