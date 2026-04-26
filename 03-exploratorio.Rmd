@@ -164,8 +164,7 @@ df %>%
 ```
 
 Las tasas de rotación son prácticamente iguales entre operativos (6.8%)
-y administrativos (6.7%), lo que indica que el tipo de personal no
-diferencia el riesgo de renuncia voluntaria en esta empresa.
+y administrativos (6.7%), lo que sugiere que el tipo de personal no está asociado a la renuncia voluntaria.
 
 #### Género
 
