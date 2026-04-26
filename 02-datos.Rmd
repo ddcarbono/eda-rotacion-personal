@@ -65,9 +65,7 @@ activos. Estos valores fueron reemplazados por `NA`.
 presentaban frecuencias de 1 caso cada una. Se agruparon junto con
 Separado en la categoría **Otro**.
 
-**Construcción de nivel de función.** A partir de la variable `función`
-se construyó `nivel_función` con cinco niveles jerárquicos:
-Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.
+**Construcción de nivel de función.** A partir de la variable función se construyó nivel_función con seis niveles jerárquicos: Operativo, Auxiliar, Asistente, Coordinador, Jefe y Director. Las categorías GERENCIA y VICEPRESIDENTE se agruparon con DIRECTOR por representar posiciones de dirección superior con muy pocos casos en el dataset.
 
 ```{r procesamiento}
 df <- df_raw %>%
@@ -91,13 +89,14 @@ df <- df_raw %>%
       TRUE                          ~ "Otro"
     ) %>% factor(levels = c("Soltero", "Casado", "Unión Libre", "Otro")),
     nivel_función = case_when(
-      función == "OPERATIVO"                                            ~ "Operativo",
-      función == "AUXILIAR"                                             ~ "Auxiliar",
-      función == "ASISTENTE"                                            ~ "Asistente",
-      función == "COORDINADOR"                                          ~ "Coordinador",
-      función %in% c("JEFE", "DIRECTOR", "GERENCIA", "VICEPRESIDENTE") ~ "Jefe/Dirección"
+      función == "OPERATIVO"   ~ "Operativo",
+      función == "AUXILIAR"    ~ "Auxiliar",
+      función == "ASISTENTE"   ~ "Asistente",
+      función == "COORDINADOR" ~ "Coordinador",
+      función == "JEFE"        ~ "Jefe",
+      función %in% c("DIRECTOR", "GERENCIA", "VICEPRESIDENTE") ~ "Director"
     ) %>% factor(levels = c("Operativo", "Auxiliar", "Asistente",
-                             "Coordinador", "Jefe/Dirección"))
+                             "Coordinador", "Jefe", "Director"))
   )
 ```
 
@@ -137,7 +136,7 @@ tibble(
     "Operativos — Administrativos",
     "Término Fijo — Término Indefinido",
     "Soltero — Casado — Unión Libre — Otro",
-    "Operativo — Auxiliar — Asistente — Coordinador — Jefe/Dirección"
+    "Operativo — Auxiliar — Asistente — Coordinador — Jefe — Director"
   )
 ) %>%
   kable(caption = "Diccionario de variables de análisis") %>%
@@ -178,3 +177,5 @@ df %>%
                 full_width = FALSE) %>%
   row_spec(0, background = "#405731", color = "white", bold = TRUE)
 ```
+
+No se observan valores nulos en los datos.

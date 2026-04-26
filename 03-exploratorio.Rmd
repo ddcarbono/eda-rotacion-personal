@@ -34,13 +34,14 @@ df <- bind_rows(activos_raw, retirados_raw) %>%
       TRUE                          ~ "Otro"
     ) %>% factor(levels = c("Soltero", "Casado", "Unión Libre", "Otro")),
     nivel_función = case_when(
-      función == "OPERATIVO"                                            ~ "Operativo",
-      función == "AUXILIAR"                                             ~ "Auxiliar",
-      función == "ASISTENTE"                                            ~ "Asistente",
-      función == "COORDINADOR"                                          ~ "Coordinador",
-      función %in% c("JEFE", "DIRECTOR", "GERENCIA", "VICEPRESIDENTE") ~ "Jefe/Dirección"
+      función == "OPERATIVO"   ~ "Operativo",
+      función == "AUXILIAR"    ~ "Auxiliar",
+      función == "ASISTENTE"   ~ "Asistente",
+      función == "COORDINADOR" ~ "Coordinador",
+      función == "JEFE"        ~ "Jefe",
+      función %in% c("DIRECTOR", "GERENCIA", "VICEPRESIDENTE") ~ "Director"
     ) %>% factor(levels = c("Operativo", "Auxiliar", "Asistente",
-                             "Coordinador", "Jefe/Dirección")),
+                             "Coordinador", "Jefe", "Director")),
     fecha_retiro_dt = as.Date(as.numeric(fecha_retiro), origin = "1899-12-30"),
     mes_retiro      = floor_date(fecha_retiro_dt, "month")
   )
@@ -68,9 +69,7 @@ tasa_general <- n_retirados / n_activos
 
 ### Tasa general
 
-La tasa de rotación voluntaria anual se calcula como el cociente entre
-el número de renuncias voluntarias en el período y el total de empleados
-activos al cierre del mismo.
+La tasa de rotación voluntaria anual se calcula dividiendo el número de renuncias del período entre el total de empleados activos al cierre del mismo.
 
 ```{r tasa-general}
 tibble(
@@ -90,6 +89,10 @@ tibble(
                 full_width = FALSE) %>%
   row_spec(0, background = "#405731", color = "white", bold = TRUE)
 ```
+
+Una tasa del 7.2% significa que por cada 100 empleados activos,
+aproximadamente 7 presentaron renuncia voluntaria durante el año.
+En términos absolutos, 88 personas dejaron la empresa en doce meses.
 
 ### Retiros por mes
 
@@ -112,14 +115,11 @@ df %>%
   tema
 ```
 
-El análisis mensual revela una distribución irregular de las renuncias 
-a lo largo del período. Enero de 2026 concentra el mayor número de 
-retiros con 16 casos, seguido de marzo, julio y agosto de 2025 con 
-10 casos cada uno. Los meses de abril y mayo de 2025 registran la 
-menor actividad con 4 renuncias cada uno, y septiembre de 2025 no 
-presenta ningún retiro. No se observa un patrón estacional claro, 
-aunque el pico de enero podría estar asociado a decisiones tomadas 
-al cierre del año anterior.
+Enero de 2026 concentra el mayor número de
+retiros con 16 casos, seguido de marzo, julio y agosto de 2025 con
+10 casos cada uno. Los meses de abril y mayo de 2025 registran la
+menor actividad con 4 renuncias cada uno, y septiembre de 2025 no
+presenta ningún retiro. No se observa un patrón estacional claro, únicamente destaca un pico en enero de 2026.
 
 ### Tasa de rotación por segmento
 
@@ -127,44 +127,23 @@ La tasa de rotación por segmento se calcula como el número de retirados
 en cada categoría dividido entre el total de empleados en esa categoría,
 expresado como porcentaje.
 
-```{r tasas-segmento}
-calcular_tasa <- function(var) {
-  df %>%
-    count(estado, {{ var }}) %>%
-    pivot_wider(names_from = estado, values_from = n, values_fill = 0) %>%
-    mutate(
-      Total = Activo + Retirado,
-      Tasa  = percent(Retirado / Total, accuracy = 0.1)
-    ) %>%
-    rename(Categoría = {{ var }})
-}
+#### Tipo de personal
 
-bind_rows(
-  calcular_tasa(tipo_personal) %>% mutate(Variable = "Tipo de personal"),
-  calcular_tasa(género)        %>% mutate(Variable = "Género"),
-  calcular_tasa(contrato)      %>% mutate(Variable = "Tipo de contrato"),
-  calcular_tasa(est_civil)     %>% mutate(Variable = "Estado civil"),
-  calcular_tasa(nivel_función) %>% mutate(Variable = "Nivel de función")
-) %>%
-  select(Variable, Categoría, Activo, Retirado, Total, Tasa) %>%
-  kable(caption = "Tasa de rotación voluntaria por segmento") %>%
+```{r tasa-tipo-personal}
+df %>%
+  count(estado, tipo_personal) %>%
+  pivot_wider(names_from = estado, values_from = n, values_fill = 0) %>%
+  mutate(
+    Total = Activo + Retirado,
+    Tasa  = percent(Retirado / Total, accuracy = 0.1)
+  ) %>%
+  rename(Categoría = tipo_personal) %>%
+  select(Categoría, Activo, Retirado, Total, Tasa) %>%
+  kable(caption = "Tasa de rotación voluntaria por tipo de personal") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = FALSE) %>%
   row_spec(0, background = "#405731", color = "white", bold = TRUE)
 ```
-
-La tabla de tasas por segmento revela diferencias notables entre 
-categorías. El tipo de contrato muestra la variación más marcada: 
-los empleados con contrato a término fijo presentan una tasa de 
-rotación del 10.5%, más de cinco veces superior a la de los empleados 
-con contrato indefinido (1.9%). Por estado civil, los solteros tienen 
-la mayor tasa (8.8%), seguidos de quienes están en unión libre (6.6%) 
-y los casados (5.9%). La categoría Otro registra una tasa de 0.0%, 
-aunque este resultado debe interpretarse con cautela dado que agrupa 
-categorías con muy pocos casos. Por género, las mujeres presentan 
-una tasa ligeramente superior (8.7%) frente a los hombres (6.5%). 
-Por tipo de personal y nivel de función las diferencias son menores, 
-con tasas entre 4.2% y 8.0%.
 
 ```{r grafico-tasa-tipo-personal}
 df %>%
@@ -182,6 +161,28 @@ df %>%
   labs(title = "Tasa de rotación por tipo de personal",
        x = NULL, y = "Tasa de rotación voluntaria") +
   tema
+```
+
+Las tasas de rotación son prácticamente iguales entre operativos (6.8%)
+y administrativos (6.7%), lo que indica que el tipo de personal no
+diferencia el riesgo de renuncia voluntaria en esta empresa.
+
+#### Género
+
+```{r tasa-genero}
+df %>%
+  count(estado, género) %>%
+  pivot_wider(names_from = estado, values_from = n, values_fill = 0) %>%
+  mutate(
+    Total = Activo + Retirado,
+    Tasa  = percent(Retirado / Total, accuracy = 0.1)
+  ) %>%
+  rename(Categoría = género) %>%
+  select(Categoría, Activo, Retirado, Total, Tasa) %>%
+  kable(caption = "Tasa de rotación voluntaria por género") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
 ```
 
 ```{r grafico-tasa-genero}
@@ -202,6 +203,29 @@ df %>%
   tema
 ```
 
+Las mujeres presentan una tasa de rotación de 8.7%, frente a 6.5%
+en los hombres. La diferencia existe pero debe leerse con cautela:
+las mujeres representan apenas el 9.5% de la planta activa, por lo
+que el número absoluto de renuncias femeninas es reducido.
+
+#### Tipo de contrato
+
+```{r tasa-contrato}
+df %>%
+  count(estado, contrato) %>%
+  pivot_wider(names_from = estado, values_from = n, values_fill = 0) %>%
+  mutate(
+    Total = Activo + Retirado,
+    Tasa  = percent(Retirado / Total, accuracy = 0.1)
+  ) %>%
+  rename(Categoría = contrato) %>%
+  select(Categoría, Activo, Retirado, Total, Tasa) %>%
+  kable(caption = "Tasa de rotación voluntaria por tipo de contrato") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
 ```{r grafico-tasa-contrato}
 df %>%
   count(estado, contrato) %>%
@@ -218,6 +242,30 @@ df %>%
   labs(title = "Tasa de rotación por tipo de contrato",
        x = NULL, y = "Tasa de rotación voluntaria") +
   tema
+```
+
+El tipo de contrato muestra la diferencia más marcada de todas las
+variables analizadas. Los empleados con contrato a término fijo
+tienen una tasa de rotación de 10.5%, más de cinco veces superior
+a la de los empleados con contrato indefinido (1.9%). Este resultado
+es el hallazgo más destacado del análisis descriptivo.
+
+#### Estado civil
+
+```{r tasa-estcivil}
+df %>%
+  count(estado, est_civil) %>%
+  pivot_wider(names_from = estado, values_from = n, values_fill = 0) %>%
+  mutate(
+    Total = Activo + Retirado,
+    Tasa  = percent(Retirado / Total, accuracy = 0.1)
+  ) %>%
+  rename(Categoría = est_civil) %>%
+  select(Categoría, Activo, Retirado, Total, Tasa) %>%
+  kable(caption = "Tasa de rotación voluntaria por estado civil") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
 ```
 
 ```{r grafico-tasa-estcivil}
@@ -238,6 +286,29 @@ df %>%
   tema
 ```
 
+Los solteros presentan la tasa más alta (8.8%), seguidos de quienes
+están en unión libre (6.6%) y los casados (5.9%). La categoría Otro
+registra 0.0%, pero este resultado debe interpretarse con precaución
+dado que agrupa categorías con muy pocos casos.
+
+#### Nivel de función
+
+```{r tasa-funcion}
+df %>%
+  count(estado, nivel_función) %>%
+  pivot_wider(names_from = estado, values_from = n, values_fill = 0) %>%
+  mutate(
+    Total = Activo + Retirado,
+    Tasa  = percent(Retirado / Total, accuracy = 0.1)
+  ) %>%
+  rename(Categoría = nivel_función) %>%
+  select(Categoría, Activo, Retirado, Total, Tasa) %>%
+  kable(caption = "Tasa de rotación voluntaria por nivel de función") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
 ```{r grafico-tasa-funcion}
 df %>%
   count(estado, nivel_función) %>%
@@ -255,6 +326,11 @@ df %>%
        x = NULL, y = "Tasa de rotación voluntaria") +
   tema
 ```
+
+Las tasas por nivel de función oscilan entre 4.2% en asistentes y
+8.0% en auxiliares. El nivel Director no registra retirados en el
+período. Las diferencias entre niveles son moderadas comparadas con
+las observadas por tipo de contrato.
 
 ## Variables numéricas
 
@@ -283,12 +359,16 @@ df %>%
   row_spec(2, background = "#f5ede0")
 ```
 
-La distribución de la edad muestra diferencias marcadas entre grupos.
-Los empleados activos presentan una edad media de
-`r round(mean(df$edad[df$estado=="Activo"]), 1)` años, mientras que
-los retirados tienen una media de
-`r round(mean(df$edad[df$estado=="Retirado"]), 1)` años, lo que sugiere
-que las renuncias voluntarias se concentran en empleados más jóvenes.
+Los activos tienen una edad media de
+`r round(mean(df$edad[df$estado=="Activo"]), 1)` años con una
+desviación estándar de 11.5 años (CV del 30%). Los retirados, en
+cambio, tienen una media de
+`r round(mean(df$edad[df$estado=="Retirado"]), 1)` años con una
+desviación de apenas 6.6 años (CV del 22%), un grupo mucho más
+homogéneo y concentrado. El 50% de los retirados tiene 29.5 años
+o menos, frente a 36 años en los activos, y el rango intercuartílico
+es de 7 años versus 18 años respectivamente. Las renuncias
+voluntarias se concentran en empleados más jóvenes.
 
 ```{r hist-edad}
 ggplot(df, aes(x = edad, fill = estado)) +
@@ -304,14 +384,12 @@ ggplot(df, aes(x = edad, fill = estado)) +
   tema
 ```
 
-El histograma confirma visualmente la diferencia entre grupos. La 
-distribución de edad de los retirados está claramente desplazada hacia 
-la izquierda respecto a la de los activos, con una concentración 
-marcada entre los 20 y 35 años. Los activos presentan una distribución 
-más amplia y uniforme, con mayor presencia en rangos de edad intermedios 
-y altos. Esto sugiere que la renuncia voluntaria es un fenómeno 
-predominantemente asociado a empleados jóvenes en etapas tempranas 
-de su trayectoria laboral en la empresa.
+El histograma confirma visualmente la diferencia entre grupos. La
+distribución de edad de los retirados está claramente desplazada hacia
+la izquierda respecto a la de los activos, con una concentración
+marcada entre los 20 y 35 años. Los activos presentan una distribución
+más amplia y uniforme, con mayor presencia en rangos de edad intermedios
+y altos. La renuncia voluntaria se concentra en empleados jóvenes con poco tiempo en la empresa.
 
 ```{r boxplot-edad}
 
@@ -331,13 +409,11 @@ ggplot(df, aes(x = estado, y = edad, fill = estado)) +
   theme(legend.position = "none")
 ```
 
-Los boxplots refuerzan este hallazgo. La mediana de edad de los 
-retirados (29.5 años) es notablemente inferior a la de los activos 
-(36 años), y el rango intercuartílico de los retirados (7 años) es 
-mucho más estrecho que el de los activos (18 años), lo que indica 
-que los retirados conforman un grupo etario más homogéneo y joven. 
-Los activos presentan mayor dispersión y varios valores atípicos en 
-edades avanzadas.
+El 50% de los retirados tiene
+29.5 años o menos, notablemente inferior al 50% de los activos
+(36 años), y el rango intercuartílico de los retirados (7 años) es
+mucho más estrecho que el de los activos (18 años), lo que indica
+que los retirados conforman un grupo más homogéneo y joven.
 
 ```{r boxplot-edad-funcion}
 
@@ -347,7 +423,7 @@ ggplot(df, aes(x = nivel_función, y = edad, fill = nivel_función)) +
                color = "#b08a2d",
                width = 0.6) +
   scale_fill_manual(values = c("#405731", "#5a7a4a", "#7a9e6e",
-                                "#bbcac1", "#d4e2de")) +
+                                "#9eb89a", "#bbcac1", "#d4e2de")) +
   labs(title = "Distribución de edad por nivel de función",
        x     = NULL,
        y     = "Edad (años)") +
@@ -355,11 +431,16 @@ ggplot(df, aes(x = nivel_función, y = edad, fill = nivel_función)) +
   theme(legend.position = "none")
 ```
 
-Al desagregar por nivel de función, se observa que la edad mediana 
-aumenta progresivamente con el nivel jerárquico, desde 36 años en 
-operativos hasta 43 años en Jefe/Dirección. Esto refleja la trayectoria 
-natural de ascenso — los cargos directivos son ocupados por personas 
-con mayor experiencia y edad acumulada.
+Los niveles Operativo, Auxiliar y Asistente muestran distribuciones
+de edad similares: el 50% central se ubica alrededor de los 34 a
+36 años y los rangos intercuartílicos son amplios (16 a 18 años),
+lo que indica heterogeneidad dentro de cada nivel.
+Coordinador presenta una distribución más estrecha — el 50% de los
+coordinadores tiene entre 29 y 37.5 años (IQR de 8.5 años) —
+sugiriendo un grupo más homogéneo en edad. Jefe y Director muestran
+valores más altos: el 50% de los jefes tiene entre 36 y 49 años,
+y el 50% de los directores entre 36 y 59 años, con el IQR más amplio
+de todos (22.5 años), reflejando mayor dispersión en este nivel.
 
 ### Antigüedad
 
@@ -389,8 +470,6 @@ df %>%
 La antigüedad media de los retirados es de
 `r round(mean(df$antig_m[df$estado=="Retirado"]), 1)` meses, frente a
 `r round(mean(df$antig_m[df$estado=="Activo"]), 1)` meses en los activos.
-Esto indica que las renuncias ocurren predominantemente en empleados
-con poco tiempo en la empresa.
 
 ```{r hist-antiguedad}
 ggplot(df, aes(x = antig_m, fill = estado)) +
@@ -406,15 +485,13 @@ ggplot(df, aes(x = antig_m, fill = estado)) +
   tema
 ```
 
-La distribución de antigüedad muestra una asimetría pronunciada hacia 
-la derecha en ambos grupos, con una concentración muy marcada en los 
-primeros meses de vinculación. Sin embargo, la concentración es 
-notablemente más extrema en los retirados — la gran mayoría se 
-encuentra en el rango de 0 a 50 meses, mientras que los activos 
-presentan una distribución más dispersa a lo largo de todo el rango, 
-con presencia significativa en antigüedades superiores a 100 meses. 
-Esto indica que el riesgo de renuncia voluntaria es especialmente 
-alto en los primeros años de vinculación.
+La distribución de antigüedad muestra una asimetría pronunciada hacia
+la derecha en ambos grupos, con una concentración muy marcada en los
+primeros meses de vinculación. Sin embargo, la concentración es
+notablemente más extrema en los retirados — la gran mayoría se
+encuentra en el rango de 0 a 50 meses, mientras que los activos
+presentan una distribución más dispersa a lo largo de todo el rango,
+con presencia significativa en antigüedades superiores a 100 meses.
 
 ```{r boxplot-antiguedad}
 
@@ -434,13 +511,11 @@ ggplot(df, aes(x = estado, y = antig_m, fill = estado)) +
   theme(legend.position = "none")
 ```
 
-La diferencia en antigüedad entre grupos es la más marcada de todas 
-las variables analizadas. La mediana de antigüedad de los retirados 
-es de apenas 16 meses, frente a 46 meses en los activos. El rango 
-intercuartílico de los retirados (26.25 meses) es cuatro veces menor 
-que el de los activos (115 meses), lo que confirma que quienes 
-renuncian voluntariamente son predominantemente empleados recientes, 
-con menos de dos años en la empresa en la mitad de los casos.
+El 50% de los retirados tiene 16 meses o
+menos de antigüedad, frente a 46 meses en los activos. El rango
+intercuartílico de los retirados (26.25 meses) es cuatro veces menor
+que el de los activos (115 meses), lo que confirma que quienes
+renuncian voluntariamente son predominantemente empleados recientes.
 
 ```{r boxplot-antiguedad-funcion}
 
@@ -450,7 +525,7 @@ ggplot(df, aes(x = nivel_función, y = antig_m, fill = nivel_función)) +
                color = "#b08a2d",
                width = 0.6) +
   scale_fill_manual(values = c("#405731", "#5a7a4a", "#7a9e6e",
-                                "#bbcac1", "#d4e2de")) +
+                                "#9eb89a", "#bbcac1", "#d4e2de")) +
   labs(title = "Distribución de antigüedad por nivel de función",
        x     = NULL,
        y     = "Antigüedad (meses)") +
@@ -458,12 +533,16 @@ ggplot(df, aes(x = nivel_función, y = antig_m, fill = nivel_función)) +
   theme(legend.position = "none")
 ```
 
-La antigüedad mediana aumenta de forma clara con el nivel jerárquico. 
-Los operativos tienen una mediana de 36 meses, los auxiliares 39 meses, 
-los asistentes 88 meses, los coordinadores 56 meses y el nivel 
-Jefe/Dirección 112 meses. Este patrón es coherente con la naturaleza 
-de los cargos — los niveles más altos requieren mayor experiencia 
-acumulada y exhiben mayor estabilidad laboral.
+Operativo y Auxiliar muestran distribuciones amplias y asimétricas:
+el 50% de los operativos tiene entre 9 y 128 meses (IQR de 119 meses)
+y el 50% de los auxiliares entre 17 y 120 meses (IQR de 102 meses),
+lo que refleja una mezcla de personal reciente y personal con larga
+trayectoria. Asistente y Coordinador presentan valores intermedios —
+el 50% central de los asistentes se ubica entre 31 y 144 meses, y
+el de los coordinadores entre 20 y 118 meses. Por su parte, el 50% de los jefes tiene entre 17 y 169 meses
+(IQR de 152 meses, el más amplio de todos), y el 50% de los directores
+entre 73 y 192 meses, con todos sus valores por encima de los
+73 meses de antigüedad.
 
 ### Relación entre edad y antigüedad
 
@@ -479,14 +558,13 @@ ggplot(df, aes(x = edad, y = antig_m, color = estado)) +
   tema
 ```
 
-El diagrama de dispersión muestra una correlación positiva entre edad 
-y antigüedad en ambos grupos — a mayor edad, mayor antigüedad esperada. 
-Sin embargo, los retirados se concentran en la esquina inferior izquierda 
-del plano (jóvenes con poca antigüedad), mientras que los activos se 
-distribuyen a lo largo de toda la diagonal. La pendiente de la línea 
-de tendencia es similar entre grupos, pero los retirados muestran 
-mayor dispersión relativa, lo que sugiere que algunos empleados jóvenes 
-con baja antigüedad renuncian independientemente de su edad exacta.
+El diagrama de dispersión muestra una correlación positiva entre edad
+y antigüedad en ambos grupos — a mayor edad, mayor antigüedad esperada.
+Sin embargo, los retirados se concentran en la esquina inferior izquierda
+del plano (jóvenes con poca antigüedad), mientras que los activos se
+distribuyen a lo largo de toda la diagonal. La pendiente de la línea
+de tendencia es similar entre grupos, pero los retirados muestran
+mayor dispersión relativa.
 
 ## Variables categóricas
 
@@ -524,13 +602,7 @@ df %>%
   tema
 ```
 
-La distribución por tipo de personal es prácticamente idéntica entre 
-grupos. Tanto activos como retirados están compuestos en un 85% por 
-operativos y en un 15% por administrativos. Esta similitud sugiere 
-que el tipo de personal no es un factor diferenciador de la renuncia 
-voluntaria — la probabilidad de renunciar es similar independientemente 
-de si el empleado es operativo o administrativo, como confirman las 
-tasas de rotación (6.8% y 6.7% respectivamente).
+La distribución por tipo de personal es prácticamente idéntica entre grupos: el 85% son operativos y el 15% administrativos en ambos casos. Las tasas de rotación son similares entre los dos tipos: 6.8% en operativos y 6.7% en administrativos
 
 ```{r error-tipo-personal}
 df %>%
@@ -547,6 +619,14 @@ df %>%
        x = NULL, y = "Edad (años)", color = "Grupo") +
   tema
 ```
+
+En ambos tipos de personal los retirados son más jóvenes que los
+activos. La diferencia es más pronunciada en operativos — los activos
+tienen una edad media de 38.7 años (DE 11.5) frente a 29.1 años
+(DE 6.0) en los retirados — que en administrativos, donde la
+diferencia es de 3 años (36.7 vs. 33.7). Los retirados operativos
+además forman un grupo más homogéneo, con una dispersión
+considerablemente menor que la de sus pares activos.
 
 ### Género
 
@@ -582,13 +662,11 @@ df %>%
   tema
 ```
 
-La empresa presenta una composición de género marcadamente masculina — 
-el 90.5% de los activos y el 87.5% de los retirados son hombres. 
-Esta distribución refleja la naturaleza de las operaciones agroindustriales 
-de campo. La proporción femenina es ligeramente mayor entre los retirados 
-(12.5%) que entre los activos (9.5%), consistente con la tasa de 
-rotación algo superior observada en mujeres (8.7% vs. 6.5%), aunque 
-la diferencia absoluta es pequeña dado el bajo número de mujeres 
+La empresa presenta una composición de género marcadamente masculina —
+el 90.5% de los activos y el 87.5% de los retirados son hombres. La proporción femenina es ligeramente mayor entre los retirados
+(12.5%) que entre los activos (9.5%), consistente con la tasa de
+rotación algo superior observada en mujeres (8.7% vs. 6.5%), aunque
+la diferencia absoluta es pequeña dado el bajo número de mujeres
 en la planta.
 
 ```{r error-genero}
@@ -606,6 +684,13 @@ df %>%
        x = NULL, y = "Edad (años)", color = "Grupo") +
   tema
 ```
+
+En hombres la diferencia de edad entre activos y retirados es
+marcada: 38.6 años (DE 11.5) frente a 29.6 años (DE 6.0). En
+mujeres la brecha es menor — 36.1 años (DE 10.8) en activas frente
+a 30.8 años (DE 10.5) en retiradas — y las desviaciones estándar
+son similares entre grupos, lo que indica que las renuncias femeninas
+no se concentran en un rango de edad tan estrecho como las masculinas.
 
 ### Tipo de contrato
 
@@ -641,13 +726,13 @@ df %>%
   tema
 ```
 
-El tipo de contrato muestra la diferencia más llamativa de todas las 
-variables categóricas. Mientras que entre los activos la distribución 
-es relativamente equilibrada (54% término fijo, 46% término indefinido), 
-entre los retirados el 87.5% tenía contrato a término fijo y solo el 
-12.5% contrato indefinido. Combinado con la tasa de rotación de 10.5% 
-para término fijo frente a 1.9% para término indefinido, este hallazgo 
-sugiere fuertemente que el tipo de contrato es el factor más 
+El tipo de contrato muestra la diferencia más llamativa de todas las
+variables categóricas. Mientras que entre los activos la distribución
+es relativamente equilibrada (54% término fijo, 46% término indefinido),
+entre los retirados el 87.5% tenía contrato a término fijo y solo el
+12.5% contrato indefinido. Combinado con la tasa de rotación de 10.5%
+para término fijo frente a 1.9% para término indefinido, este hallazgo
+sugiere fuertemente que el tipo de contrato es el factor más
 determinante de la renuncia voluntaria en la empresa.
 
 ```{r error-contrato}
@@ -665,6 +750,14 @@ df %>%
        x = NULL, y = "Edad (años)", color = "Grupo") +
   tema
 ```
+
+En término fijo, los activos tienen
+una media de 31.9 años (DE 7.9) y los retirados de 28.9 años (DE 5.8).
+En término indefinido, los activos promedian 45.9 años (DE 10.4)
+frente a 35.8 años (DE 9.2) en los retirados. La separación entre
+contratos es más grande que la separación entre grupos dentro de
+cada contrato, lo que refleja que el tipo de contrato y la edad
+están relacionados en la estructura de la empresa.
 
 ### Estado civil
 
@@ -700,13 +793,13 @@ df %>%
   tema
 ```
 
-La distribución por estado civil muestra una diferencia notable en 
-la categoría soltero — representa el 35% de los activos pero el 46.6% 
-de los retirados. Por el contrario, la categoría Otro (que agrupa 
-separados, divorciados y viudos) tiene presencia entre los activos 
-(9.2%) pero ningún retirado en este período, aunque este resultado 
-debe interpretarse con cautela dado que puede ser producto del tamaño 
-de la muestra. Unión Libre y Casado muestran distribuciones similares 
+La distribución por estado civil muestra una diferencia notable en
+la categoría soltero — representa el 35% de los activos pero el 46.6%
+de los retirados. Por el contrario, la categoría Otro (que agrupa
+separados, divorciados y viudos) tiene presencia entre los activos
+(9.2%) pero ningún retirado en este período, aunque este resultado
+debe interpretarse con cautela dado que puede ser producto del tamaño
+de la muestra. Unión Libre y Casado muestran distribuciones similares
 entre grupos.
 
 ```{r error-estcivil}
@@ -725,6 +818,14 @@ df %>%
   tema
 ```
 
+En todas las categorías de estado civil los retirados son más jóvenes
+que los activos. La diferencia más amplia se observa en solteros —
+34.6 años (DE 11.7) en activos frente a 28.0 años (DE 6.8) en
+retirados — y en casados, donde los activos promedian 43.7 años
+(DE 10.2) y los retirados 35.7 años (DE 4.6). La categoría Otro
+no registra retirados en el período, por lo que no aparece en el
+grupo Retirado.
+
 ### Nivel de función
 
 ```{r tabla-funcion}
@@ -740,11 +841,11 @@ df %>%
   row_spec(0, background = "#405731", color = "white", bold = TRUE)
 ```
 
-La distribución por nivel de función es muy similar entre grupos. 
-Los operativos dominan en ambos casos (65.5% activos, 67% retirados), 
-seguidos de auxiliares y asistentes. Las pequeñas diferencias observadas 
-— como la menor proporción de asistentes entre los retirados (8% vs. 
-13.2%) — son consistentes con las tasas de rotación por función, donde 
+La distribución por nivel de función es muy similar entre grupos.
+Los operativos dominan en ambos casos (65.5% activos, 67% retirados),
+seguidos de auxiliares y asistentes. Las pequeñas diferencias observadas
+— como la menor proporción de asistentes entre los retirados (8% vs.
+13.2%) — son consistentes con las tasas de rotación por función, donde
 los asistentes presentan la tasa más baja (4.2%).
 
 ```{r barras-funcion}
@@ -783,3 +884,12 @@ df %>%
   tema +
   theme(axis.text.x = element_text(angle = 15, hjust = 1))
 ```
+
+En todos los niveles de función con retirados registrados, la edad
+media de los retirados es inferior a la de los activos. La diferencia
+más amplia se observa en operativos (38.7 vs. 28.6 años) y la más
+estrecha en jefes (43.7 vs. 36.0 años). El nivel Director no registra
+retirados en el período. En coordinadores, los retirados presentan
+una desviación estándar de apenas 2.5 años, lo que indica un grupo
+muy homogéneo en edad, aunque el número de casos en este nivel es
+reducido.

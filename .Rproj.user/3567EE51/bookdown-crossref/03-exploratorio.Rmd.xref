@@ -4,7 +4,16 @@ h3:tasa-general Tasa general
 tab:tasa-general Tasa de rotación voluntaria — período marzo 2025 a marzo 2026
 h3:retiros-por-mes Retiros por mes
 h3:tasa-de-rotación-por-segmento Tasa de rotación por segmento
-tab:tasas-segmento Tasa de rotación voluntaria por segmento
+h4:tipo-de-personal Tipo de personal
+tab:tasa-tipo-personal Tasa de rotación voluntaria por tipo de personal
+h4:género Género
+tab:tasa-genero Tasa de rotación voluntaria por género
+h4:tipo-de-contrato Tipo de contrato
+tab:tasa-contrato Tasa de rotación voluntaria por tipo de contrato
+h4:estado-civil Estado civil
+tab:tasa-estcivil Tasa de rotación voluntaria por estado civil
+h4:nivel-de-función Nivel de función
+tab:tasa-funcion Tasa de rotación voluntaria por nivel de función
 h2:variables-numéricas Variables numéricas
 h3:edad Edad
 tab:desc-edad Estadísticos descriptivos — Edad (años)
@@ -12,14 +21,14 @@ h3:antigüedad Antigüedad
 tab:desc-antiguedad Estadísticos descriptivos — Antigüedad (meses)
 h3:relación-entre-edad-y-antigüedad Relación entre edad y antigüedad
 h2:variables-categóricas Variables categóricas
-h3:tipo-de-personal Tipo de personal
+h3:tipo-de-personal-1 Tipo de personal
 tab:tabla-tipo-personal Distribución por tipo de personal
-h3:género Género
+h3:género-1 Género
 tab:tabla-genero Distribución por género
-h3:tipo-de-contrato Tipo de contrato
+h3:tipo-de-contrato-1 Tipo de contrato
 tab:tabla-contrato Distribución por tipo de contrato
-h3:estado-civil Estado civil
+h3:estado-civil-1 Estado civil
 tab:tabla-estcivil Distribución por estado civil
-h3:nivel-de-función Nivel de función
+h3:nivel-de-función-1 Nivel de función
 tab:tabla-funcion Distribución por nivel de función
 

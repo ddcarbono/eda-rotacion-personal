@@ -178,11 +178,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Variables categóricas</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-personal"><i class="fa fa-check"></i><b>3.3.1</b> Tipo de personal</a></li>
-<li class="chapter" data-level="3.3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#género"><i class="fa fa-check"></i><b>3.3.2</b> Género</a></li>
-<li class="chapter" data-level="3.3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-contrato"><i class="fa fa-check"></i><b>3.3.3</b> Tipo de contrato</a></li>
-<li class="chapter" data-level="3.3.4" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#estado-civil"><i class="fa fa-check"></i><b>3.3.4</b> Estado civil</a></li>
-<li class="chapter" data-level="3.3.5" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#nivel-de-función"><i class="fa fa-check"></i><b>3.3.5</b> Nivel de función</a></li>
+<li class="chapter" data-level="3.3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-personal-1"><i class="fa fa-check"></i><b>3.3.1</b> Tipo de personal</a></li>
+<li class="chapter" data-level="3.3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#género-1"><i class="fa fa-check"></i><b>3.3.2</b> Género</a></li>
+<li class="chapter" data-level="3.3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-contrato-1"><i class="fa fa-check"></i><b>3.3.3</b> Tipo de contrato</a></li>
+<li class="chapter" data-level="3.3.4" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#estado-civil-1"><i class="fa fa-check"></i><b>3.3.4</b> Estado civil</a></li>
+<li class="chapter" data-level="3.3.5" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#nivel-de-función-1"><i class="fa fa-check"></i><b>3.3.5</b> Nivel de función</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>4</b> Conclusiones</a>
@@ -458,9 +458,7 @@ activos. Estos valores fueron reemplazados por <code>NA</code>.</p>
 <p><strong>Recodificación de estado civil.</strong> Las categorías Divorciado y Viudo
 presentaban frecuencias de 1 caso cada una. Se agruparon junto con
 Separado en la categoría <strong>Otro</strong>.</p>
-<p><strong>Construcción de nivel de función.</strong> A partir de la variable <code>función</code>
-se construyó <code>nivel_función</code> con cinco niveles jerárquicos:
-Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.</p>
+<p><strong>Construcción de nivel de función.</strong> A partir de la variable función se construyó nivel_función con seis niveles jerárquicos: Operativo, Auxiliar, Asistente, Coordinador, Jefe y Director. Las categorías GERENCIA y VICEPRESIDENTE se agruparon con DIRECTOR por representar posiciones de dirección superior con muy pocos casos en el dataset.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="datos-y-variables.html#cb3-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> df_raw <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="datos-y-variables.html#cb3-2" tabindex="-1"></a>  <span class="fu">filter</span>(función <span class="sc">!=</span> <span class="st">&quot;APRENDIZ&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb3-3"><a href="datos-y-variables.html#cb3-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -482,14 +480,15 @@ Operativo, Auxiliar, Asistente, Coordinador y Jefe/Dirección.</p>
 <span id="cb3-19"><a href="datos-y-variables.html#cb3-19" tabindex="-1"></a>      <span class="cn">TRUE</span>                          <span class="sc">~</span> <span class="st">&quot;Otro&quot;</span></span>
 <span id="cb3-20"><a href="datos-y-variables.html#cb3-20" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Soltero&quot;</span>, <span class="st">&quot;Casado&quot;</span>, <span class="st">&quot;Unión Libre&quot;</span>, <span class="st">&quot;Otro&quot;</span>)),</span>
 <span id="cb3-21"><a href="datos-y-variables.html#cb3-21" tabindex="-1"></a>    nivel_función <span class="ot">=</span> <span class="fu">case_when</span>(</span>
-<span id="cb3-22"><a href="datos-y-variables.html#cb3-22" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;OPERATIVO&quot;</span>                                            <span class="sc">~</span> <span class="st">&quot;Operativo&quot;</span>,</span>
-<span id="cb3-23"><a href="datos-y-variables.html#cb3-23" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;AUXILIAR&quot;</span>                                             <span class="sc">~</span> <span class="st">&quot;Auxiliar&quot;</span>,</span>
-<span id="cb3-24"><a href="datos-y-variables.html#cb3-24" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;ASISTENTE&quot;</span>                                            <span class="sc">~</span> <span class="st">&quot;Asistente&quot;</span>,</span>
-<span id="cb3-25"><a href="datos-y-variables.html#cb3-25" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;COORDINADOR&quot;</span>                                          <span class="sc">~</span> <span class="st">&quot;Coordinador&quot;</span>,</span>
-<span id="cb3-26"><a href="datos-y-variables.html#cb3-26" tabindex="-1"></a>      función <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;JEFE&quot;</span>, <span class="st">&quot;DIRECTOR&quot;</span>, <span class="st">&quot;GERENCIA&quot;</span>, <span class="st">&quot;VICEPRESIDENTE&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Jefe/Dirección&quot;</span></span>
-<span id="cb3-27"><a href="datos-y-variables.html#cb3-27" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Operativo&quot;</span>, <span class="st">&quot;Auxiliar&quot;</span>, <span class="st">&quot;Asistente&quot;</span>,</span>
-<span id="cb3-28"><a href="datos-y-variables.html#cb3-28" tabindex="-1"></a>                             <span class="st">&quot;Coordinador&quot;</span>, <span class="st">&quot;Jefe/Dirección&quot;</span>))</span>
-<span id="cb3-29"><a href="datos-y-variables.html#cb3-29" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb3-22"><a href="datos-y-variables.html#cb3-22" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;OPERATIVO&quot;</span>   <span class="sc">~</span> <span class="st">&quot;Operativo&quot;</span>,</span>
+<span id="cb3-23"><a href="datos-y-variables.html#cb3-23" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;AUXILIAR&quot;</span>    <span class="sc">~</span> <span class="st">&quot;Auxiliar&quot;</span>,</span>
+<span id="cb3-24"><a href="datos-y-variables.html#cb3-24" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;ASISTENTE&quot;</span>   <span class="sc">~</span> <span class="st">&quot;Asistente&quot;</span>,</span>
+<span id="cb3-25"><a href="datos-y-variables.html#cb3-25" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;COORDINADOR&quot;</span> <span class="sc">~</span> <span class="st">&quot;Coordinador&quot;</span>,</span>
+<span id="cb3-26"><a href="datos-y-variables.html#cb3-26" tabindex="-1"></a>      función <span class="sc">==</span> <span class="st">&quot;JEFE&quot;</span>        <span class="sc">~</span> <span class="st">&quot;Jefe&quot;</span>,</span>
+<span id="cb3-27"><a href="datos-y-variables.html#cb3-27" tabindex="-1"></a>      función <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;DIRECTOR&quot;</span>, <span class="st">&quot;GERENCIA&quot;</span>, <span class="st">&quot;VICEPRESIDENTE&quot;</span>) <span class="sc">~</span> <span class="st">&quot;Director&quot;</span></span>
+<span id="cb3-28"><a href="datos-y-variables.html#cb3-28" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Operativo&quot;</span>, <span class="st">&quot;Auxiliar&quot;</span>, <span class="st">&quot;Asistente&quot;</span>,</span>
+<span id="cb3-29"><a href="datos-y-variables.html#cb3-29" tabindex="-1"></a>                             <span class="st">&quot;Coordinador&quot;</span>, <span class="st">&quot;Jefe&quot;</span>, <span class="st">&quot;Director&quot;</span>))</span>
+<span id="cb3-30"><a href="datos-y-variables.html#cb3-30" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="dataset-analítico" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Dataset analítico<a href="datos-y-variables.html#dataset-analítico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -560,7 +559,7 @@ Termino Indefinido
 Soltero
 </td>
 <td style="text-align:left;">
-Jefe/Dirección
+Jefe
 </td>
 </tr>
 <tr>
@@ -612,7 +611,7 @@ Termino Fijo
 Casado
 </td>
 <td style="text-align:left;">
-Jefe/Dirección
+Director
 </td>
 </tr>
 <tr>
@@ -714,7 +713,7 @@ Operativo
 <span id="cb5-14"><a href="datos-y-variables.html#cb5-14" tabindex="-1"></a>    <span class="st">&quot;Operativos — Administrativos&quot;</span>,</span>
 <span id="cb5-15"><a href="datos-y-variables.html#cb5-15" tabindex="-1"></a>    <span class="st">&quot;Término Fijo — Término Indefinido&quot;</span>,</span>
 <span id="cb5-16"><a href="datos-y-variables.html#cb5-16" tabindex="-1"></a>    <span class="st">&quot;Soltero — Casado — Unión Libre — Otro&quot;</span>,</span>
-<span id="cb5-17"><a href="datos-y-variables.html#cb5-17" tabindex="-1"></a>    <span class="st">&quot;Operativo — Auxiliar — Asistente — Coordinador — Jefe/Dirección&quot;</span></span>
+<span id="cb5-17"><a href="datos-y-variables.html#cb5-17" tabindex="-1"></a>    <span class="st">&quot;Operativo — Auxiliar — Asistente — Coordinador — Jefe — Director&quot;</span></span>
 <span id="cb5-18"><a href="datos-y-variables.html#cb5-18" tabindex="-1"></a>  )</span>
 <span id="cb5-19"><a href="datos-y-variables.html#cb5-19" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
 <span id="cb5-20"><a href="datos-y-variables.html#cb5-20" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;Diccionario de variables de análisis&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -852,7 +851,7 @@ Nivel de función
 Ordinal
 </td>
 <td style="text-align:left;">
-Operativo — Auxiliar — Asistente — Coordinador — Jefe/Dirección
+Operativo — Auxiliar — Asistente — Coordinador — Jefe — Director
 </td>
 </tr>
 </tbody>
@@ -1035,6 +1034,7 @@ nivel_función
 </tr>
 </tbody>
 </table>
+<p>No se observan valores nulos en los datos.</p>
 
 </div>
 </div>
