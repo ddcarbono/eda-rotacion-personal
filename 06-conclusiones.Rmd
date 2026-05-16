@@ -1,0 +1,114 @@
+# Conclusiones
+
+El presente análisis caracterizó la rotación voluntaria de personal en
+una empresa agroindustrial colombiana durante el período marzo de 2025
+a marzo de 2026, comparando el perfil de 88 empleados que renunciaron
+voluntariamente con el de 1.216 empleados activos al cierre del
+período. La caracterización descriptiva se complementó con pruebas de
+hipótesis para evaluar si las diferencias observadas son
+estadísticamente significativas, y con tamaños de efecto para
+distinguir entre significancia y magnitud práctica.
+
+## Hallazgos principales
+
+### Tasa de rotación
+
+La tasa de rotación voluntaria anual es del 7.2%, equivalente a 88
+retiros sobre 1.216 empleados activos. La distribución mensual es
+irregular y alcanza su pico en enero de 2026 con 16 renuncias, pero no
+se identifica un patrón estacional claro a lo largo del período.
+
+### Variables numéricas: edad y antigüedad
+
+Los retirados son notablemente más jóvenes y con menor antigüedad. La
+mediana de edad pasa de 36 años en activos a 29.5 en retirados, y la de
+antigüedad de 46 meses a 16. Las pruebas Wilcoxon-Mann-Whitney detectan
+diferencia estadísticamente significativa (p < 0.001) en ambas
+variables, con rank-biserial de 0.45 y 0.44, efectos entre medianos y
+grandes. La mitad de quienes renunciaron llevaba menos de 16 meses en
+la empresa, lo que indica que el riesgo de renuncia es especialmente
+alto en las etapas tempranas de la vinculación.
+
+La correlación entre edad y antigüedad, evaluada con Kendall tau-b, es
+fuerte en activos (τ = 0.47) pero se debilita en retirados (τ = 0.29),
+ambas significativas. Entre quienes renuncian, la asociación esperada
+entre mayor edad y mayor antigüedad se difumina: hay personas de
+distintas edades retirándose con poca antigüedad, no solo el patrón
+natural del empleado joven con poca trayectoria.
+
+Al desagregar por nivel de función, Kruskal-Wallis detecta diferencias
+significativas tanto en edad como en antigüedad (p < 0.001 en ambas),
+pero con tamaños de efecto pequeños (ε² de 0.02 y 0.03). El post-hoc
+Dunn ubica las diferencias en pares específicos. En edad, Director se
+separa de Coordinador, Auxiliar y Asistente por presentar valores
+mayores. En antigüedad, Operativo se separa de Asistente y de Director,
+y Auxiliar se separa de Director.
+
+### Variables categóricas
+
+El tipo de contrato es el factor más diferenciador del análisis y la
+única variable categórica con asociación significativa y magnitud
+práctica apreciable. Los empleados con contrato a término fijo
+representan el 87.5% de los retirados pese a constituir solo el 54% de
+la planta activa, con una tasa de rotación de 10.5% frente a 1.9% en
+término indefinido. La prueba Chi-cuadrado confirma asociación con
+p < 0.001 y V de Cramér de 0.17, un efecto entre pequeño y mediano para
+una tabla 2x2. La modalidad contractual está fuertemente vinculada a la
+probabilidad de renuncia voluntaria.
+
+El estado civil y el nivel de función presentan patrones interesantes
+en lo descriptivo pero el análisis inferencial reduce su relevancia.
+Los solteros aparecen sobrerrepresentados entre los retirados (46.6%
+frente a 35% en activos) con tasa de rotación de 8.8%, y la prueba
+Chi-cuadrado rechaza independencia (p = 0.010), pero la V de Cramér de
+0.08 queda en el umbral inferior para 3 grados de libertad, lo que
+indica una asociación muy reducida. El nivel de función, pese a tasas
+que oscilan entre 4.2% en asistentes y 12.5% en jefes, no muestra
+asociación significativa con la condición de retirado (Chi-cuadrado con
+simulación Monte Carlo, p = 0.448): las diferencias caben dentro del
+azar dado el tamaño muestral por nivel, especialmente en los niveles
+de jefatura y dirección que agrupan pocos casos.
+
+Ni el género ni el tipo de personal muestran asociación con la renuncia
+voluntaria. La mayor tasa femenina (8.7% frente a 6.5% en hombres) no
+alcanza significancia (p = 0.456), y operativos y administrativos rotan
+en la misma proporción (6.8% y 6.7%, p = 1.000). En ambos casos la V de
+Cramér es prácticamente cero.
+
+## Limitaciones
+
+Las diferencias observadas pueden estar mediadas por variables no
+incluidas en el análisis, por ejemplo la concentración de contratos a
+término fijo en ciertos niveles de función o tipos de operación, o
+factores como satisfacción laboral, condiciones específicas del puesto
+u oportunidades externas, no disponibles en este dataset. El tamaño
+del grupo de retirados (88 casos) limita la estabilidad de algunos
+estimados, particularmente en categorías con pocos casos como Jefe,
+Director o la categoría Otro de estado civil. Adicionalmente, las
+pruebas de hipótesis evalúan la significancia de las asociaciones
+observadas pero no permiten establecer relaciones causales: la rotación
+voluntaria es un fenómeno multifactorial y las asociaciones bivariadas
+pueden estar mediadas por terceras variables no controladas.
+
+## Recomendaciones
+
+El análisis identifica un perfil de riesgo claro: empleado joven, con
+poca antigüedad y contrato a término fijo. La intervención
+organizacional con mayor potencial de impacto es la revisión de la
+política contractual, particularmente la conversión a término
+indefinido tras un período de vinculación inicial, dado que el tipo de
+contrato es el único factor con asociación estadísticamente
+significativa y magnitud práctica apreciable. En segundo lugar, las
+etapas tempranas de la vinculación, durante los primeros 16 meses,
+requieren atención mediante programas de acompañamiento, inducción
+extendida o feedback estructurado, ya que ahí se concentra la mitad de
+las renuncias.
+
+Para profundizar más allá del alcance bivariado del presente análisis,
+se recomienda construir un modelo de regresión logística que estime el
+efecto neto de cada variable controlando simultáneamente por las
+demás. Esto permitiría distinguir contribuciones reales de relaciones
+mediadas por la correlación entre variables, particularmente importante
+dado que el tipo de contrato podría estar correlacionado con otras
+características del perfil (edad, antigüedad, nivel de función) que
+también muestran diferencias en el análisis univariado.

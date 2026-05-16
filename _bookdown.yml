@@ -1,13 +1,15 @@
 book_filename: "eda_rotacion_da17"
+output_dir: "docs"
+delete_merged_file: true
+new_session: false
 language:
   ui:
     chapter_name: "Capítulo "
-delete_merged_file: true
 rmd_files:
-  - index.Rmd
-  - 01-introduccion.Rmd
-  - 02-datos.Rmd
-  - 03-exploratorio.Rmd
-  - 05-conclusiones.Rmd
-
-output_dir: "docs"
+  - "index.Rmd"
+  - "01-introduccion.Rmd"
+  - "02-objetivos.Rmd"
+  - "03-metodologia.Rmd"
+  - "04-descriptivo.Rmd"
+  - "05-inferencial.Rmd"
+  - "06-conclusiones.Rmd"

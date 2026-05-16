@@ -1,0 +1,30 @@
+# Objetivos
+
+## Objetivo general
+
+Caracterizar y comparar el perfil sociodemográfico y contractual de los
+empleados activos y los empleados retirados por renuncia voluntaria en
+una empresa agroindustrial colombiana, mediante análisis estadístico
+descriptivo e inferencial.
+
+## Objetivos descriptivos
+
+- Calcular y analizar las tasas de rotación voluntaria general y por
+segmento (tipo de personal, género, tipo de contrato, estado civil y
+nivel de función).
+- Describir y comparar la distribución de edad y antigüedad entre
+empleados activos y retirados.
+- Describir la composición de los grupos según tipo de personal, género,
+tipo de contrato, estado civil y nivel de función, e identificar las
+variables en las que las diferencias observadas son más marcadas.
+
+## Objetivos inferenciales
+
+- Evaluar mediante pruebas de hipótesis si las diferencias observadas
+entre activos y retirados en las variables sociodemográficas y
+contractuales son estadísticamente significativas.
+- Cuantificar la magnitud de las diferencias y asociaciones
+estadísticamente significativas mediante tamaños de efecto apropiados a
+cada tipo de prueba.
+- Analizar la asociación entre edad y antigüedad en cada grupo y
+verificar si la fuerza de la relación difiere entre activos y retirados.

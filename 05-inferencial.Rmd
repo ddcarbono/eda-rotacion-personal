@@ -1,0 +1,372 @@
+# Análisis Inferencial
+
+```{r setup-inferencial, include=FALSE}
+library(nortest)
+library(FSA)
+library(effectsize)
+
+alpha <- 0.05
+```
+
+## Correlación entre edad y antigüedad
+
+La correlación se evalúa con Kendall tau-b, apropiado por la presencia
+de empates en ambas variables. Se calcula la correlación global y por
+grupo.
+
+```{r kendall-global}
+cor.test(df$edad, df$antig_m, method = "kendall")
+```
+
+```{r kendall-grupo}
+df %>%
+  group_by(estado) %>%
+  summarise(
+    n       = n(),
+    tau     = round(cor(edad, antig_m, method = "kendall"), 3),
+    p_valor = format.pval(cor.test(edad, antig_m, method = "kendall")$p.value,
+                          eps = .001, digits = 3),
+    .groups = "drop"
+  ) %>%
+  rename(Grupo = estado, N = n, `τ Kendall` = tau, `p-valor` = p_valor) %>%
+  kable(caption = "Correlación de Kendall tau-b entre edad y antigüedad por grupo") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE) %>%
+  row_spec(1, background = "#e8f0eb") %>%
+  row_spec(2, background = "#f5ede0")
+```
+
+La correlación es positiva y significativa en ambos grupos. En activos
+τ alcanza 0.47, mientras que en retirados desciende a 0.29. La caída en
+la fuerza de la asociación sugiere que entre quienes renunciaron la
+relación esperada de "más edad implica más antigüedad" se debilita, lo
+que es consistente con retiros concentrados en empleados recientes con
+independencia de su edad.
+
+## Variables numéricas: Activos vs Retirados
+
+### Edad
+
+```{r ad-edad}
+ad.test(df$edad[df$estado == "Activo"])
+ad.test(df$edad[df$estado == "Retirado"])
+```
+
+```{r wilcox-edad}
+wilcox.test(edad ~ estado, data = df, conf.int = TRUE)
+```
+
+```{r effect-wilcox-edad}
+rank_biserial(edad ~ estado, data = df)
+```
+
+Anderson-Darling rechaza normalidad en ambos grupos, por lo que aplica
+Wilcoxon-Mann-Whitney. La prueba arroja p < 0.001 con una diferencia
+mediana estimada de 7 años (IC 95% entre 5 y 10). El rank-biserial de
+0.45 [0.35, 0.55] corresponde a un efecto entre mediano y grande según
+los umbrales de Cohen: los retirados son más jóvenes y la diferencia
+tiene magnitud práctica relevante.
+
+### Antigüedad
+
+```{r ad-antig}
+ad.test(df$antig_m[df$estado == "Activo"])
+ad.test(df$antig_m[df$estado == "Retirado"])
+```
+
+```{r wilcox-antig}
+wilcox.test(antig_m ~ estado, data = df, conf.int = TRUE)
+```
+
+```{r effect-wilcox-antig}
+rank_biserial(antig_m ~ estado, data = df)
+```
+
+Anderson-Darling rechaza normalidad en ambos grupos. Wilcoxon arroja
+p < 0.001 con una diferencia mediana de 29 meses (IC 95% entre 18 y 46).
+El rank-biserial de 0.44 [0.34, 0.54] es un efecto entre mediano y
+grande, comparable al de edad: quienes renuncian llevan sustancialmente
+menos tiempo en la empresa.
+
+## Variables numéricas por nivel de función
+
+### Edad
+
+```{r ad-edad-funcion}
+df %>%
+  group_by(nivel_función) %>%
+  summarise(
+    n              = n(),
+    AD_estadístico = round(ad.test(edad)$statistic, 3),
+    AD_p_valor     = format.pval(ad.test(edad)$p.value, eps = .001, digits = 3),
+    .groups = "drop"
+  ) %>%
+  rename(Nivel = nivel_función, N = n,
+         `Estadístico AD` = AD_estadístico, `p-valor AD` = AD_p_valor) %>%
+  kable(caption = "Normalidad Anderson-Darling de la edad por nivel de función") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+```{r kw-edad-funcion}
+kruskal.test(edad ~ nivel_función, data = df)
+```
+
+```{r effect-kw-edad-funcion}
+rank_epsilon_squared(edad ~ nivel_función, data = df)
+```
+
+Cuatro de los seis niveles rechazan normalidad. Kruskal-Wallis arroja
+p < 0.001 con $\varepsilon^2$ = 0.02, un efecto pequeño: las diferencias
+entre niveles son significativas pero el nivel de función explica una
+fracción menor de la variación total en edad.
+
+```{r dunn-edad-funcion}
+dunn_edad <- dunnTest(edad ~ nivel_función, data = df, method = "bonferroni")
+
+dunn_edad$res %>%
+  arrange(P.adj) %>%
+  transmute(
+    Comparación      = Comparison,
+    Z                = round(Z, 3),
+    `p (sin ajuste)` = format.pval(P.unadj, eps = .001, digits = 3),
+    `p (Bonferroni)` = format.pval(P.adj,   eps = .001, digits = 3),
+    Significativa    = if_else(P.adj < alpha, "Sí", "No")
+  ) %>%
+  kable(caption = "Post-hoc Dunn con Bonferroni para edad por nivel de función") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+Las diferencias significativas tras Bonferroni involucran al nivel
+Director, que se separa de Coordinador (p = 0.008), Auxiliar (p = 0.021)
+y Asistente (p = 0.021) por presentar edades mayores. También se
+separan Coordinador y Jefe (p = 0.038). El patrón es coherente con lo
+descriptivo: los directores son más mayores y el resto de niveles
+operativos y administrativos se parecen entre sí.
+
+### Antigüedad
+
+```{r ad-antig-funcion}
+df %>%
+  group_by(nivel_función) %>%
+  summarise(
+    n              = n(),
+    AD_estadístico = round(ad.test(antig_m)$statistic, 3),
+    AD_p_valor     = format.pval(ad.test(antig_m)$p.value, eps = .001, digits = 3),
+    .groups = "drop"
+  ) %>%
+  rename(Nivel = nivel_función, N = n,
+         `Estadístico AD` = AD_estadístico, `p-valor AD` = AD_p_valor) %>%
+  kable(caption = "Normalidad Anderson-Darling de la antigüedad por nivel de función") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+```{r kw-antig-funcion}
+kruskal.test(antig_m ~ nivel_función, data = df)
+```
+
+```{r effect-kw-antig-funcion}
+rank_epsilon_squared(antig_m ~ nivel_función, data = df)
+```
+
+Los seis niveles rechazan normalidad. Kruskal-Wallis arroja p < 0.001
+con $\varepsilon^2$ = 0.03, también un efecto pequeño: hay diferencias
+detectables pero la mayor parte de la variación en antigüedad no se
+explica por el nivel jerárquico.
+
+```{r dunn-antig-funcion}
+dunn_antig <- dunnTest(antig_m ~ nivel_función, data = df, method = "bonferroni")
+
+dunn_antig$res %>%
+  arrange(P.adj) %>%
+  transmute(
+    Comparación      = Comparison,
+    Z                = round(Z, 3),
+    `p (sin ajuste)` = format.pval(P.unadj, eps = .001, digits = 3),
+    `p (Bonferroni)` = format.pval(P.adj,   eps = .001, digits = 3),
+    Significativa    = if_else(P.adj < alpha, "Sí", "No")
+  ) %>%
+  kable(caption = "Post-hoc Dunn con Bonferroni para antigüedad por nivel de función") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+Cuatro pares resultan significativos. Operativo difiere de Asistente
+(p < 0.001) y de Director (p = 0.002); Auxiliar difiere de Director
+(p = 0.015); Asistente difiere de Auxiliar (p = 0.020). Los operativos
+contrastan con los directores de larga trayectoria, y los asistentes
+muestran antigüedades intermedias altas que los separan de los
+auxiliares.
+
+## Asociación entre variables categóricas y estado
+
+### Tipo de personal
+
+```{r chi-tipo}
+tab_tipo <- table(df$estado, df$tipo_personal)
+tab_tipo
+chisq.test(tab_tipo)$expected
+chisq.test(tab_tipo)
+```
+
+Frecuencias esperadas todas mayores a 5. Chi-cuadrado entrega
+$\chi^2 \approx 0$ con p = 1.000. No hay asociación entre tipo de
+personal y condición de retirado: operativos y administrativos rotan en
+la misma proporción.
+
+### Género
+
+```{r chi-genero}
+tab_gen <- table(df$estado, df$género)
+tab_gen
+chisq.test(tab_gen)$expected
+chisq.test(tab_gen)
+```
+
+Frecuencias esperadas todas mayores a 5. Chi-cuadrado entrega
+$\chi^2$ = 0.56 con p = 0.456. La mayor tasa de rotación femenina
+observada en el descriptivo (8.7% frente a 6.5%) no alcanza
+significancia estadística.
+
+### Tipo de contrato
+
+```{r chi-contrato}
+tab_con <- table(df$estado, df$contrato)
+tab_con
+chisq.test(tab_con)$expected
+chisq.test(tab_con)
+cramers_v(tab_con)
+```
+
+Frecuencias esperadas todas mayores a 5. Chi-cuadrado arroja
+$\chi^2$ = 36.0 con p < 0.001 y V de Cramér de 0.17 [0.12, 1.00], un
+efecto entre pequeño y mediano para una tabla 2x2. Es la única variable
+categórica con asociación significativa y magnitud práctica apreciable:
+el tipo de contrato es el factor más fuertemente vinculado a la
+renuncia voluntaria.
+
+### Estado civil
+
+```{r chi-estcivil}
+tab_civ <- table(df$estado, df$est_civil)
+tab_civ
+chisq.test(tab_civ)$expected
+chisq.test(tab_civ)
+cramers_v(tab_civ)
+```
+
+Frecuencias esperadas todas por encima de 5 (la mínima es 7.6).
+Chi-cuadrado entrega $\chi^2$ = 11.3 con p = 0.010 y V de Cramér de
+0.08, justo en el umbral inferior para 3 grados de libertad. La
+asociación es significativa pero de magnitud muy reducida, aporta poca
+información para diferenciar el perfil del retirado.
+
+### Nivel de función
+
+```{r chi-funcion-esperadas}
+tab_niv <- table(df$estado, df$nivel_función)
+tab_niv
+chisq.test(tab_niv)$expected
+```
+
+Tres celdas con frecuencia esperada menor a 5 (Director 1.0, Jefe 1.6,
+Coordinador 2.9). Se aplica Chi-cuadrado con simulación Monte Carlo.
+
+```{r chi-funcion-mc}
+chisq.test(tab_niv, simulate.p.value = TRUE, B = 10000)
+```
+
+$\chi^2$ = 4.64 con p = 0.448. Las diferencias descriptivas en tasas
+por nivel (4.2% en Asistente, 12.5% en Jefe) no son estadísticamente
+significativas con el tamaño muestral disponible por nivel.
+
+## Resumen de pruebas inferenciales
+
+```{r resumen-inferencial}
+tibble(
+  Análisis = c(
+    "Correlación edad y antigüedad (Activos)",
+    "Correlación edad y antigüedad (Retirados)",
+    "Edad: Activos vs Retirados",
+    "Antigüedad: Activos vs Retirados",
+    "Edad por nivel de función",
+    "Antigüedad por nivel de función",
+    "Tipo de personal vs estado",
+    "Género vs estado",
+    "Tipo de contrato vs estado",
+    "Estado civil vs estado",
+    "Nivel de función vs estado"
+  ),
+  Prueba = c(
+    "Kendall tau-b",
+    "Kendall tau-b",
+    "Wilcoxon-Mann-Whitney",
+    "Wilcoxon-Mann-Whitney",
+    "Kruskal-Wallis",
+    "Kruskal-Wallis",
+    "Chi-cuadrado",
+    "Chi-cuadrado",
+    "Chi-cuadrado",
+    "Chi-cuadrado",
+    "Chi-cuadrado MC"
+  ),
+  Estadístico = c(
+    "τ = 0.471",
+    "τ = 0.291",
+    "W = 77.703",
+    "W = 77.192",
+    "χ² = 20.921 (gl = 5)",
+    "χ² = 43.639 (gl = 5)",
+    "χ² ≈ 0 (gl = 1)",
+    "χ² = 0.557 (gl = 1)",
+    "χ² = 36.015 (gl = 1)",
+    "χ² = 11.316 (gl = 3)",
+    "χ² = 4.641"
+  ),
+  `p-valor` = c(
+    "< 0.001",
+    "< 0.001",
+    "< 0.001",
+    "< 0.001",
+    "< 0.001",
+    "< 0.001",
+    "1.000",
+    "0.456",
+    "< 0.001",
+    "0.010",
+    "0.448"
+  ),
+  `Tamaño de efecto` = c(
+    "τ = 0.471",
+    "τ = 0.291",
+    "r = 0.45",
+    "r = 0.44",
+    "ε² = 0.02",
+    "ε² = 0.03",
+    "",
+    "",
+    "V = 0.17",
+    "V = 0.08",
+    ""
+  )
+) %>%
+  kable(caption = paste0("Resumen de pruebas inferenciales con α = ", alpha)) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = TRUE, font_size = 12) %>%
+  row_spec(0, background = "#405731", color = "white", bold = TRUE)
+```
+
+Ocho de las once pruebas rechazan la hipótesis nula. De estas, las dos
+correlaciones, las dos comparaciones entre activos y retirados, y la
+asociación con tipo de contrato presentan tamaños de efecto con
+magnitud práctica relevante. Las diferencias significativas en edad y
+antigüedad por nivel de función y en estado civil tienen magnitudes
+pequeñas que reflejan la potencia del tamaño muestral más que
+diferencias importantes en la realidad organizacional.
