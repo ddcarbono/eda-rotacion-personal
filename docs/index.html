@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Análisis Exploratorio de Rotación de Personal</title>
-  <meta name="description" content="Análisis Exploratorio de Rotación de Personal" />
+  <title>Análisis Exploratorio e Inferencial de Rotación de Personal</title>
+  <meta name="description" content="Análisis Exploratorio e Inferencial de Rotación de Personal" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Análisis Exploratorio de Rotación de Personal" />
+  <meta property="og:title" content="Análisis Exploratorio e Inferencial de Rotación de Personal" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Análisis Exploratorio de Rotación de Personal" />
+  <meta name="twitter:title" content="Análisis Exploratorio e Inferencial de Rotación de Personal" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Daniel Carbonó" />
 
 
-<meta name="date" content="2026-04-25" />
+<meta name="date" content="2026-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,8 +54,6 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -150,46 +148,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#contexto"><i class="fa fa-check"></i><b>1.1</b> Contexto</a></li>
 <li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#justificación"><i class="fa fa-check"></i><b>1.2</b> Justificación</a></li>
 <li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#pregunta-de-investigación"><i class="fa fa-check"></i><b>1.3</b> Pregunta de investigación</a></li>
-<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#objetivos"><i class="fa fa-check"></i><b>1.4</b> Objetivos</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="datos-y-variables.html"><a href="datos-y-variables.html"><i class="fa fa-check"></i><b>2</b> Datos y variables</a>
+<li class="chapter" data-level="2" data-path="objetivos.html"><a href="objetivos.html"><i class="fa fa-check"></i><b>2</b> Objetivos</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="datos-y-variables.html"><a href="datos-y-variables.html#fuentes-de-datos"><i class="fa fa-check"></i><b>2.1</b> Fuentes de datos</a></li>
-<li class="chapter" data-level="2.2" data-path="datos-y-variables.html"><a href="datos-y-variables.html#carga-inicial"><i class="fa fa-check"></i><b>2.2</b> Carga inicial</a></li>
-<li class="chapter" data-level="2.3" data-path="datos-y-variables.html"><a href="datos-y-variables.html#procesamiento-y-decisiones"><i class="fa fa-check"></i><b>2.3</b> Procesamiento y decisiones</a></li>
-<li class="chapter" data-level="2.4" data-path="datos-y-variables.html"><a href="datos-y-variables.html#dataset-analítico"><i class="fa fa-check"></i><b>2.4</b> Dataset analítico</a></li>
-<li class="chapter" data-level="2.5" data-path="datos-y-variables.html"><a href="datos-y-variables.html#diccionario-de-variables"><i class="fa fa-check"></i><b>2.5</b> Diccionario de variables</a></li>
-<li class="chapter" data-level="2.6" data-path="datos-y-variables.html"><a href="datos-y-variables.html#composición-del-dataset"><i class="fa fa-check"></i><b>2.6</b> Composición del dataset</a></li>
-<li class="chapter" data-level="2.7" data-path="datos-y-variables.html"><a href="datos-y-variables.html#análisis-de-valores-nulos"><i class="fa fa-check"></i><b>2.7</b> Análisis de valores nulos</a></li>
+<li class="chapter" data-level="2.1" data-path="objetivos.html"><a href="objetivos.html#objetivo-general"><i class="fa fa-check"></i><b>2.1</b> Objetivo general</a></li>
+<li class="chapter" data-level="2.2" data-path="objetivos.html"><a href="objetivos.html#objetivos-descriptivos"><i class="fa fa-check"></i><b>2.2</b> Objetivos descriptivos</a></li>
+<li class="chapter" data-level="2.3" data-path="objetivos.html"><a href="objetivos.html#objetivos-inferenciales"><i class="fa fa-check"></i><b>2.3</b> Objetivos inferenciales</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> Análisis Exploratorio de Datos</a>
+<li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasas-de-rotación"><i class="fa fa-check"></i><b>3.1</b> Tasas de rotación</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-general"><i class="fa fa-check"></i><b>3.1.1</b> Tasa general</a></li>
-<li class="chapter" data-level="3.1.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#retiros-por-mes"><i class="fa fa-check"></i><b>3.1.2</b> Retiros por mes</a></li>
-<li class="chapter" data-level="3.1.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tasa-de-rotación-por-segmento"><i class="fa fa-check"></i><b>3.1.3</b> Tasa de rotación por segmento</a></li>
+<li class="chapter" data-level="3.1" data-path="metodología.html"><a href="metodología.html#fuentes-de-datos"><i class="fa fa-check"></i><b>3.1</b> Fuentes de datos</a></li>
+<li class="chapter" data-level="3.2" data-path="metodología.html"><a href="metodología.html#carga-inicial"><i class="fa fa-check"></i><b>3.2</b> Carga inicial</a></li>
+<li class="chapter" data-level="3.3" data-path="metodología.html"><a href="metodología.html#procesamiento-y-decisiones"><i class="fa fa-check"></i><b>3.3</b> Procesamiento y decisiones</a></li>
+<li class="chapter" data-level="3.4" data-path="metodología.html"><a href="metodología.html#dataset-analítico"><i class="fa fa-check"></i><b>3.4</b> Dataset analítico</a></li>
+<li class="chapter" data-level="3.5" data-path="metodología.html"><a href="metodología.html#diccionario-de-variables"><i class="fa fa-check"></i><b>3.5</b> Diccionario de variables</a></li>
+<li class="chapter" data-level="3.6" data-path="metodología.html"><a href="metodología.html#composición-del-dataset"><i class="fa fa-check"></i><b>3.6</b> Composición del dataset</a></li>
+<li class="chapter" data-level="3.7" data-path="metodología.html"><a href="metodología.html#análisis-de-valores-nulos"><i class="fa fa-check"></i><b>3.7</b> Análisis de valores nulos</a></li>
+<li class="chapter" data-level="3.8" data-path="metodología.html"><a href="metodología.html#enfoque-analítico"><i class="fa fa-check"></i><b>3.8</b> Enfoque analítico</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-numéricas"><i class="fa fa-check"></i><b>3.2</b> Variables numéricas</a>
+<li class="chapter" data-level="4" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html"><i class="fa fa-check"></i><b>4</b> Análisis Descriptivo</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#edad"><i class="fa fa-check"></i><b>3.2.1</b> Edad</a></li>
-<li class="chapter" data-level="3.2.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#antigüedad"><i class="fa fa-check"></i><b>3.2.2</b> Antigüedad</a></li>
-<li class="chapter" data-level="3.2.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#relación-entre-edad-y-antigüedad"><i class="fa fa-check"></i><b>3.2.3</b> Relación entre edad y antigüedad</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#variables-categóricas"><i class="fa fa-check"></i><b>3.3</b> Variables categóricas</a>
+<li class="chapter" data-level="4.1" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#tasas-de-rotación"><i class="fa fa-check"></i><b>4.1</b> Tasas de rotación</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-personal-1"><i class="fa fa-check"></i><b>3.3.1</b> Tipo de personal</a></li>
-<li class="chapter" data-level="3.3.2" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#género-1"><i class="fa fa-check"></i><b>3.3.2</b> Género</a></li>
-<li class="chapter" data-level="3.3.3" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#tipo-de-contrato-1"><i class="fa fa-check"></i><b>3.3.3</b> Tipo de contrato</a></li>
-<li class="chapter" data-level="3.3.4" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#estado-civil-1"><i class="fa fa-check"></i><b>3.3.4</b> Estado civil</a></li>
-<li class="chapter" data-level="3.3.5" data-path="análisis-exploratorio-de-datos.html"><a href="análisis-exploratorio-de-datos.html#nivel-de-función-1"><i class="fa fa-check"></i><b>3.3.5</b> Nivel de función</a></li>
+<li class="chapter" data-level="4.1.1" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#tasa-general"><i class="fa fa-check"></i><b>4.1.1</b> Tasa general</a></li>
+<li class="chapter" data-level="4.1.2" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#retiros-por-mes"><i class="fa fa-check"></i><b>4.1.2</b> Retiros por mes</a></li>
+<li class="chapter" data-level="4.1.3" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#tasa-de-rotación-por-segmento"><i class="fa fa-check"></i><b>4.1.3</b> Tasa de rotación por segmento</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>4</b> Conclusiones</a>
+<li class="chapter" data-level="4.2" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#variables-numéricas"><i class="fa fa-check"></i><b>4.2</b> Variables numéricas</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="conclusiones.html"><a href="conclusiones.html#hallazgos-principales"><i class="fa fa-check"></i><b>4.1</b> Hallazgos principales</a></li>
-<li class="chapter" data-level="4.2" data-path="conclusiones.html"><a href="conclusiones.html#limitaciones"><i class="fa fa-check"></i><b>4.2</b> Limitaciones</a></li>
-<li class="chapter" data-level="4.3" data-path="conclusiones.html"><a href="conclusiones.html#recomendaciones"><i class="fa fa-check"></i><b>4.3</b> Recomendaciones</a></li>
+<li class="chapter" data-level="4.2.1" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#edad"><i class="fa fa-check"></i><b>4.2.1</b> Edad</a></li>
+<li class="chapter" data-level="4.2.2" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#antigüedad"><i class="fa fa-check"></i><b>4.2.2</b> Antigüedad</a></li>
+<li class="chapter" data-level="4.2.3" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#relación-entre-edad-y-antigüedad"><i class="fa fa-check"></i><b>4.2.3</b> Relación entre edad y antigüedad</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#variables-categóricas"><i class="fa fa-check"></i><b>4.3</b> Variables categóricas</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#tipo-de-personal-1"><i class="fa fa-check"></i><b>4.3.1</b> Tipo de personal</a></li>
+<li class="chapter" data-level="4.3.2" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#género-1"><i class="fa fa-check"></i><b>4.3.2</b> Género</a></li>
+<li class="chapter" data-level="4.3.3" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#tipo-de-contrato-1"><i class="fa fa-check"></i><b>4.3.3</b> Tipo de contrato</a></li>
+<li class="chapter" data-level="4.3.4" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#estado-civil-1"><i class="fa fa-check"></i><b>4.3.4</b> Estado civil</a></li>
+<li class="chapter" data-level="4.3.5" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html#nivel-de-función-1"><i class="fa fa-check"></i><b>4.3.5</b> Nivel de función</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html"><i class="fa fa-check"></i><b>5</b> Análisis Inferencial</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#correlación-entre-edad-y-antigüedad"><i class="fa fa-check"></i><b>5.1</b> Correlación entre edad y antigüedad</a></li>
+<li class="chapter" data-level="5.2" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#variables-numéricas-activos-vs-retirados"><i class="fa fa-check"></i><b>5.2</b> Variables numéricas: Activos vs Retirados</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#edad-1"><i class="fa fa-check"></i><b>5.2.1</b> Edad</a></li>
+<li class="chapter" data-level="5.2.2" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#antigüedad-1"><i class="fa fa-check"></i><b>5.2.2</b> Antigüedad</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#variables-numéricas-por-nivel-de-función"><i class="fa fa-check"></i><b>5.3</b> Variables numéricas por nivel de función</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#edad-2"><i class="fa fa-check"></i><b>5.3.1</b> Edad</a></li>
+<li class="chapter" data-level="5.3.2" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#antigüedad-2"><i class="fa fa-check"></i><b>5.3.2</b> Antigüedad</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#asociación-entre-variables-categóricas-y-estado"><i class="fa fa-check"></i><b>5.4</b> Asociación entre variables categóricas y estado</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#tipo-de-personal-2"><i class="fa fa-check"></i><b>5.4.1</b> Tipo de personal</a></li>
+<li class="chapter" data-level="5.4.2" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#género-2"><i class="fa fa-check"></i><b>5.4.2</b> Género</a></li>
+<li class="chapter" data-level="5.4.3" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#tipo-de-contrato-2"><i class="fa fa-check"></i><b>5.4.3</b> Tipo de contrato</a></li>
+<li class="chapter" data-level="5.4.4" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#estado-civil-2"><i class="fa fa-check"></i><b>5.4.4</b> Estado civil</a></li>
+<li class="chapter" data-level="5.4.5" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#nivel-de-función-2"><i class="fa fa-check"></i><b>5.4.5</b> Nivel de función</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="análisis-inferencial.html"><a href="análisis-inferencial.html#resumen-de-pruebas-inferenciales"><i class="fa fa-check"></i><b>5.5</b> Resumen de pruebas inferenciales</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conclusiones.html"><a href="conclusiones.html#hallazgos-principales"><i class="fa fa-check"></i><b>6.1</b> Hallazgos principales</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="conclusiones.html"><a href="conclusiones.html#tasa-de-rotación"><i class="fa fa-check"></i><b>6.1.1</b> Tasa de rotación</a></li>
+<li class="chapter" data-level="6.1.2" data-path="conclusiones.html"><a href="conclusiones.html#variables-numéricas-edad-y-antigüedad"><i class="fa fa-check"></i><b>6.1.2</b> Variables numéricas: edad y antigüedad</a></li>
+<li class="chapter" data-level="6.1.3" data-path="conclusiones.html"><a href="conclusiones.html#variables-categóricas-1"><i class="fa fa-check"></i><b>6.1.3</b> Variables categóricas</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="conclusiones.html"><a href="conclusiones.html#limitaciones"><i class="fa fa-check"></i><b>6.2</b> Limitaciones</a></li>
+<li class="chapter" data-level="6.3" data-path="conclusiones.html"><a href="conclusiones.html#recomendaciones"><i class="fa fa-check"></i><b>6.3</b> Recomendaciones</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -202,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio de Rotación de Personal</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis Exploratorio e Inferencial de Rotación de Personal</a>
           </h1>
         </div>
 
@@ -211,25 +243,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Análisis Exploratorio de Rotación de Personal</h1>
-<h2 class="subtitle"><em>Empresa Agroindustrial Colombiana— Período 2025-2026</em></h2>
+<h1 class="title">Análisis Exploratorio e Inferencial de Rotación de Personal</h1>
+<h2 class="subtitle"><em>Empresa Agroindustrial Colombiana, Período 2025-2026</em></h2>
 <p class="author"><em>Daniel Carbonó</em></p>
-<p class="date"><em>2026-04-25</em></p>
+<p class="date"><em>2026-05-16</em></p>
 </div>
 <div id="resumen" class="section level1 unnumbered hasAnchor">
 <h1>Resumen<a href="index.html#resumen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>El presente trabajo realiza un análisis exploratorio de la rotación
-de personal por renuncia voluntaria en una empresa agroindustrial colombiana, durante el período
-comprendido entre marzo de 2025 y marzo de 2026.</p>
-<p>Se analizan <strong>1.251 empleados activos</strong> a marzo de 2026 y <strong>91 retiros
-por renuncia voluntaria</strong> en el período de referencia, para una tasa
-de rotación voluntaria anual aproximada del 7,3%. El análisis caracteriza
-sociodemográficamente ambos grupos y evalúa mediante pruebas de hipótesis
-si existen diferencias estadísticamente significativas en variables como
-edad, antigüedad, tipo de personal, género y tipo de contrato entre
-quienes permanecen y quienes renuncian voluntariamente.</p>
-<p><strong>Palabras clave:</strong> rotación de personal, renuncia voluntaria, análisis
-exploratorio, pruebas de hipótesis, sector agroindustrial.</p>
+<p>El presente trabajo realiza un análisis estadístico descriptivo e inferencial
+de la rotación de personal por renuncia voluntaria en una empresa
+agroindustrial colombiana, durante el período comprendido entre marzo de
+2025 y marzo de 2026.</p>
+<p>Se analizan 1.216 empleados activos a marzo de 2026 y 88 retiros por
+renuncia voluntaria en el período de referencia, para una tasa de rotación
+voluntaria anual del 7.2%. El análisis caracteriza ambos grupos en términos
+de edad, antigüedad, tipo de personal, género, tipo de contrato, estado civil
+y nivel de función, y evalúa mediante pruebas de hipótesis si las diferencias
+observadas son estadísticamente significativas. Las pruebas que detectan
+diferencia se complementan con un tamaño de efecto, lo que permite distinguir
+entre significancia estadística y magnitud práctica.</p>
+<p>Palabras clave: rotación de personal, renuncia voluntaria, análisis
+exploratorio, pruebas de hipótesis, tamaño de efecto, sector agroindustrial.</p>
 
 </div>
             </section>
@@ -295,6 +329,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
